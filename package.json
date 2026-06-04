@@ -11,7 +11,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "prebuild": "npm run sync-version",
-    "postbuild": "node scripts/processSocialImages.js && node scripts/generateLLMFiles.js",
+    "postbuild": "scripts/postbuild.js",
     "upgrade": "node scripts/upgrade.js",
     "upgrade:astro": "npx @astrojs/upgrade",
     "purge:cloudflare": "node scripts/purgeCloudflareCache.js",

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // This script processes header images from articles to match specs for Open Graph (OG) and X/Twitter.
 
 import sharp from 'sharp';
