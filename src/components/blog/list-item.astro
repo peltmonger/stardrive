@@ -1,0 +1,83 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLocaleUrl, useTranslations } from "@utils/i18n";
+import { Image } from 'astro:assets';
+import FallbackImage from "@images/content/articles-fallback.jpg";
+import type { CollectionEntry } from "astro:content";
+import { themeConfig } from '~/theme.config';
+import { getReadingTime } from '@utils/reading-time';
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+  locale: string;
+  wide?: boolean;
+	noTransition?: boolean;
+}
+
+// define base classes
+const baseCardClasses = "group flex h-full rounded-lg no-underline drop-shadow hover:drop-shadow-xl";
+const baseImageClasses = "aspect-video h-full w-full bg-top object-cover";
+const baseContentClasses = "border border-l-0 flex h-auto grow flex-col justify-between w-full rounded-r-lg bg-white dark:bg-stone-900 text-text dark:text-text-dark";
+const baseTitleClasses = "text-balance font-semibold text-text dark:text-text-dark";
+
+const { entry, locale, wide, noTransition } = Astro.props as Props;
+const featured = entry.data.featured || false;
+
+const t = useTranslations(locale);
+
+// define image with potential fallback
+const imageFile = entry.data.image?.file ? entry.data.image.file : (!entry.data.image?.url && themeConfig.articles?.imageFallback) ? FallbackImage : null;
+
+---
+
+<div>
+  <a href={getLocaleUrl('blog/' + entry.id.split('/').slice(-1)[0], locale)} class:list={[baseCardClasses, !wide && 'sm:flex-col']}>
+    <span class:list={['xs:w-36 relative block h-auto w-28 shrink-0 rounded-l-lg overflow-clip border border-r-0', wide ? 'sm:w-56 md:max-h-60 md:w-80 lg:w-[400px]' : 'sm:h-40 sm:w-full sm:rounded-t-lg sm:rounded-bl-none sm:border-r sm:border-b-0', featured ? 'border-primary' : 'border-stone-400 dark:border-stone-700 group-hover:border-primary']}>
+      {
+        imageFile ? (
+          <Image src={imageFile} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority />
+        ) : entry.data.image?.url ? (
+          <Image src={entry.data.image.url} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority inferSize />
+        ) : (
+          <span class:list={['flex h-full w-full items-center justify-center p-8', (!wide && themeConfig.articles?.textOverImage) && 'sm:hidden']}>
+            <Icon name="heroicons:document-text" class='h-12 w-12 lg:h-16 lg:w-16 opacity-70' />
+          </span>
+        )
+      }
+
+      <span
+        class:list={[
+          'absolute inset-0 flex items-end rounded-l-lg px-3 py-2 transition-all group-hover:bg-linear-to-l',
+          'from-stone-100 via-stone-100/70 dark:from-stone-900 dark:via-stone-900/70 to-transparent',
+          (imageFile || themeConfig.articles?.imageFallback) ? 'group-hover:from-primary group-hover:via-primary/10 group-hover:to-primary/30' : 'group-hover:from-primary/30 group-hover:via-transparent',
+          (!wide && themeConfig.articles?.textOverImage) && 'sm:bg-linear-to-t group-hover:sm:via-primary/90',
+          !wide && 'sm:rounded-t-lg sm:rounded-bl-none group-hover:bg-linear-to-l sm:group-hover:bg-linear-to-t',
+        ]}
+      >
+        <span class:list={[baseTitleClasses, 'hidden text-lg group-hover:text-text', (!wide && themeConfig.articles?.textOverImage) && 'sm:block']}>{entry.data.title}</span>
+      </span>
+      {featured && <span class="bg-primary absolute inset-0 h-fit w-fit rounded-tl-md rounded-br-lg px-2 py-1 text-xs text-primary-contrast drop-shadow">{t('featured')}</span>}
+    </span>
+
+    <span
+      class:list={[
+        baseContentClasses,
+        featured ? 'border-primary' : 'border-stone-400 group-hover:border-primary dark:border-stone-700',
+        wide ? 'sm:text-base' : 'sm:rounded-tr-none sm:rounded-b-lg sm:border-t-0 sm:border-l',
+        'from-primary-light to-primary-light/30 dark:from-primary-darker dark:to-primary-darker/50 px-5 py-4 text-sm font-normal text-stone-200 group-hover:bg-linear-to-b group-hover:text-text dark:group-hover:text-text-dark',
+      ]}
+    >
+      <span class="block">
+        <span class:list={[baseTitleClasses, 'mb-4 block xs:text-lg', wide && 'sm:text-xl' , (!wide && themeConfig.articles?.textOverImage) && 'sm:hidden']}>{entry.data.title}</span>
+        {entry.data.excerpt}
+      </span>
+      <span class="dark:group-hover:text-primary-dark-contrast group-hover:text-primary-light-contrast hidden w-full justify-between pt-3 pr-1 group-hover:pr-0 sm:flex">
+        <div class="flex items-center gap-1 text-xs opacity-80 group-hover:opacity-100" aria-label={getReadingTime(entry.body) + ' ' + t('min-read')}>
+          <Icon name="heroicons:clock" class="h-3 w-3" />
+          {getReadingTime(entry.body) + ' ' + t('labels.min-read')}
+        </div>
+        <Icon name="heroicons:arrow-right" class="h-5 w-5" />
+      </span>
+    </span>
+  </a>
+</div>

@@ -1,0 +1,13 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import { useTranslations } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+---
+
+<Layout title={t('pages.docs.title-install')} description={t('pages.docs.description-install')}>
+  <Headline text={t('pages.docs.title-install')} class="pb-10" />
+</Layout>

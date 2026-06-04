@@ -1,0 +1,54 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import List from "@components/blog/list.astro";
+import Pagination from "@components/blog/pagination.astro";
+import type { CollectionEntry } from "astro:content";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+import { sortArticleList } from "@utils/blog";
+import { getCollection } from 'astro:content';
+import type { PaginateFunction } from 'astro';
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+  const allArticles = sortArticleList(await getCollection('articles', ({ id, data }) => {
+    // only show articles that are not drafts and mind locale
+    return !data.draft && !id.startsWith(themeConfig.i18n.defaultLocale + '/');
+  }) as CollectionEntry<'articles'>[]);
+  const catsByLang = allArticles.reduce<Record<string, Set<string>>>((acc, article) => {
+    const lang = article.id.split('/')[0];
+    const cats = article.data.categories ?? [];
+    if (!acc[lang]) acc[lang] = new Set();
+    cats.forEach(cat => acc[lang].add(cat));
+    return acc;
+  }, {});
+
+  // foreach lang and category, get all articles with that category and language
+  return Object.entries(catsByLang).flatMap(([lang, cats]) => 
+    Array.from(cats).flatMap(category => {
+      const localeArticles = allArticles.filter(article => article.id.startsWith(lang + '/') && article.data.categories?.includes(category));
+      return paginate(localeArticles, {
+        params: { lang, category: category.toLowerCase().replace(/\s/g, '-') },
+        pageSize: themeConfig.articles?.entriesPerPage || 10
+      });
+    })
+  );
+}
+
+const { category, lang } = Astro.params;
+const { page } = Astro.props;
+const locale = lang;
+const t = useTranslations(locale);
+
+const allArticles = page.data as CollectionEntry<'articles'>[];
+const numberofPages = Math.ceil(page.total / page.size);
+---
+
+<Layout title={t('labels.category') + ': ' + t('categories-t.' + category)} header={{ button: { text: t('labels.back-overview'), href: getLocaleUrl('blog/categories', locale) }, fixed: true }} noi18n={true}>
+  <Headline text={t('labels.category') + ': ' + t('categories-t.' + category)} icon="heroicons:rectangle-stack" />
+  <div class="flex w-full flex-wrap justify-start px-3 pb-10 font-semibold italic opacity-50 md:justify-end">
+    {page.currentPage > 1 ? t('labels.page') + ': ' + page.currentPage : ''}
+  </div>
+  <List entries={allArticles} {locale} />
+  {numberofPages > 1 && <Pagination {page} {locale} baseUrl={'blog/categories/' + category} />}
+</Layout>

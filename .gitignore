@@ -1,3 +1,7 @@
+# Tmp framework files
+.astro
+.wrangler
+
 # Logs
 logs
 *.log

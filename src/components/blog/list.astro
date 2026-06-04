@@ -1,0 +1,24 @@
+---
+import ListItem from "@components/blog/list-item.astro";
+import type { CollectionEntry } from "astro:content";
+import { themeConfig } from '~/theme.config';
+
+interface Props {
+  entries: CollectionEntry<'articles'>[]; 
+  locale: string;
+  firstBig?: boolean;
+}
+
+const { entries, locale, firstBig } = Astro.props as Props;
+---
+
+{
+  firstBig && (
+    <>
+      <div class="border-stone-300 dark:border-stone-700 mb-10 border-b-2 pb-10">{entries.length > 0 && <ListItem entry={entries[0]} locale={locale} wide={true} />}</div>
+    </>
+  )
+}
+<div class:list={["grid grid-cols-1 gap-4", themeConfig.articles?.gridView ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:gap-6 lg:gap-8']}>
+  {entries.slice(firstBig ? 1 : 0).map((entry) => <ListItem {entry} {locale} wide={!themeConfig.articles?.gridView} />)}
+</div>

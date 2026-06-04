@@ -1,0 +1,31 @@
+---
+import { Icon } from "astro-icon/components";
+import LightModeSwitcher from "~/src/components/layout/light-mode-switcher";
+
+interface Props {
+  label?: string;
+}
+
+const { label } = Astro.props as Props;
+---
+
+<button
+  id="color-mode-switch"
+  type="button"
+  role="switch"
+  {...(label && label !== '' ? { 'aria-label': label } : {})}
+  aria-checked="false"
+  class="border-stone-100 dark:bg-stone-800 dark:border-stone-600 group bg-stone-200 hover:border-primary shadow hover:shadow-lg focus-within:ring-2 focus:outline-0 ring-primary relative inline-flex h-8 w-15 cursor-pointer items-center rounded-full border p-0.5 transition-colors"
+>
+  <span
+    class="bg-stone-600 dark:bg-stone-500 group-hover:bg-stone-950 group-focus:bg-stone-950 dark:group-hover:bg-stone-400 dark:group-focus:bg-stone-400 pointer-events-none absolute top-1/2 h-6 w-6 dark:translate-x-7 -translate-y-1/2 rounded-full shadow transition-transform duration-200 ease-in-out"
+  ></span>
+  <span class="relative z-10 flex h-6 w-6 items-center justify-center">
+    <Icon name="heroicons:sun-16-solid" class="h-4 w-4 text-white dark:text-stone-600 transition-colors" aria-hidden="true" />
+  </span>
+  <span class="relative z-10 flex h-6 w-6 ml-1 items-center justify-center">
+    <Icon name="heroicons:moon-16-solid" class="h-4 w-4 text-stone-400 dark:text-white transition-colors" aria-hidden="true" />
+  </span>
+</button>
+
+<LightModeSwitcher client:only />

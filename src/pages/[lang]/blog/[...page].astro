@@ -1,0 +1,61 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import List from "@components/blog/list.astro";
+import Pagination from "@components/blog/pagination.astro";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+import { sortArticleList } from "@utils/blog";
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+import type { PaginateFunction } from 'astro';
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+  const allArticles = sortArticleList(await getCollection('articles', ({ id, data }) => {
+    // only show articles that are not drafts and not in default language (as this is taken care of by the pages on root level)
+    return !data.draft && !id.startsWith(themeConfig.i18n.defaultLocale + '/');
+  }) as CollectionEntry<'articles'>[]);
+  return themeConfig.i18n.locales
+    .filter(lang => lang !== themeConfig.i18n.defaultLocale)
+    .flatMap(lang => {
+      const localeArticles = allArticles.filter(article => article.id.startsWith(lang + '/'));
+      return paginate(localeArticles, {
+        params: { lang },
+        pageSize: themeConfig.articles?.entriesPerPage || 10
+      });
+    });
+}
+
+const locale = Astro.params.lang;
+const t = useTranslations(locale);
+const { page } = Astro.props;
+
+const allArticles = page.data as CollectionEntry<'articles'>[];
+const numberofPages = Math.ceil(page.total / page.size);
+---
+
+<Layout title={t('pages.blog.title') + (page.currentPage > 1 ? ': ' + t('labels.page') + ' ' + page.currentPage : '')} noi18n={page.currentPage > 1} {locale}>
+  <Headline text={t('pages.blog.title') + (page.currentPage > 1 ? ': ' + t('labels.page') + ' ' + page.currentPage : '')} />
+  {
+    (allArticles.length > 0 && themeConfig.articles && (themeConfig.articles.categories || themeConfig.articles.tags)) && (
+      <div class="xs:gap-10 flex w-full flex-wrap justify-end gap-6 pb-10 sm:gap-6">
+        {themeConfig.articles.categories && (
+          <a href={getLocaleUrl('blog/categories', locale)} class="flex w-fit items-center gap-1 pr-1 text-sm no-underline hover:gap-2 hover:pr-0">
+            {t('labels.by_category')}
+            <Icon name="heroicons:arrow-right" class="h-3 w-3" />
+          </a>
+        )}
+        {themeConfig.articles.tags && (
+          <a href={getLocaleUrl('blog/tags', locale)} class="flex w-fit items-center gap-1 pr-1 text-sm no-underline hover:gap-2 hover:pr-0">
+            {t('labels.by_tag')}
+            <Icon name="heroicons:arrow-right" class="h-3 w-3" />
+          </a>
+        )}
+      </div>
+    )
+  }
+  {numberofPages > 1 && page.currentPage > 1 && <Pagination {page} {locale} class="mt-4 mb-14" />}
+  {allArticles.length > 0 ? <List entries={allArticles} {locale} firstBig={page.currentPage === 1 ? true : false} /> : <div class="my-20 font-semibold text-xl italic">{t('labels.no-entries')}...</div>}
+  {numberofPages > 1 && <Pagination {page} {locale} />}
+</Layout>

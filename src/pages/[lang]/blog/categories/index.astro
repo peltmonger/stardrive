@@ -1,0 +1,32 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import List from "@components/blog/cat-tag-list.astro";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+
+export function getStaticPaths() {
+  return themeConfig.i18n.locales
+    .filter(lang => lang !== themeConfig.i18n.defaultLocale)
+    .map(lang => ({
+      params: { lang }
+    }));
+}
+
+const locale = Astro.params.lang;
+const t = useTranslations(locale);
+
+const allArticles = await getCollection('articles', ({ id, data }) => {
+  // only use articles that are not drafts and mind locale
+  return !data.draft && id.startsWith(locale + '/');
+}) as CollectionEntry<'articles'>[];
+
+const categories = [...new Set(allArticles.map((article) => article.data.categories || []).flat())];
+---
+
+<Layout title={t('labels.categories')} header={{ button: { text: t('labels.back-all-articles'), href: getLocaleUrl('blog', locale) }, fixed: true }}>
+  <Headline text={t('labels.categories')} icon="heroicons:rectangle-stack" class="pb-10" />
+  <List entries={categories} {locale} type="categories" />
+</Layout>

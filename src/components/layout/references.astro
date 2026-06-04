@@ -1,0 +1,172 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { useTranslations } from "@utils/i18n";
+
+import Cloudflare from "@images/references/cloudflare.svg";
+import AstroLogo from "@images/references/astro.svg";
+import SolidJS from "@images/references/solidjs.svg";
+import GitHub from "@images/references/github.svg";
+
+interface Props {
+  locale: string;
+  slogan?: boolean;
+  hideSloganMobile?: boolean;
+}
+
+const { locale, slogan = true, hideSloganMobile = false } =
+  Astro.props;
+const t = useTranslations(locale);
+---
+
+<div class="select-none bg-stone-800 pointer-events-none">
+  {
+    slogan && !hideSloganMobile && (
+      <div class="mx-auto flex w-fit items-center gap-1 px-6 pb-2 pt-8 text-center md:hidden">
+        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+        <span class="px-2 text-sm font-semibold text-balance text-white">
+          {t("pages.home.references")}
+        </span>
+        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+      </div>
+    )
+  }
+
+  <div
+    class="relative flex h-8 w-full items-center justify-center overflow-hidden py-12"
+  >
+    {
+      slogan && (
+        <div class="hidden items-center gap-3 p-10 pr-5 text-left md:flex lg:pr-8">
+          <Icon name="heroicons:check-badge" class="h-10 w-10 shrink-0 text-green-400" aria-hidden="true" />
+          <span class="max-w-32 w-fit shrink text-xs font-semibold text-balance text-white lg:max-w-36 lg:text-sm">
+            {t("pages.home.references")}
+          </span>
+        </div>
+      )
+    }
+    {
+      slogan && (
+        <div class="from-stone-800 via-stone-800 z-20 hidden h-8 w-32 shrink-0 bg-linear-to-r via-20% to-transparent md:block" />
+      )
+    }
+    <div
+      class:list={["make-marquee w-full overflow-hidden", slogan && "z-10 md:-ml-30"]}
+    >
+      <div class="flex items-center whitespace-nowrap">
+        <Image draggable="false" class="mx-10 h-8 w-auto" alt="Cloudflare" src={Cloudflare} />
+        <Image draggable="false" class="mx-10 h-8 w-auto" alt="Astro" src={AstroLogo} />
+        <Image draggable="false" class="mx-10 h-8 w-auto" alt="SolidJS" src={SolidJS} />
+        <Image draggable="false" class="mx-10 h-8 w-auto" alt="GitHub" src={GitHub} />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .make-marquee {
+    overflow: hidden;
+  }
+  .make-marquee > .marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: marquee-scroll var(--marquee-duration, 20s) linear infinite;
+  }
+  .make-marquee > .marquee-track > .marquee-unit {
+    display: flex;
+    flex-shrink: 0;
+  }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(var(--marquee-distance, -100%)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .make-marquee > .marquee-track {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const SPEED = 30; // pixels per second
+  const RESIZE_DEBOUNCE = 200;
+
+  type Cleanup = () => void;
+  let cleanups: Cleanup[] = [];
+
+  function setupMarquee(container: HTMLElement): Cleanup | null {
+    const originalContent = document.createDocumentFragment();
+    while (container.firstChild) {
+      originalContent.appendChild(container.firstChild);
+    }
+
+    const track = document.createElement("div");
+    track.className = "marquee-track";
+    container.appendChild(track);
+
+    let resizeTimer: number | undefined;
+
+    const build = () => {
+      track.style.animation = "none";
+      track.replaceChildren();
+
+      const firstUnit = document.createElement("div");
+      firstUnit.className = "marquee-unit";
+      firstUnit.appendChild(originalContent.cloneNode(true));
+      track.appendChild(firstUnit);
+
+      const unitWidth = firstUnit.getBoundingClientRect().width;
+      const viewportWidth = container.getBoundingClientRect().width;
+      if (unitWidth <= 0 || viewportWidth <= 0) return;
+
+      const copies = Math.max(2, Math.ceil((viewportWidth + unitWidth) / unitWidth) + 1);
+      for (let i = 1; i < copies; i++) {
+        const unit = document.createElement("div");
+        unit.className = "marquee-unit";
+        unit.appendChild(originalContent.cloneNode(true));
+        track.appendChild(unit);
+      }
+
+      const duration = unitWidth / SPEED;
+      track.style.setProperty("--marquee-distance", `-${unitWidth}px`);
+      track.style.setProperty("--marquee-duration", `${duration}s`);
+      // Force reflow so the animation restart is picked up.
+      void track.offsetWidth;
+      track.style.animation = "";
+    };
+
+    const onResize = () => {
+      if (resizeTimer !== undefined) window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(build, RESIZE_DEBOUNCE);
+    };
+
+    build();
+    window.addEventListener("resize", onResize, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (resizeTimer !== undefined) window.clearTimeout(resizeTimer);
+    };
+  }
+
+  function destroyMarquees() {
+    for (const fn of cleanups) fn();
+    cleanups = [];
+  }
+
+  function initMarquees() {
+    destroyMarquees();
+    document.querySelectorAll<HTMLElement>(".make-marquee").forEach((el) => {
+      const cleanup = setupMarquee(el);
+      if (cleanup) cleanups.push(cleanup);
+    });
+  }
+
+  document.addEventListener("astro:page-load", initMarquees);
+  document.addEventListener("astro:before-swap", destroyMarquees);
+</script>

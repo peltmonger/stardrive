@@ -1,0 +1,61 @@
+---
+import { Icon } from "astro-icon/components";
+import { getUrlWithoutLocale, useTranslations, getLocaleUrl, getLocaleUrlWithContent, checkTranslatedPath } from "@utils/i18n";
+import { themeConfig } from "~/theme.config";
+import type { CollectionKey } from "astro:content";
+import LanguageSwitcher from "~/src/components/layout/language-switcher";
+
+interface Props {
+  locale: string;
+  noi18n?: boolean;
+  collection?: CollectionKey;
+  contentId?: string;
+}
+
+const { noi18n, collection, contentId, locale } = Astro.props as Props;
+
+const cleanPath = getUrlWithoutLocale(Astro.url, locale);
+const basePath = cleanPath.split('/').slice(0, -1).join('/');
+const t = useTranslations(locale);
+
+const isTranslated = await checkTranslatedPath(locale, noi18n, collection, contentId);
+const languageUrls = await Promise.all(
+  Object.entries(themeConfig.i18n.languages).map(async ([code]) => ({
+    code,
+    url: (collection && contentId) ? await getLocaleUrlWithContent(contentId, collection, code, false, basePath) : getLocaleUrl(cleanPath, code),
+  }))
+);
+---
+
+<div id="language-switcher" class="from-stone-200 to-stone-50 dark:from-stone-950 text-text dark:text-text-dark dark:to-stone-700 top-0 left-0 z-50 hidden h-full w-full bg-linear-to-tr">
+  <button id="close-language-menu" aria-label={t('labels.close-menu')} class="btn-subtle absolute top-5 right-5 rounded-full">
+    <Icon name="heroicons:x-mark" class="h-5 w-5 md:h-8 md:w-8" />
+  </button>
+  <div class="h-full w-full overflow-y-auto select-none">
+    <div class="container mx-auto flex min-h-full w-full max-w-xs flex-col justify-center py-8 items-center">
+      <h3 class="w-fit whitespace-nowrap hidden xs:block text-2xl font-semibold underline underline-offset-8 decoration-secondary dark:decoration-secondary-light decoration-4">{t('i18n.select-language')}:</h3>
+      <ul class="pt-6 text-left">
+        {
+          Object.entries(themeConfig.i18n.languages).map(([languageCode, label]) => (
+            <li class="py-5 px-4 m-0 not-first:border-t border-stone-300 dark:border-stone-700">
+              {!isTranslated[languageCode] || languageCode === locale ? (
+                <>
+                  <span class="cursor-not-allowed p-2 text-xl italic opacity-85">{label}</span>
+                  <span class="text-xs italic opacity-50">{languageCode === locale ? t('i18n.current-language') : t('i18n.noi18n')}</span>
+                </>
+              ) : (
+                <>
+                  <a href={languageUrls.find((url) => url.code === languageCode)?.url} data-astro-reload class="p-2 text-xl no-underline">
+                    {label}
+                  </a>
+                </>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</div>
+
+<LanguageSwitcher client:only />

@@ -1,0 +1,40 @@
+---
+interface Props {
+  type: "WebSite" | "FAQPage";
+  title: string;
+  image?: string;
+  author?: {
+    "@type": "Person" | "Organization";
+    name: string;
+    url?: string;
+    image?: string;
+  }
+  publisher?: {
+    "@type": "Person" | "Organization";
+    name: string;
+    url?: string;
+    image?: string;
+  }
+}
+
+const { title, type, image } = Astro.props as Props;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+
+const author = Astro.props.author ? { "@context": "https://schema.org", ...(Astro.props.author) } : null;
+const creator = author;
+const publisher = Astro.props.publisher ? { "@context": "https://schema.org", ...(Astro.props.publisher) } : null;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": type,
+  name: title,
+  url: pageUrl,
+  ...(image && { image }),
+  author,
+  creator,
+  publisher,
+}
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

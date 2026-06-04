@@ -1,0 +1,94 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from "~/theme.config";
+import MainNav from "@components/layout/nav/main-nav.astro";
+import { Image } from 'astro:assets';
+import logo from '@images/logo.svg';
+import logoWhite from '@images/logo-white.svg';
+
+interface Props {
+  locale: string;
+  /** Show a button instead of the site name */
+  button?: {
+    text: string;
+    href: string;
+  };
+  /** Initial tabIndex for all interactive elements. The scroll header sets -1 and JS updates it. */
+  tabIndex?: number;
+  /** Set to false to disable the h-20 → h-16 scroll-shrink behaviour (e.g. fixed banner). */
+  shrink?: boolean;
+  /** Marks the home page to not link the logo */
+  isHome?: boolean;
+  /** Show a call-to-action button on the right side of the header */
+  ctaButton?: {
+    text: string;
+    href: string;
+  };
+  /** Show a Github icon and link */
+  github?: string;
+  /** Force a light or dark version of the logo */
+  logoTheme?: 'light' | 'dark';
+}
+
+const { locale, button, tabIndex = 0, shrink = true, isHome, ctaButton, github, logoTheme } = Astro.props as Props;
+const t = useTranslations(locale);
+
+const siteName = themeConfig.name ?? themeConfig.shortName ?? t('meta.title');
+---
+
+<div class:list={["lg:container mx-6 lg:mx-auto flex items-center gap-10 justify-between h-20", shrink && "header-content-inner transition-[height] duration-300"]}>
+  {button ? (
+    <a href={button.href} class="btn-subtle text-sm rounded px-3" tabindex={tabIndex}>
+      <Icon name="heroicons:arrow-left" class="w-4 h-4" />
+      {button.text}
+    </a>
+  ) : (
+    isHome ? (
+      <Image src={logo} alt={siteName} class:list={["h-10 select-none w-fit header-logo-dark", logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
+      <Image src={logoWhite} alt={siteName} class:list={["h-10 select-none w-fit header-logo-white", logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'hidden dark:block']} />
+
+    ) : (
+      <a href={getLocaleUrl('/', locale)} class="w-fit select-none block" tabindex={tabIndex}>
+        <Image src={logo} alt={siteName} class:list={["w-fit h-10 header-logo-dark", logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
+        <Image src={logoWhite} alt={siteName} class:list={["w-fit h-10 header-logo-white", logoTheme === 'light' ? 'hidden' : logoTheme === 'dark' ? 'block' : 'hidden dark:block']} />
+      </a>
+    )
+  )}
+  <div class="flex flex-row-reverse lg:flex-row gap-8 items-center">
+    <MainNav {locale} {tabIndex} />
+    <div class="flex gap-5 items-center">
+      {ctaButton && (
+        <a href={ctaButton.href} class="btn-primary text-sm hidden sm:block" tabindex={tabIndex}>
+          {ctaButton.text}
+        </a>
+      )}
+      {github && (
+        <a href={github} target="_blank" rel="noopener" class="hidden lg:block" tabindex={tabIndex}>
+          <Icon name="fa6-brands:github" class="w-6 h-6" />
+        </a>
+      )}
+    </div>
+  </div>
+</div>
+
+{shrink && (
+<script>
+  function updateHeaderShrink() {
+    const scrolled = window.scrollY > 60;
+    document.querySelectorAll<HTMLElement>('.header-content-inner').forEach(el => {
+      el.classList.toggle('h-20', !scrolled);
+      el.classList.toggle('h-16', scrolled);
+    });
+  }
+
+  function setupHeaderShrink() {
+    window.removeEventListener('scroll', updateHeaderShrink);
+    window.addEventListener('scroll', updateHeaderShrink, { passive: true });
+    updateHeaderShrink();
+  }
+
+  setupHeaderShrink();
+  document.addEventListener('astro:page-load', setupHeaderShrink);
+</script>
+)}

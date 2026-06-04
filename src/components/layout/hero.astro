@@ -1,0 +1,157 @@
+---
+import { Icon } from "astro-icon/components";
+import HeroChip from "@components/layout/promo/hero-chip.astro";
+import References from "@components/layout/references.astro";
+import { themeConfig } from '~/theme.config';
+import { useTranslations } from "@utils/i18n";
+// import { Code } from "astro-expressive-code/components";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props as Props;
+const t = useTranslations(locale);
+
+function generateStars(count: number, spread = 3000): string {
+  return Array.from({ length: count }, () => {
+    const x = Math.floor(Math.random() * spread);
+    const y = Math.floor(Math.random() * spread);
+    const opacity = (0.4 + Math.random() * 0.6).toFixed(2);
+    return `${x}px ${y}px rgba(255,255,255,${opacity})`;
+  }).join(",");
+}
+
+const stars1 = generateStars(160); // 1 px - many
+const stars2 = generateStars(60);  // 2 px - medium
+const stars3 = generateStars(22);  // 3 px - few bright
+---
+
+<div
+  role="banner"
+  class="hero relative flex flex-col items-center justify-center min-h-svh w-full overflow-hidden pt-48 px-6 pb-24"
+  style={`--stars1:${stars1};--stars2:${stars2};--stars3:${stars3};`}
+>
+  <!-- Animated galaxy background -->
+  <div class="galaxy-bg pointer-events-none">
+    <div class="nebula"></div>
+    <div class="absolute inset-0 s1"></div>
+    <div class="absolute inset-0 s2"></div>
+    <div class="absolute inset-0 s3"></div>
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 flex flex-col items-center text-center gap-6 max-w-4xl w-full">
+
+    {themeConfig.promotions?.heroChip && <HeroChip {locale} />}
+
+    <h1 class="hero-title">{t("pages.home.hero-title")}</h1>
+    <p class="hero-subline">{t("pages.home.hero-sub-slogan")}</p>
+
+    <div class="flex flex-wrap gap-4 justify-center mt-1">
+      <a href="/signup" class="btn-primary">{t("labels.get-started")}</a>
+      <a href="/features" class="inline-flex items-center gap-2 py-2 px-4 pr-3 rounded border-2 select-none border-white/30 bg-white/5 text-white/80 hover:text-white hover:border-white font-semibold text-base whitespace-nowrap cursor-pointer no-underline transition-all group">
+        <span>{t("labels.explore-features")}</span>
+        <Icon name="heroicons:arrow-right" class="h-4 w-4 group-hover:ml-1 group-hover:mr-0 mr-1 ml-0 transition-all duration-200" />
+      </a>
+    </div>
+
+    <div class="card-glow-light relative w-full max-w-4xl aspect-video rounded-3xl border-4 border-white/20 bg-white/3 backdrop-blur flex items-center justify-center mt-16" aria-label={t('labels.get-started') + ': npm create stardrive'}>
+      <!--<Code
+        code="npm create stardrive"
+        frame="none"
+        lang="bash"
+      />-->
+    </div>
+
+  </div>
+</div>
+
+<References {locale} />
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  /* ── Wrapper - only the gradient survives here ── */
+  .hero {
+    background: radial-gradient(ellipse at 50% 40%, #16003e 0%, #040010 55%, #000 100%);
+  }
+
+  /* ── Rotating galaxy container ── */
+  .galaxy-bg {
+    @apply absolute w-[3000px] h-[3000px] top-1/2 left-1/2 origin-center;
+    animation: galaxyRotate 150s linear infinite;
+  }
+
+  @keyframes galaxyRotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* ── Nebula blobs ── */
+  .nebula {
+    @apply absolute inset-0;
+    background:
+      radial-gradient(ellipse 55% 38% at 28% 38%, rgba(80, 22, 138, 0.65) 0%, transparent 65%),
+      radial-gradient(ellipse 38% 28% at 72% 62%, rgba(242, 100, 48, 0.28) 0%, transparent 65%),
+      radial-gradient(ellipse 48% 52% at 62% 22%, rgba(80, 22, 138, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 65% 42% at 42% 82%, rgba(20, 0, 50, 0.85) 0%, transparent 70%);
+    animation: nebulaPulse 24s ease-in-out infinite alternate;
+  }
+
+  @keyframes nebulaPulse {
+    0%   { opacity: 0.72; }
+    100% { opacity: 1; }
+  }
+
+  /* ── Star layers ── */
+  .s1::before {
+    content: "";
+    @apply absolute top-0 left-0 size-px bg-transparent rounded-full;
+    box-shadow: var(--stars1);
+    animation: twinkle 10s ease-in-out infinite alternate;
+  }
+
+  .s2::before {
+    content: "";
+    @apply absolute top-0 left-0 size-[2px] bg-transparent rounded-full;
+    box-shadow: var(--stars2);
+    animation: twinkle 14s ease-in-out infinite alternate;
+  }
+
+  .s3::before {
+    content: "";
+    @apply absolute top-0 left-0 size-[3px] bg-transparent rounded-full;
+    box-shadow: var(--stars3);
+    animation: twinkle 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes twinkle {
+    0%   { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+
+  /* Title */
+  .hero-title {
+    @apply font-bold leading-[1.08] tracking-[-0.025em] text-white m-0;
+    font-size: clamp(2.4rem, 6vw, 4.8rem);
+    text-shadow: 0 0 80px rgba(242, 100, 48, 0.25);
+  }
+
+  /* Subline */
+  .hero-subline {
+    @apply leading-[1.65] text-white/55 max-w-[38rem] m-0;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .galaxy-bg,
+    .nebula,
+    .s1::before,
+    .s2::before,
+    .s3::before {
+      animation: none;
+    }
+  }
+</style>

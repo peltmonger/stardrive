@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { themeConfig } from '~/theme.config';
+
+interface Props {
+  layoutTitle: string;
+  layoutDescription: string;
+  articleEntry: CollectionEntry<'articles'>;
+}
+
+const { layoutTitle, layoutDescription, articleEntry } = Astro.props as Props;
+
+// Destructure articleEntry to get needed fields
+const { publishDate, updateDate, author, image } = articleEntry.data;
+if (image && image.file) {
+  image.url = image.file.src;
+}
+
+const authorName = themeConfig.articles?.defaults?.author?.name ? themeConfig.articles.defaults.author.name : author?.name;
+const authorUrl = themeConfig.articles?.defaults?.author?.url ? themeConfig.articles.defaults.author.url : author?.url;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: layoutTitle,
+  description: layoutDescription,
+  datePublished: publishDate.toISOString(),
+  dateModified: updateDate?.toISOString() ?? undefined,
+  url: pageUrl,
+  thumbnailUrl: image ? image.url : '',
+  image: {
+    "@type": "ImageObject",
+    url: image ? image.url : '',
+    caption: image ? image.alt : '',
+  },
+  author: {
+    "@type": "Person",
+    name: authorName ? authorName : '',
+    url: authorUrl ? authorUrl : Astro.site,
+  },
+}
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />

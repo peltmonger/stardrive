@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props as Props;
+const t = useTranslations(locale);
+---
+
+<a
+  href={getLocaleUrl('docs', locale)}
+  role="menuitem"
+  tabindex="-1"
+  class="group no-underline bg-rose-800 hover:bg-rose-700 text-white h-9 px-3 py-2 hidden sm:flex gap-1 items-center justify-center text-sm"
+>
+  <span>{t("global-promo.top-text-1")}</span>
+  <span class="truncate lg:inline hidden">{t("global-promo.top-text-2")}</span>
+  <span class="text-normal opacity-50 px-1.5" aria-hidden="true">|</span>
+  <span class="flex gap-2 items-center shrink-0">
+    {t("global-promo.top-cta")}
+    <Icon name="heroicons:arrow-right" class="h-4 w-4 shrink-0 mr-1 group-hover:ml-1 group-hover:mr-0 transition-all" aria-hidden="true" />
+  </span>
+</a>

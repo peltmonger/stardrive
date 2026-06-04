@@ -1,0 +1,112 @@
+{
+  "name": "stardrive",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "prebuild": "npm run sync-version",
+    "postbuild": "node scripts/processSocialImages.js && node scripts/generateLLMFiles.js",
+    "upgrade": "node scripts/upgrade.js",
+    "upgrade:astro": "npx @astrojs/upgrade",
+    "purge:cloudflare": "node scripts/purgeCloudflareCache.js",
+    "check": "npm run check:astro && npm run check:type && npm run check:eslint && npm run check:prettier",
+    "check:astro": "astro check",
+    "check:type": "npm run generate-types && tsc --noEmit",
+    "check:eslint": "eslint .",
+    "check:prettier": "prettier --check .",
+    "fix": "npm run sync-version && npm run fix:eslint && npm run fix:prettier",
+    "fix:eslint": "eslint --fix .",
+    "fix:prettier": "prettier -w .",
+    "generate-types": "wrangler types",
+    "sync-version": "node scripts/syncVersion.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peltmonger/stardrive.git"
+  },
+  "keywords": [
+    "astro",
+    "boilerplate",
+    "starter",
+    "template",
+    "website",
+    "static",
+    "fast",
+    "stable",
+    "llm",
+    "ai"
+  ],
+  "author": {
+    "name": "Peltmonger Ventures GmbH",
+    "url": "https://peltmonger.com/"
+  },
+  "maintainers": [
+    {
+      "name": "Jens Kuerschner",
+      "url": "https://jekuer.com/"
+    }
+  ],
+  "license": "MIT",
+  "funding": "https://github.com/peltmonger/stardrive?sponsor=1",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/peltmonger/stardrive/issues"
+  },
+  "homepage": "https://astro-stardrive.com/",
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.6.1",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/solid-js": "^6.0.1",
+    "@fontsource/geist": "^5.2.9",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.4",
+    "astro-expressive-code": "^0.42.0",
+    "astro-icon": "^1.1.5",
+    "solid-js": "^1.9.13",
+    "tailwindcss": "^4.3.0",
+    "wrangler": "^4.97.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/compiler-rs": "^0.2.1",
+    "@astrojs/ts-plugin": "^1.10.9",
+    "@eslint/js": "^10.0.1",
+    "@expressive-code/plugin-line-numbers": "^0.42.0",
+    "@iconify-json/fa6-brands": "^1.2.6",
+    "@iconify-json/heroicons": "^1.2.3",
+    "@typescript-eslint/parser": "^8.60.1",
+    "astro-compress": "^2.4.1",
+    "astro-eslint-parser": "^1.4.0",
+    "eslint": "^10.4.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-regexp": "^3.1.0",
+    "eslint-plugin-security": "^4.0.0",
+    "fs-extra": "^11.3.5",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "mdast-util-from-markdown": "^2.0.3",
+    "mdast-util-to-string": "^4.0.0",
+    "path": "^0.12.7",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "sharp": "^0.34.5",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1",
+    "url": "^0.11.4"
+  },
+  "overrides": {
+    "vite": "^7"
+  }
+}

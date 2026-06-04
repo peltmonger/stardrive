@@ -1,0 +1,104 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { themeConfig } from '~/theme.config';
+import { useTranslations, getLocaleUrl } from '@utils/i18n';
+
+interface Props {
+  type: string;
+  locale?: string;
+  currentItem?: string;
+}
+
+const { type, locale = themeConfig.i18n.defaultLocale, currentItem } = Astro.props;
+const t = useTranslations(locale);
+
+const items = (await getCollection('integration_options', ({ id, data }) => {
+  return !data.draft && data.type === type && id.startsWith(locale + '/');
+}) as CollectionEntry<'integration_options'>[]).sort((a, b) =>
+  a.data.service.localeCompare(b.data.service)
+);
+---
+
+<nav class="integration-list-container flex max-h-[70vh] w-full max-w-xs shrink-0 flex-col rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900" aria-label="Integration list">
+  <div class="border-b border-stone-200 p-2 dark:border-stone-800">
+    <label class="relative block">
+      <span class="sr-only">{t('pages.integration.search-placeholder')}</span>
+      <Icon name="heroicons:magnifying-glass" class="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-stone-500" />
+      <input
+        type="search"
+        class="integration-list-search input-primary input-primary-small max-w-none! pl-9"
+        placeholder={t('pages.integration.search-placeholder')}
+        autocomplete="off"
+      />
+    </label>
+  </div>
+  <div class="grow overflow-y-auto">
+    <ul class="integration-list m-0 flex list-none flex-col p-0">
+      {items.map((item) => {
+        const slug = item.id.split('/')[1];
+        const isCurrent = slug === currentItem;
+        return (
+          <li class="integration-list-item m-0" data-service={item.data.service.toLowerCase()}>
+            <a
+              href={getLocaleUrl(`/integration/${item.data.type}/${slug}`, locale)}
+              aria-current={isCurrent ? 'page' : undefined}
+              class:list={[
+                'flex items-center gap-3 px-3 py-2 no-underline text-text dark:text-text-dark font-normal border-l-2 border-transparent hover:bg-primary-light hover:dark:bg-primary-darker hover:text-primary-light-contrast hover:dark:text-primary-dark-contrast',
+                isCurrent && 'bg-primary-light dark:bg-primary-darker border-primary font-semibold',
+              ]}
+            >
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded bg-white dark:bg-black p-1">
+                {item.data.logo?.file ? (
+                  <Image src={item.data.logo.file} alt={item.data.logo.alt ?? ''} class="h-full w-full object-contain" draggable="false" priority />
+                ) : item.data.logo?.url ? (
+                  <Image src={item.data.logo.url} alt={item.data.logo.alt ?? ''} class="h-full w-full object-contain" draggable="false" priority inferSize />
+                ) : (
+                  <Icon name="heroicons:puzzle-piece" class="h-5 w-5 text-stone-500 dark:text-stone-400" />
+                )}
+              </span>
+              <span class="truncate">{item.data.service}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+    <p class="integration-list-no-results hidden p-4 text-center text-sm text-stone-500 dark:text-stone-400">
+      {t('pages.integration.no-results')}
+    </p>
+  </div>
+</nav>
+
+<style>
+  /* Browser-native virtualization: skip rendering work for off-screen list items.
+     Lets us render thousands of items without a JS-based virtual scroller. */
+  .integration-list-item {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 48px;
+  }
+</style>
+
+<script>
+  for (const container of document.querySelectorAll<HTMLElement>('.integration-list-container')) {
+    const search = container.querySelector<HTMLInputElement>('.integration-list-search');
+    const items = container.querySelectorAll<HTMLLIElement>('.integration-list-item');
+    const noResults = container.querySelector<HTMLElement>('.integration-list-no-results');
+    if (!search || !items.length || !noResults) continue;
+
+    const applyFilter = () => {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      for (const item of items) {
+        const service = item.getAttribute('data-service') ?? '';
+        const show = query === '' || service.includes(query);
+        item.classList.toggle('hidden', !show);
+        if (show) visible++;
+      }
+      noResults.classList.toggle('hidden', visible !== 0);
+    };
+
+    search.addEventListener('input', applyFilter);
+  }
+</script>

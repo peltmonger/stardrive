@@ -1,0 +1,97 @@
+---
+import "@fontsource/geist/400.css";
+import "@fontsource/geist/600.css";
+import "@fontsource/geist/800.css";
+import "@styles/global.css";
+import "@styles/blog.css";
+import { ClientRouter } from 'astro:transitions';
+import NewsletterSignup from "@components/layout/promo/newsletter-signup-wrapper.astro";
+import FooterBanner from "@components/layout/promo/footer-banner.astro";
+import TopBanner from "@components/layout/promo/top-banner.astro";
+import Footer from "@components/layout/footer.astro";
+import Header from "@components/layout/header.astro";
+import HeadBase from "@components/head/base.astro";
+import HeadHrefLang from "@components/head/hreflang.astro";
+import HeadOgX from "@components/head/ogx.astro";
+import ArticleStructuredData from "@components/structured/article.astro";
+import LanguageSelect from "@components/layout/language-select.astro";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+import { getEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  header?: {
+    /** Hides the header */
+    hidden?: boolean;
+    /** Makes the header stick to the top of the page */
+    fixed?: boolean;
+    /** Puts the header above the content (overlay) */
+    overlay?: boolean;
+    /** Pixels scrolled before showing scroll header (default: header out of viewport) */
+    scrollDownThreshold?: number;
+    /** Show a close icon instead of the site name or button */
+    closeIcon?: boolean;
+    /** Force hide or show the top banner */
+    showTopBanner?: boolean;
+  };
+  /** Force hide or show the footer banner */
+  showFooterBanner?: boolean;
+  robots?: string;
+  isError?: boolean;
+  articleImage?: string;
+  imgFallback?: boolean;
+  locale?: string;
+  noi18n?: boolean;
+}
+
+const locale = Astro.props.locale || themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+
+const collection = 'articles';
+const title = Astro.props.title || t('meta.title');
+const description = Astro.props.description || t('meta.description');
+const { articleImage, isError, noi18n, robots, imgFallback, header, showFooterBanner } = Astro.props;
+
+const ogImage = articleImage ? Astro.site + 'img/content/' + (!imgFallback ? (collection + '/') : '') + 'og_' + articleImage + '.jpg' : undefined;
+const xImage = articleImage ? Astro.site + 'img/content/' + (!imgFallback ? (collection + '/') : '') + 'x_' + articleImage + '.jpg' : undefined;
+const ogTitle = themeConfig.ogTitle ?? t('meta.og-site-name');
+
+const articleEntry = await getEntry(collection, locale + '/' + Astro.params.article as string) || {} as CollectionEntry<'articles'>;
+
+const externalCanonical = articleEntry.data.externalCanonical;
+
+const headerButton = { text: t('labels.back-all-articles'), href: getLocaleUrl('blog', locale) };
+
+const showTopBanner = (themeConfig.promotions?.topBanner && header?.showTopBanner !== false) || header?.showTopBanner;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <HeadBase {title} {description} {locale} {robots} {isError} {externalCanonical} />
+    <HeadHrefLang {locale} {noi18n} {collection} contentId={articleEntry.id} />
+    <HeadOgX {locale} {title} {description} {ogTitle} {ogImage} {xImage} />
+    <!-- Structured Data -->
+    <ArticleStructuredData layoutTitle={title} layoutDescription={description} articleEntry={articleEntry} />
+    <!-- Transitions -->
+    <ClientRouter />
+  </head>
+  <body>
+    {showTopBanner ? <TopBanner {locale} /> : null}
+    <div class="relative w-full">
+      {header?.hidden !== true && <Header {locale} button={headerButton} github="https://github.com/Peltmonger/stardrive" ctaButton={{text:t('labels.signup'),href:getLocaleUrl('signup', locale)}} fixed={header?.fixed} overlay={header?.overlay} scrollDownThreshold={header?.scrollDownThreshold} closeIcon={header?.closeIcon} hasTopBanner={showTopBanner} />}
+      <main role="main">
+        <div class="container mx-auto pt-8 md:pt-10 lg:pt-12 pb-10 md:pb-14 lg:pb-16">
+          <slot />
+        </div>
+      </main>
+      {(themeConfig.promotions?.footerBanner && showFooterBanner !== false) || showFooterBanner ? <FooterBanner {locale} /> : null}
+      {themeConfig.promotions?.newsletterSignup === 'bottom' && <NewsletterSignup {locale} />}
+      <Footer {locale} {isError} />
+    </div>
+    <LanguageSelect {noi18n} {collection} contentId={articleEntry.id} {locale} />
+  </body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "docs": "Docs",
+    "examples": "Examples",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "about": "About",
+    "contact": "Contact",
+    "pricing": "Pricing",
+    "integration": "Integration",
+    "get-listed": "Get Listed",
+    "status": "Status",
+    "legal-notice": "Legal Notice",
+    "privacy-policy": "Privacy Policy"
+  },
+  "labels": {
+    "author": "Author",
+    "published": "Published",
+    "updated": "Updated",
+    "by_category": "by Category",
+    "by_tag": "by Tag",
+    "tags": "Tags",
+    "tag": "Tag",
+    "categories": "Categories",
+    "category": "Category",
+    "no-entries": "No Entries",
+    "featured": "Featured",
+    "continue-reading": "Continue Reading",
+    "share-article": "Share it",
+    "share-email-subject": "Have a look at this article",
+    "email": "Email",
+    "toc": "Table of Contents",
+    "min-read": "min read",
+    "to-start": "To the Beginning",
+    "back-overview": "Overview",
+    "back-all-articles": "All Articles",
+    "pagination": "Pagination",
+    "page": "Page",
+    "prev": "Previous",
+    "next": "Next",
+    "close-menu": "Close Menu",
+    "change-light-mode": "Change Light/Dark Mode",
+    "offering": "Offering",
+    "company": "Company",
+    "resources": "Resources",
+    "subscribe": "Subscribe to our Newsletter",
+    "trusted": "Approuvé par de grandes équipes"
+  },
+  "meta": {
+    "title": "Fallback Title for Stardrive",
+    "description": "Fallback description for Stardrive, if not provided by the respective page itself.",
+    "og-site-name": "Stardrive - the Astro Boilerplate",
+    "slogan": "The Astro boilerplate",
+    "sub-slogan": "Create super stable and fast websites in the AI age."
+  },
+  "i18n": {
+    "select-language": "Select your Language",
+    "current-language": "current one",
+    "noi18n": "Not translated"
+  },
+  "pages": {
+    "404": {
+      "title": "404 - Not Found",
+      "message": "Ooops. You somehow found a page that does not exist. Maybe never existed or was deleted. Please check the URL or go back to the main page."
+    },
+    "features": {
+      "title": "Features"
+    },
+    "docs": {
+      "title": "Documentation"
+    },
+    "examples": {
+      "title": "Real-World Examples"
+    },
+    "faq": {
+      "title": "Foire aux questions",
+      "description": "Trouvez les réponses aux questions les plus fréquentes sur Astro Stardrive.",
+      "search-placeholder": "Rechercher des questions...",
+      "filter-all-categories": "Toutes les catégories",
+      "no-results": "Aucune question ne correspond à votre recherche."
+    },
+    "about": {
+      "title": "About us"
+    },
+    "contact": {
+      "title": "Contact us"
+    },
+    "pricing": {
+      "title": "Our Pricing"
+    },
+    "integration": {
+      "title": "Intégration",
+      "search-placeholder": "Filtrer les services...",
+      "no-results": "Aucun service ne correspond à votre recherche."
+    },
+    "get-listed": {
+      "title": "Get Listed"
+    },
+    "legal-notice": {
+      "title": "Legal Notice",
+      "intro": "Information in accordance with section 5 TMG and section 55 para. 2 RStV"
+    },
+    "privacy-policy": {
+      "title": "Privacy Policy"
+    },
+    "blog": {
+      "title": "Blog"
+    }
+  },
+  "rss": {
+    "title": "Astro Stardrive | RSS Feed",
+    "description": "Subscribe to the RSS Feed to stay up to date with the latest articles."
+  },
+  "tags-t": {
+    "project-management": "Project Management",
+    "consumer-behavior": "Consumer Behavior",
+    "market-research": "Market Research",
+    "science": "Science",
+    "psychology": "Psychology",
+    "advertisement-effectiveness": "Advertisement Effectiveness",
+    "advertisement": "Advertisement",
+    "organizational-development": "Organizational Development",
+    "ai": "Artificial Intelligence",
+    "conceptioning": "Conceptioning"
+  },
+  "categories-t": {
+    "management": "Management",
+    "finance": "Finance",
+    "marketing": "Marketing",
+    "strategy": "Strategy",
+    "entrepreneurship": "Entrepreneurship",
+    "product-management": "Product Management",
+    "software-engineering": "Software Engineering",
+    "ux": "User Experience",
+    "design": "Design",
+    "mixed": "Mixed",
+    "general": "Général",
+    "technical": "Technique",
+    "support": "Support",
+    "billing": "Facturation"
+  }
+}

@@ -1,0 +1,14 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import { useTranslations } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+---
+
+<Layout isHome header={{overlay:true, scrollDownThreshold: 1000}}>
+  <Headline text={t('meta.title')} class="pb-10" />
+  ghjg hgjg h hkjg khgk hj s
+</Layout>

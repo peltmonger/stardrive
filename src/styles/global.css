@@ -1,0 +1,125 @@
+@import './tailwind.config.css';
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    /* adjust background to whatever color your footer has at the bottom. The body background is usually only visible there for pages to short for the screen. */
+    @apply bg-secondary-dark m-0 h-full w-full p-0;
+  }
+
+  main {
+    @apply bg-background dark:bg-background-dark text-text dark:text-text-dark w-full text-left font-sans text-base;
+  }
+
+  ::selection {
+    @apply bg-secondary text-text-dark;
+  }
+  ::-moz-selection {
+    @apply bg-secondary text-text-dark;
+  }
+
+  a,
+  a:active,
+  a:focus {
+    @apply touch-manipulation font-sans font-semibold underline;
+  }
+
+  a:focus {
+    @apply text-primary no-underline;
+  }
+
+  a:focus-visible {
+    @apply outline-primary rounded-sm outline-2 outline-offset-8;
+  }
+
+  a:hover {
+    @apply text-primary no-underline;
+  }
+
+  li + li,
+  li + ul li,
+  ul + li {
+    @apply mt-2.5;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-headline font-semibold text-balance;
+  }
+
+  footer h3 {
+    @apply mt-0 mb-1 text-lg font-semibold;
+  }
+}
+
+@layer components {
+  .btn-subtle {
+    @apply hover:border-primary hover:bg-primary ring-primary flex cursor-pointer items-center gap-2 border border-stone-300 bg-stone-200 fill-current p-1.5 font-semibold whitespace-nowrap text-stone-950 no-underline shadow select-none visited:text-start focus-within:ring-2 hover:text-white hover:shadow-lg focus:outline-0 dark:border-stone-100 dark:bg-stone-300;
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-light text-primary-contrast ring-primary-light hover:text-primary-light-contrast flex cursor-pointer items-center gap-2 rounded fill-current px-4 py-2 font-semibold whitespace-nowrap no-underline shadow select-none visited:text-start focus-within:ring-2 hover:shadow-lg focus:outline-0;
+  }
+
+  .btn-primary-small {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .input-primary {
+    @apply ring-primary w-full max-w-xl min-w-50 rounded border border-stone-400 bg-white px-3 py-2 text-stone-900 placeholder-stone-400 focus-within:ring-2 hover:shadow focus:shadow-lg focus:outline-0 dark:bg-stone-200 dark:placeholder-stone-500;
+  }
+
+  .input-primary-small {
+    @apply px-2 py-1.5 text-sm;
+  }
+
+  .input-primary-inverse {
+    @apply bg-stone-200 text-stone-900 placeholder-stone-500 dark:bg-white dark:placeholder-stone-400;
+  }
+
+  .card-glow-light {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.07),
+      0 0 60px rgba(80, 22, 138, 0.18),
+      inset 0 0 40px rgba(80, 22, 138, 0.06);
+  }
+}
+
+@layer utilities {
+  a.unstyle-link,
+  a.unstyle-link:active,
+  a.unstyle-link:focus {
+    @apply font-normal no-underline;
+  }
+
+  a.unstyle-link:focus {
+    @apply text-primary-light no-underline outline-none;
+  }
+
+  a.unstyle-link:hover {
+    @apply underline underline-offset-3;
+  }
+
+  a.external-link:not(:has(> img:first-child))::after {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'/%3E%3C/svg%3E");
+  }
+
+  a.external-link:not(:has(> img:first-child)):hover::after {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23ffa701' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25'/%3E%3C/svg%3E");
+  }
+}

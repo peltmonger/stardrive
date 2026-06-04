@@ -1,0 +1,16 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import { useTranslations } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+---
+
+<Layout title={t('pages.404.title')} isError {locale} header={{closeIcon:true, showTopBanner: false}} showFooterBanner={false}>
+  <Headline text={t('pages.404.title')} class="mt-20" />
+
+  <div class="container min-h-48 pt-8 mb-20 font-semibold whitespace-pre-wrap">{t('pages.404.message')}</div>
+
+</Layout>

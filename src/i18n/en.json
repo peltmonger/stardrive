@@ -1,0 +1,198 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "docs": "Docs",
+    "docs-installation": "Installation",
+    "docs-installation-explainer": "Get it running",
+    "docs-configuration": "Configuration",
+    "docs-guide": "Guide",
+    "docs-guide-explainer": "How to actually work with it",
+    "examples": "Examples",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "about": "About",
+    "contact": "Contact",
+    "pricing": "Pricing",
+    "integration": "Integration",
+    "get-listed": "Get Listed",
+    "status": "Status",
+    "legal-notice": "Legal Notice",
+    "privacy-policy": "Privacy Policy"
+  },
+  "labels": {
+    "ad": "Ad",
+    "signup": "Sign Up",
+    "learn-more": "Learn More",
+    "explore-more": "Explore More",
+    "get-started": "Get Started",
+    "explore-features": "Explore Features",
+    "author": "Author",
+    "published": "Published",
+    "updated": "Updated",
+    "by_category": "by Category",
+    "by_tag": "by Tag",
+    "tags": "Tags",
+    "tag": "Tag",
+    "categories": "Categories",
+    "category": "Category",
+    "no-entries": "No Entries",
+    "featured": "Featured",
+    "continue-reading": "Continue Reading",
+    "share-article": "Share it",
+    "share-email-subject": "Have a look at this article",
+    "email": "Email",
+    "toc": "Table of Contents",
+    "min-read": "min read",
+    "to-start": "To the Beginning",
+    "back": "Back",
+    "back-overview": "Overview",
+    "back-all-articles": "All Articles",
+    "pagination": "Pagination",
+    "page": "Page",
+    "prev": "Previous",
+    "next": "Next",
+    "open-menu": "Open Menu",
+    "close-menu": "Close Menu",
+    "change-light-mode": "Change Light/Dark Mode",
+    "offering": "Offering",
+    "company": "Company",
+    "resources": "Resources",
+    "subscribe": "Subscribe to our Newsletter",
+    "generic-error": "An error occurred. Please try again later."
+  },
+  "meta": {
+    "title": "Fallback Title for Stardrive",
+    "description": "Fallback description for Stardrive, if not provided by the respective page itself.",
+    "og-site-name": "Stardrive - the Astro Boilerplate",
+    "slogan": "The Astro boilerplate",
+    "sub-slogan": "Create super stable and fast websites in the AI age."
+  },
+  "i18n": {
+    "select-language": "Select your Language",
+    "current-language": "current one",
+    "noi18n": "Not translated"
+  },
+  "global-promo": {
+    "top-text-1": "This is not just a theme!",
+    "top-text-2": "It's a whole boilerplate and template to get your website up and running in no time.",
+    "top-cta": "Learn more",
+    "footer-heading": "Register now",
+    "footer-text": "Explore our app. It's free. No credit card required.",
+    "footer-cta": "Get Started"
+  },
+  "pages": {
+    "404": {
+      "title": "404 - Not Found",
+      "message": "Ooops. You somehow found a page that does not exist.\nMaybe never existed or was deleted.\n\nPlease check the URL or go back to the main page."
+    },
+    "home": {
+      "hero-chip": "Latest version",
+      "hero-title": "The power of Astro, but on steroids.",
+      "hero-sub-slogan": "Create super stable and fast websites in the AI age.",
+      "references": "Powered by awesome tech"
+    },
+    "features": {
+      "title": "Features",
+      "description": "Explore the powerful features of Astro Stardrive that make it the ultimate boilerplate for your next project."
+    },
+    "docs": {
+      "title-install": "How to Install",
+      "description-install": "Learn how to install Astro Stardrive and get your project up and running quickly.",
+      "title-configuration": "Configuration",
+      "description-configuration": "Configure Astro Stardrive to suit your project's needs.",
+      "title-guide": "Guide",
+      "description-guide": "Follow the guide to understand how to effectively use Astro Stardrive."
+    },
+    "examples": {
+      "title": "Real-World Examples",
+      "description": "Discover real-world examples of websites built with Astro Stardrive to inspire your next project."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "description": "Find answers to the most common questions about Astro Stardrive.",
+      "search-placeholder": "Search questions...",
+      "filter-all-categories": "All categories",
+      "no-results": "No questions match your search."
+    },
+    "about": {
+      "title": "About us",
+      "description": "Learn more about the team behind some fictitious company - this is for demo purposes."
+    },
+    "contact": {
+      "title": "Contact us",
+      "description": "Get in touch with nobody - this is for demo purposes only - use GitHub for inquiries."
+    },
+    "pricing": {
+      "title": "Our Pricing",
+      "description": "Choose the plan that suits your needs. No worries! Stardrive is free - this is for demo purposes only."
+    },
+    "integration": {
+      "title": "Integration",
+      "description": "Learn how to integrate Astro Stardrive with your existing tools and workflows.",
+      "intro": "Integrate with your favorite tools and platforms to supercharge your development workflow.",
+      "search-placeholder": "Filter services...",
+      "no-results": "No services match your search."
+    },
+    "integration-ai": {
+      "title": "AI Integration",
+      "description": "Discover coding assistants to help you work with Astro Stardrive even more efficiently. Stardrive is already prepared to talk to them."
+    },
+    "integration-zapier": {
+      "title": "Zapier Integration",
+      "description": "Learn how to connect Astro Stardrive with thousands of apps using Zapier for seamless automation. This is more of a demo collection, since there is no real use case for this."
+    },
+    "get-listed": {
+      "title": "Get Listed",
+      "description": "Learn how to get your website listed as a real world example."
+    },
+    "legal-notice": {
+      "title": "Legal Notice",
+      "intro": "Information in accordance with section 5 TMG and section 55 para. 2 RStV"
+    },
+    "privacy-policy": {
+      "title": "Privacy Policy"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Read our latest articles about Astro, web development and more."
+    }
+  },
+  "rss": {
+    "title": "Astro Stardrive | RSS Feed",
+    "description": "Subscribe to the RSS Feed to stay up to date with the latest articles."
+  },
+  "tags-t": {
+    "astro": "Astro",
+    "js": "JavaScript",
+    "ts": "TypeScript",
+    "cloudflare": "Cloudflare",
+    "react": "React",
+    "vue": "Vue",
+    "svelte": "Svelte",
+    "solidjs": "SolidJS",
+    "tailwind": "Tailwind CSS",
+    "directus": "Directus",
+    "supabase": "Supabase",
+    "github": "GitHub"
+  },
+  "categories-t": {
+    "web-development": "Web Development",
+    "infrastructure": "Infrastructure",
+    "ai": "AI",
+    "it-security": "IT Security",
+    "productivity": "Productivity",
+    "billing": "Billing",
+    "features": "Features",
+    "troubleshooting": "Troubleshooting",
+    "general": "General",
+    "technical": "Technical",
+    "support": "Support"
+  },
+  "ads": {
+    "atcp": {
+      "title": "Add to Calendar Pro",
+      "description": "Explore the best Event Marketing Tools fairly priced"
+    }
+  }
+}

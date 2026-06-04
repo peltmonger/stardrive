@@ -1,0 +1,23 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations } from "@utils/i18n";
+import NewsletterSignup from "@components/layout/promo/newsletter-signup.astro";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props as Props;
+const t = useTranslations(locale);
+---
+
+<div class="bg-stone-50 dark:bg-black text-text dark:text-text-dark border-t border-stone-300 dark:border-stone-800">
+  <div class="container py-8 relative overflow-clip">
+    <div class="flex flex-col lg:flex-row items-center justify-end gap-6 xl:gap-8">
+      <h3 class="text-xl font-bold sm:text-2xl text-center p-0">{t('labels.subscribe')}</h3>
+      <Icon name="heroicons:arrow-right" class="h-6 w-6 hidden lg:block animate-bounce-right motion-reduce:animate-none" aria-hidden="true" />
+      <NewsletterSignup locale={locale} />
+    </div>
+    <Icon name="heroicons:envelope" class="h-32 w-32 opacity-20 hidden md:block absolute left-14 xl:left-1/5 rotate-340 -bottom-8" aria-hidden="true" />
+  </div>
+</div>

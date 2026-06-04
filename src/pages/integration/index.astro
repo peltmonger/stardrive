@@ -1,0 +1,41 @@
+---
+import { Icon } from "astro-icon/components";
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+
+const entries = (await getCollection('integration_options', ({ id, data }) => {
+  return !data.draft && id.startsWith(locale + '/');
+})) as CollectionEntry<'integration_options'>[];
+
+const types = Array.from(new Set(entries.map((e) => e.data.type))).sort((a, b) =>
+  a.localeCompare(b)
+);
+---
+
+<Layout title={t('pages.integration.title')} description={t('pages.integration.description')}>
+  <Headline text={t('pages.integration.title')} class="pb-10" />
+  <p>{t('pages.integration.intro')}</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
+    {types.map((type) => (
+      <a href={getLocaleUrl(`/integration/${type}`, locale)} class="group flex h-full rounded-lg no-underline drop-shadow hover:drop-shadow-xl">
+        <span class="border text-sm font-normal no-underline flex h-auto grow flex-col justify-between w-full hover:bg-linear-to-tr rounded-lg bg-white dark:bg-stone-900 text-text dark:text-text-dark from-primary-light to-primary-light/30 dark:from-primary-darker dark:to-primary-darker/50 border-stone-400 hover:border-primary dark:border-stone-700 px-5 py-4">
+          <span class="block">
+            <span class='text-balance font-semibold mb-4 block xs:text-lg'>{t(`pages.integration-${type}.title`)}</span>
+            {t(`pages.integration-${type}.description`)}
+          </span>
+          <span class="dark:group-hover:text-primary-dark-contrast mt-6 group-hover:text-primary-light-contrast w-full justify-between pt-3 pr-1 group-hover:pr-0 flex">
+            <span class="font-semibold">{t('labels.learn-more')}</span>
+            <Icon name="heroicons:arrow-right" class="h-5 w-5" />
+          </span>
+        </span>
+        </a>
+    ))}
+  </div>
+</Layout>

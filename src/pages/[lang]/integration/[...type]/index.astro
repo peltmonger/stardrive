@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { themeConfig } from '~/theme.config';
+
+export async function getStaticPaths() {
+  const langs = themeConfig.i18n.locales.filter(
+    (lang) => lang !== themeConfig.i18n.defaultLocale
+  );
+
+  const paths = [] as { params: { lang: string; type: string }; props: { item: string } }[];
+
+  for (const lang of langs) {
+    const entries = (await getCollection('integration_options', ({ id, data }) => {
+      return !data.draft && id.startsWith(lang + '/');
+    })) as CollectionEntry<'integration_options'>[];
+
+    const types = Array.from(new Set(entries.map((e) => e.data.type)));
+
+    for (const type of types) {
+      const firstItem = entries
+        .filter((e) => e.data.type === type)
+        .sort((a, b) => a.data.service.localeCompare(b.data.service))[0];
+      const slug = firstItem.id.split('/')[1];
+      paths.push({
+        params: { lang, type },
+        props: { item: slug },
+      });
+    }
+  }
+
+  return paths;
+}
+
+return Astro.rewrite(`/${Astro.params.lang}/integration/${Astro.params.type}/${Astro.props.item}`);
+---

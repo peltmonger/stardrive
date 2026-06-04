@@ -1,0 +1,66 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+import { Image } from 'astro:assets';
+import logo from '@images/logo-white.svg';
+import FooterNav from "@components/layout/nav/footer-nav.astro";
+import LegalNav from "@components/layout/nav/legal.astro";
+import LightModeSwitch from "@components/layout/light-mode-switch.astro";
+import NewsletterSignup from "@components/layout/promo/newsletter-signup.astro";
+
+interface Props {
+  locale: string;
+  isError?: boolean;
+  isHome?: boolean;
+}
+
+const { locale, isError, isHome } = Astro.props as Props;
+const t = useTranslations(locale);
+
+const siteName = themeConfig.name ?? themeConfig.shortName ?? t('meta.title');
+---
+
+<footer role="contentinfo" class="pt-14 bg-linear-to-t from-secondary-dark to-stone-900">
+  <div class="flex flex-col container px-7 md:flex-row items-start justify-between gap-20">
+    <div class="flex flex-col items-start gap-5 sm:max-w-[350px]">
+      <div class="w-auto max-w-[200px]">
+        <a href={getLocaleUrl('/', locale)} class="select-none block w-full">
+          <Image src={logo} alt={siteName} class="w-full h-auto drop-shadow" />
+        </a>
+      </div>
+      <div class="flex flex-col gap-1 text-balance text-left text-stone-50">
+        <div class="text-sm font-semibold">{t('meta.slogan')}</div>
+        <div class="text-xs">{t('meta.sub-slogan')}</div>
+      </div>
+      <div class="flex items-center justify-center space-x-6 lg:justify-start lg:space-x-3">
+        <a class="btn-subtle p-1 rounded-full" title="Work with us on GitHub" target="_blank" rel="noopener" href="https://github.com/peltmonger/stardrive"><Icon name="fa6-brands:github" class="w-5 h-5" /></a>
+        <a class="btn-subtle p-1.5 rounded-full" title="Follow us on X" target="_blank" rel="noopener" href={'https://x.com/' + themeConfig.xHandle}><Icon name="fa6-brands:x-twitter" class="w-4 h-4" /></a>
+        <a class="btn-subtle p-1.5 rounded-full" title="Follow us on LinkedIn" target="_blank" rel="noopener" href="https://www.linkedin.com/company/peltmonger"><Icon name="fa6-brands:linkedin" class="w-4 h-4" /></a>
+      </div>
+    </div>
+    <div class="flex flex-col w-full md:w-fit">
+      <FooterNav {locale} {isHome} />
+      {(themeConfig.promotions?.newsletterSignup === true || themeConfig.promotions?.newsletterSignup === 'footer') && <NewsletterSignup {locale} inFooter={true} />}
+    </div>
+  </div>
+  <div class="flex-col sm:flex-row-reverse py-6 pt-7 mt-10 border-t border-white/10 flex container items-center justify-between gap-x-14 gap-y-6 flex-wrap">
+    <div class="flex items-center gap-6 lg:gap-4">
+      {
+        !isError ? (
+          <button id="open-language-menu" aria-label={t('i18n.select-language')} class="btn-subtle rounded-full p-1.5">
+            <Icon name="heroicons:language" class="h-4 w-4" />
+          </button>
+        ) : (
+          ''
+        )
+      }
+      {
+        themeConfig.darkMode && (
+          <LightModeSwitch label={t('labels.change-light-mode')} />
+        )
+      }
+    </div>
+    <LegalNav {locale} />
+  </div>
+</footer>

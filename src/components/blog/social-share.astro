@@ -1,0 +1,78 @@
+---
+import { Icon } from "astro-icon/components";
+import { themeConfig } from '~/theme.config';
+import { useTranslations } from "@utils/i18n";
+import type { SocialButtons } from '~types/theme-config';
+
+interface Props {
+  url: string;
+  emailSubject?: string;
+  title?: string;
+  xHandle?: string;
+  buttons?: SocialButtons;
+  buttonsSmallScreen?: SocialButtons;
+  locale: string;
+}
+
+const { url, emailSubject, title, buttons, buttonsSmallScreen, locale } = Astro.props;
+const encoded_url = encodeURIComponent(url);
+const xHandle = Astro.props.xHandle || themeConfig.articles?.social?.xHandle;
+const t = useTranslations(locale);
+
+const activeButtons = buttons || themeConfig.articles?.social?.buttons;
+const activeButtonsSmallScreen = buttonsSmallScreen || themeConfig.articles?.social?.buttonsSmallScreen || activeButtons;
+---
+
+{activeButtons && Object.keys(activeButtons).length > 0 && activeButtonsSmallScreen && (
+  <div class="social-share-buttons flex flex-wrap gap-3 text-text dark:text-text-dark">
+    <a href={`mailto:?subject=${emailSubject}&body=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': ' + t('labels.email')} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.email ? 'flex' : 'hidden', activeButtons.email ? 'md:flex' : 'md:hidden']}>
+      <Icon name="heroicons:envelope" class="h-5 w-5" />
+    </a>
+
+    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': Facebook'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.facebook ? 'flex' : 'hidden', activeButtons.facebook ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:facebook-f" class="h-4 w-4" />
+    </a>
+
+    <a
+      href={`http://news.ycombinator.com/submitlink?u=${encoded_url}&t=${title}`}
+      target="_blank"
+      aria-label={t('labels.share-article') + ': Hackernews / YCombinator'}
+      rel="noreferrer noopener"
+      class:list={[activeButtonsSmallScreen.hackernews ? 'flex' : 'hidden', activeButtons.hackernews ? 'md:flex' : 'md:hidden']}
+    >
+      <Icon name="fa6-brands:hacker-news" class="h-5 w-5" />
+    </a>
+
+    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': LinkedIn'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.linkedin ? 'flex' : 'hidden', activeButtons.linkedin ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:linkedin-in" class="h-5 w-5" />
+    </a>
+
+    <a href={`https://pinterest.com/pin/create/button/?url=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': Pinterest'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.pinterest ? 'flex' : 'hidden', activeButtons.pinterest ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:pinterest-p" class="h-5 w-5" />
+    </a>
+
+    <a href={`https://www.reddit.com/submit?url=${encoded_url}&title=${title}`} target="_blank" aria-label={t('labels.share-article') + ': Reddit'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.reddit ? 'flex' : 'hidden', activeButtons.reddit ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:reddit-alien" class="h-5 w-5" />
+    </a>
+
+    <a href={`https://t.me/share/url?url=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': Telegram'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.telegram ? 'flex' : 'hidden', activeButtons.telegram ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:telegram" class="h-6 w-6" />
+    </a>
+
+    <a href={`https://x.com/intent/post?url=${encoded_url}` + (xHandle ? `&via=${xHandle}` : '')} target="_blank" aria-label={t('labels.share-article') + ': X'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.x ? 'flex' : 'hidden', activeButtons.x ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:x-twitter" class="h-5 w-5" />
+    </a>
+
+    <a href={`https://api.whatsapp.com/send?text=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': WhatsApp'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.whatsapp ? 'flex' : 'hidden', activeButtons.whatsapp ? 'md:flex' : 'md:hidden']}>
+      <Icon name="fa6-brands:whatsapp" class="h-5 w-5" />
+    </a>
+  </div>
+)}
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  .social-share-buttons a {
+    @apply border border-stone-300 dark:border-stone-100 flex gap-2 font-semibold items-center no-underline bg-stone-200 dark:bg-stone-300 hover:shadow hover:border-primary hover:bg-primary focus-within:ring-2 focus:outline-0 text-stone-950 p-1.5 ring-primary hover:text-white whitespace-nowrap cursor-pointer fill-current visited:text-start select-none rounded-full;
+  }
+</style>

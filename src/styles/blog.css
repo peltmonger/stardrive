@@ -1,0 +1,15 @@
+@reference "./tailwind.config.css";
+@import './markdown.css';
+
+@layer utilities {
+  img#title-image {
+    @apply mb-6 max-h-48 w-full rounded-lg bg-top object-cover shadow-lg transition-all sm:max-h-72 md:max-h-96;
+  }
+
+  /* Social Share Buttons */
+
+  .social-share-buttons button,
+  .social-share-buttons a {
+    @apply bg-primary-darker hover:bg-secondary h-10 w-10 items-center justify-center rounded-lg no-underline hover:text-black;
+  }
+}

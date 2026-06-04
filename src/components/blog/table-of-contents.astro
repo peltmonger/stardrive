@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations } from "@utils/i18n";
+
+interface Props {
+  headings: Array<{
+    depth: number;
+    text: string;
+    slug: string;
+  }>;
+  locale: string;
+  baseUrl?: string;
+  overlay?: boolean;
+}
+
+const { headings, locale, baseUrl, overlay } = Astro.props as Props;
+const t = useTranslations(locale);
+---
+
+<h2 class:list={['flex items-center gap-2 p-4 font-bold whitespace-nowrap italic opacity-60 select-none', overlay ? 'text-2xl sm:text-3xl' : 'text-xl']}>
+  <Icon name="heroicons:list-bullet" class="h-6 w-6" />
+  {t('labels.toc')}
+</h2>
+<div class:list={['p-4 pl-5', overlay ? 'pt-4' : 'pt-1']}>
+  <a title={t('labels.to-start')} href="#start" class:list={['group flex items-center gap-1 font-normal no-underline', overlay ? 'text-base opacity-100' : 'text-sm opacity-60 group-hover/whole-toc:opacity-100']}>
+    <Icon name="heroicons:arrow-up-left" class="mt-0.5 h-3 w-0 transition-all group-hover:w-3" />
+    <span class="block w-3 transition-all group-hover:w-0 group-hover:opacity-0">&#8208;</span>
+    <span class="line-clamp-1">{t('labels.to-start')}</span>
+  </a>
+  {
+    headings.map(({ depth, text, slug }: { depth: number; text: string; slug: string }) => (
+      <a
+        title={text}
+        class:list={['toc-link group flex items-center gap-1 font-normal no-underline', overlay ? 'mt-5 text-base opacity-100' : 'mt-3 text-sm opacity-60 group-hover/whole-toc:opacity-100', depth === 3 && 'pl-2', ![1, 2, 3].includes(depth) && 'pl-4']}
+        href={(baseUrl ? baseUrl : '') + '#' + slug}
+      >
+        <Icon name="heroicons:arrow-left" class="mt-0.5 h-3 w-0 shrink-0 transition-all group-hover:w-3" />
+        <span class="block w-3 shrink-0 transition-all group-hover:w-0 group-hover:opacity-0">&#8208;</span>
+        <span class="line-clamp-1">{text}</span>
+      </a>
+    ))
+  }
+</div>

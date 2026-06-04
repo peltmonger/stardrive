@@ -1,0 +1,93 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLocaleUrl, useTranslations } from "@utils/i18n";
+import type { Page } from 'astro';
+
+interface Props {
+  page: Page;
+  baseUrl?: string;
+  locale: string;
+  class?: string;
+}
+
+const { page, baseUrl = 'blog', locale } = Astro.props as Props;
+const classOverride = Astro.props.class || 'mb-3 mt-28';
+const t = useTranslations(locale);
+
+function generatePaginationItems(page: Page) {
+  const numberofPages = Math.ceil(page.total / page.size);
+  if (numberofPages <= 5) {
+    return Array.from({ length: numberofPages }, (_, i) => i + 1);
+  }
+  const pagesToShow = new Set<number>();
+  pagesToShow.add(1);
+  pagesToShow.add(numberofPages);
+  if (page.currentPage <= 3) {
+    pagesToShow.add(2);
+    pagesToShow.add(3);
+    pagesToShow.add(4);
+  } else if (page.currentPage >= numberofPages - 2) {
+    pagesToShow.add(numberofPages - 3);
+    pagesToShow.add(numberofPages - 2);
+    pagesToShow.add(numberofPages - 1);
+  } else {
+    pagesToShow.add(page.currentPage - 1);
+    pagesToShow.add(page.currentPage);
+    pagesToShow.add(page.currentPage + 1);
+  }
+  return Array.from(pagesToShow).sort((a, b) => a - b);
+}
+
+const paginationItems = generatePaginationItems(page);
+---
+
+<nav aria-label={t('labels.pagination')} class={classOverride}>
+  <ul class="mx-auto flex w-fit items-center justify-center drop-shadow select-none hover:drop-shadow-lg">
+    <li>
+      {
+        page.url.prev ? (
+          <a href={page.url.prev} aria-label={t('labels.prev')} class="bg-stone-200 dark:bg-stone-800 hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-s-lg border border-stone-400 px-6 hover:z-20 md:px-3">
+            <Icon name="heroicons:chevron-left" class="h-5 w-5" />
+          </a>
+        ) : (
+          <div class="bg-stone-200 dark:bg-stone-800 flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-s-lg border border-stone-400 px-3 opacity-30">
+            <Icon name="heroicons:chevron-left" class="h-5 w-5" />
+          </div>
+        )
+      }
+    </li>
+    {
+      paginationItems.map(async (pageNum, index, array) => (
+        <>
+          <li class="mt-0 ml-[-2px] hidden md:block">
+            <a
+              href={pageNum === 1 ? getLocaleUrl('/' + baseUrl, locale) : getLocaleUrl(`/${baseUrl}/${pageNum}`, locale)}
+              aria-label={t('labels.page')}
+              class:list={[pageNum === page.currentPage ? 'border-primary text-primary z-20' : 'hover:border-primary border-stone-400', 'bg-stone-200 dark:bg-stone-800 hover:text-primary-contrast hover:bg-primary relative flex h-10 w-fit items-center justify-center border px-4 font-semibold no-underline hover:z-20']}
+            >
+              {pageNum}
+            </a>
+          </li>
+          {array[index + 1] && array[index + 1] - pageNum > 1 && (
+            <li class="mt-0 ml-[-2px] hidden md:block">
+              <span class="bg-stone-200 dark:bg-stone-800 relative flex h-10 w-fit items-center justify-center border border-stone-400 px-4">...</span>
+            </li>
+          )}
+        </>
+      ))
+    }
+    <li class="mt-0 ml-[-2px]">
+      {
+        page.url.next ? (
+          <a href={page.url.next} aria-label={t('labels.next')} class="bg-stone-200 dark:bg-stone-800 hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-e-lg border border-stone-400 px-6 hover:z-20 md:px-3">
+            <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+          </a>
+        ) : (
+          <div class="bg-stone-200 dark:bg-stone-800 flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-e-lg border border-stone-400 px-3 opacity-30">
+            <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+          </div>
+        )
+      }
+    </li>
+  </ul>
+</nav>
