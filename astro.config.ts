@@ -41,10 +41,6 @@ export default defineConfig({
     layout: 'constrained',
   },
 
-  experimental: {
-    rustCompiler: true,
-  },
-
   vite: {
     plugins: [
       tailwindcss(),

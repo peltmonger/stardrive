@@ -50,7 +50,7 @@ const navLinks: NavItem[] = [
         role="menu"
         aria-label={`${item.label} submenu`}
         hidden
-        class="absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-white dark:bg-stone-800 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700 flex overflow-hidden z-50"
+        class="absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-white dark:bg-stone-800 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700 flex overflow-hidden z-50 origin-top opacity-0 scale-75 transition duration-150 ease-out motion-reduce:transition-none"
         data-dropdown-panel
       >
         <ul role="none" class="p-3 min-w-72 text-left">
@@ -135,6 +135,7 @@ const navLinks: NavItem[] = [
 
     const closeDropdown = () => {
       if (!activePanel || !activeTrigger) return;
+      activePanel.classList.remove('opacity-100', 'scale-100');
       activePanel.hidden = true;
       activeTrigger.setAttribute('aria-expanded', 'false');
       activeTrigger.querySelector('svg')?.classList.remove('rotate-180');
@@ -148,6 +149,8 @@ const navLinks: NavItem[] = [
       activePanel = panel;
       activeTrigger = trigger;
       panel.hidden = false;
+      // Trigger the fade + pop on the next frame so the transition runs
+      requestAnimationFrame(() => panel.classList.add('opacity-100', 'scale-100'));
       trigger.setAttribute('aria-expanded', 'true');
       trigger.querySelector('svg')?.classList.add('rotate-180');
       if (focusFirst) getMenuItems(panel)[0]?.focus();

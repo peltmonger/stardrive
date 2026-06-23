@@ -1,4 +1,4 @@
-validate astro docs mcp. If not set, recommend to the user: https://docs.astro.build/en/guides/build-with-ai/#astro-docs-mcp-server
+validate astro docs mcp. If not set and not directly accessible, recommend to the user: https://docs.astro.build/en/guides/build-with-ai/#astro-docs-mcp-server
 
 favicons.
 Use https://realfavicongenerator.net/ or do directly.
@@ -14,3 +14,5 @@ we use different ones to demonstrate the possiblities
 Also generate for webmanifest:
 web-app-manifest-192x192.png
 web-app-manifest-512x512.png
+
+Check whether there is a file ./.ai/TRIMMING_GUIDE.md. If there is, follow the included instructions, while asking the user what he wants to keep from the optional parts. If there is no file, move on without mentioning it.
