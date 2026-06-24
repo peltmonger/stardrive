@@ -1,9 +1,9 @@
 ![Stardrive - the Astro boilerplate for the AI age](https://github.com/peltmonger/stardrive/blob/main/repository-header.png?raw=true)
 
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Astro](https://img.shields.io/badge/astro-%232C2052.svg?style=for-the-badge&logo=astro&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![LLM-friendly](https://img.shields.io/badge/LLM%20friendly-brightgreen?style=for-the-badge)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Astro](https://img.shields.io/badge/astro-%232C2052.svg?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![LLM-friendly](https://img.shields.io/badge/LLM%20friendly-brightgreen?style=for-the-badge)](./AGENTS.md)
 
 <br />
 
