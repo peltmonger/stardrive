@@ -137,13 +137,14 @@ _(Alternatively, you can also always simply fork and/or clone the official repos
 
 ### Cleanup
 
-Remove the following files as they are only relevant for the official boilerplate demo and repository.
+Remove the following as this is only relevant for the official boilerplate demo and repository.
 
-- `./scripts/syncVersion.js`
 - `./SECURITY.md`
 - `./CHANGELOG.md`
 - `./repository-header.png`
 - `./.github` (whole directory)
+- `./scripts/syncVersion.js`
+- In the [package.json](../package.json), remove the "prebuild" script, the "sync-version" script, and the `npm run sync-version && ` from the "fix" script.
 
 During the further configuration, you will delete and adjust even more content, but this is the stuff, you can and should blindy trash at the very beginning.
 
@@ -282,27 +283,27 @@ Third, some things are configurable via env variables at build time.
 5. Also replace the social preview images (og.png, x.png, structured-preview.png) in ./public/images/. They act as a general fallback, For articles, we auto-generate them from the article's main image.
 6. Adjust the [theme.config.ts](./theme.config.ts):
 
-- Set the base information first - like the site url, primary color, ... Everything is typed here - your IDE should be able to read-he comments from the types to help you understand the respective settings.
-- Decide which languages you want to support, create a respective json file in the ./src/i18n/ directory, and import it in the config file. Adjust the "i18n" block respectively.
-- Load the expressiveCodeThemes you want to use. Pick two. 1 for light and 1 for dark mode. If you do not use dark mode, only pick one. Find the available options at the [shikijs repository](https://github.com/shikijs/textmate-grammars-themes/tree/main/packages/tm-themes).
-- If you are using the blog feature, specifying basic article settings would be next. This mainly defines the general layout and functionality. if you decide to use the image fallback feature, check the [demo fallback image](./src/images/content/articles-fallback.jpg) and replace it.
-- Set promotion slots, if you want to - you can adjust the content later. Drop it or set everything to `false`, if you do not need this at the moment.
-- Last but not least, define how the llms.txt file is created. As of today, it is not clearly stated whether this is really useful or not - however, Lighthouse has started testing for it, so it doesn't hurt.
+    - Set the base information first - like the site url, primary color, and so on. Everything is typed here - your IDE should be able to read-he comments from the types to help you understand the respective settings.
+    - Decide which languages you want to support, create a respective json file in the ./src/i18n/ directory, and import it in the config file. Adjust the "i18n" block respectively.
+    - Load the expressiveCodeThemes you want to use. Pick two. 1 for light and 1 for dark mode. If you do not use dark mode, only pick one. Find the available options at the [shikijs repository](https://github.com/shikijs/textmate-grammars-themes/tree/main/packages/tm-themes).
+    - If you are using the blog feature, specifying basic article settings would be next. This mainly defines the general layout and functionality. if you decide to use the image fallback feature, check the [demo fallback image](./src/images/content/articles-fallback.jpg) and replace it.
+    - Set promotion slots, if you want to - you can adjust the content later. Drop it or set everything to `false`, if you do not need this at the moment.
+    - Last but not least, define how the llms.txt file is created. As of today, it is not clearly stated whether this is really useful or not - however, Lighthouse has started testing for it, so it doesn't hurt.
 
 7. If you want to use Webfonts, add them by installing via fontsource. The boilerplate comes with "Geist". You might want to uninstall this with `npm un @fontsource/geist` and install your own.
 8. Adjust the TailwindCSS base config at [./src/styles/tailwind.config.css](./src/styles/tailwind.config.css).
 
-- Adjust the font section. For example, replace "Geist" with your main font or even add new font styles.
-- Adjust the colors section (Branding and maybe Utility). We recommend to only adjust color hex codes and optionally add additional ones. If you remove lines, this breaks the demo content, which can be confusing - only do this at the very end when you replaced the demo content with your own!
-- Adjusting breakpoints could be a thing for design nerds.
-- Add anything else you already know you require. But, of course, you can also adjust things any time later.
+    - Adjust the font section. For example, replace "Geist" with your main font or even add new font styles.
+    - Adjust the colors section (Branding and maybe Utility). We recommend to only adjust color hex codes and optionally add additional ones. If you remove lines, this breaks the demo content, which can be confusing - only do this at the very end when you replaced the demo content with your own!
+    - Adjusting breakpoints could be a thing for design nerds.
+    - Add anything else you already know you require. But, of course, you can also adjust things any time later.
 
 9. If you already have some CSS you want to use, adjust/extend the [global.css](./src/styles/global.css) file to your needs. Also have a look at the other CSS files in the ./src/styles folder and adjust to your needs and taste. Our logic for styling goes as follows:
 
-- TailwindCSS as base
-- global.css to add custom rules and base styling. We also put things there, that are duplicated a lot and where the Tailwind classes should have a single source of truth (e.g. buttons).
-- Additional CSS files for special pages (gets imported in addition on the page level). For example, we have a long-text-content.css, which is super useful to style boring things like the privacy policy page.
-- Super custom stuff goes into the respective page or component; and on that level, as Tailwind classes or into its own scoped CSS block, if we would have a lot of class duplication otherwise (mind to set the [reference](https://tailwindcss.com/docs/functions-and-directives#reference-directive) to the tailwind.config.css file in those `<style>` blocks!).
+    - TailwindCSS as base
+    - global.css to add custom rules and base styling. We also put things there, that are duplicated a lot and where the Tailwind classes should have a single source of truth (e.g. buttons).
+    - Additional CSS files for special pages (gets imported in addition on the page level). For example, we have a long-text-content.css, which is super useful to style boring things like the privacy policy page.
+    - Super custom stuff goes into the respective page or component; and on that level, as Tailwind classes or into its own scoped CSS block, if we would have a lot of class duplication otherwise (mind to set the [reference](https://tailwindcss.com/docs/functions-and-directives#reference-directive) to the tailwind.config.css file in those `<style>` blocks!).
 
 10. Delete the subfolders in ./src/content/ and ./src/pages/ for those languages (e.g. "/fr"), which you do not want to support (see step 2). If you are only using 1 language, you can also drop the ./src/pages/[lang] folder as well as the [language-switcher.tsx](./src/components/layout/language-switcher.tsx) and [language-select.astro](./src/components/layout/language-select.astro) files in the components folder.
 11. Check what we put into the `<head>` for open graph and x at [./src/components/head/ogx.astro](./src/components/head/ogx.astro). Extend if you want to.
