@@ -10,7 +10,7 @@ const { locale } = Astro.props as Props;
 const t = useTranslations(locale);
 ---
 
-<a href={getLocaleUrl('docs', locale)} id="top-banner" role="menuitem" tabindex="-1" class="group z-50 hidden h-9 items-center justify-center gap-1 bg-rose-800 px-3 py-2 text-sm text-white no-underline hover:bg-rose-700 sm:flex">
+<a href={getLocaleUrl('docs', locale)} id="top-banner" tabindex="-1" class="group z-50 hidden h-9 items-center justify-center gap-1 bg-rose-800 px-3 py-2 text-sm text-white no-underline hover:bg-rose-700 sm:flex">
   <span>{t('global-promo.top-text-1')}</span>
   <span class="hidden truncate lg:inline">{t('global-promo.top-text-2')}</span>
   <span class="text-normal px-1.5 opacity-50" aria-hidden="true">|</span>
