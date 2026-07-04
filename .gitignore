@@ -1,13 +1,13 @@
+# Lock files (ignore what you are not using and enable the one for your package manager)
+#package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
 # Tmp framework files
 .astro
 .wrangler
 STARDRIVE_AGENT_MODE.md
-
-# Lock files
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-bun.lockb
 
 # Logs
 logs
