@@ -42,6 +42,9 @@ export default defineConfig({
     remotePatterns: [{ protocol: 'https' }], // only allows remote images with https, see https://docs.astro.build/en/guides/images/#authorizing-remote-images for more options
     responsiveStyles: false, // set true for more convenience, but less control; details at https://docs.astro.build/en/guides/images/#responsive-image-behavior
     layout: 'constrained',
+    // Astro generates responsive variants for each width in this list (plus the image's intrinsic width).
+    // Defaults are [640, 750, 828, 1080, 1200, 1920]; This is our recommendation based on Tailwind defaults.
+    breakpoints: [414, 576, 768, 976, 1440, 1600],
   },
 
   experimental: {
