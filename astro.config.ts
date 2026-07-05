@@ -40,9 +40,10 @@ export default defineConfig({
 
   image: {
     remotePatterns: [{ protocol: 'https' }], // only allows remote images with https, see https://docs.astro.build/en/guides/images/#authorizing-remote-images for more options
-    responsiveStyles: false, // set true for more convenience, but less control; details at https://docs.astro.build/en/guides/images/#responsive-image-behavior
+    domains: ['astro-stardrive.com'], // only allows remote images from these domains; any other origin won't get optimized; change as needed; for example, the external images in our zapier integration cards are not optimized on purpose, because pulling them from the optimizer breaks.
+    responsiveStyles: true, // set false for less convenience, but more control; details at https://docs.astro.build/en/guides/images/#responsive-image-behavior
     layout: 'constrained',
-    // Astro generates responsive variants for each width in this list (plus the image's intrinsic width).
+    // If responsiveStyles is set, Astro generates variants for each width in this list (plus the image's intrinsic width).
     // Defaults are [640, 750, 828, 1080, 1200, 1920]; This is our recommendation based on Tailwind defaults.
     breakpoints: [414, 576, 768, 976, 1440, 1600],
   },

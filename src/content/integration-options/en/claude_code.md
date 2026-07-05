@@ -13,10 +13,6 @@ Claude Code is Anthropic's official agentic coding tool that runs directly in yo
 
 ## Example
 
-```
- hs hdh jkhsdkjhfkjdjkf jks hkjfhkjd hjkghjk hjkgjkd jkghdjk hjkg hdkjhgjkd kjhgkjdh kjghdkfh gjkdhkj hgkjdgkk
-```
-
 You can use **Claude Code** with this Astro Stardrive Boilerplate to create super-fast and stable websites purely with AI.
 Due to the nature of this boilerplate, you do not need to care that much about the technical fundamentals underneath.
 

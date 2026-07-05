@@ -17,6 +17,7 @@ const onDemandRoutes: Record<string, string> = {
   // from the Add to Calendar PRO API (it stays prerendered for markdown events).
   'events/[...year].astro': 'events_overview',
   'integration/[type]/[item].astro': 'integration_options',
+  'integration/[type]/index.astro': 'integration_options',
   // Dynamic events sitemap - only SSR when events are pulled from the API.
   'dynamic-events-sitemap.xml.ts': 'dynamic_events_sitemap',
 };

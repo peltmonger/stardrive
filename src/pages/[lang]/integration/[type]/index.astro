@@ -1,19 +1,18 @@
 ---
 import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import IntegrationList from "@components/integration/integration-list.astro";
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import { themeConfig } from '~/theme.config';
-import { useTranslations } from "@utils/i18n";
-
-const locale = Astro.params.lang;
-const t = useTranslations(locale);
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
 
 export async function getStaticPaths() {
   const langs = themeConfig.i18n.locales.filter(
     (lang) => lang !== themeConfig.i18n.defaultLocale
   );
 
-  const paths = [] as { params: { lang: string; type: string }; props: { item: string } }[];
+  const paths = [] as { params: { lang: string; type: string } }[];
 
   for (const lang of langs) {
     const entries = (await getCollection('integration_options', ({ id, data }) => {
@@ -23,13 +22,8 @@ export async function getStaticPaths() {
     const types = Array.from(new Set(entries.map((e) => e.data.type)));
 
     for (const type of types) {
-      const firstItem = entries
-        .filter((e) => e.data.type === type)
-        .sort((a, b) => a.data.service.localeCompare(b.data.service))[0];
-      const slug = firstItem.id.split('/')[1];
       paths.push({
         params: { lang, type },
-        props: { item: slug },
       });
     }
   }
@@ -37,6 +31,24 @@ export async function getStaticPaths() {
   return paths;
 }
 
-return Astro.redirect(`/${Astro.params.lang}/integration/${Astro.params.type}/${Astro.props.item}`, 302);
+const { type } = Astro.params;
+
+const locale = Astro.params.lang;
+const t = useTranslations(locale);
+
+const typeTitle = t(`pages.integration-${type}.title`);
+const typeDescription = t(`pages.integration-${type}.description`);
 ---
-<Layout title={t('pages.integration.title')} description={t('pages.integration.description')} {locale}></Layout>
+
+<Layout title={typeTitle} description={typeDescription} {locale} header={{ button: { text: t('labels.more-categories'), href: getLocaleUrl('integration', locale) } }}>
+  <!-- Main content -->
+  <Headline text={typeTitle} class="pb-10" />
+  <div class="flex flex-col-reverse items-center md:items-start gap-10 md:flex-row">
+    <div class="md:max-w-[220px] md:block lg:max-w-3xs">
+      <IntegrationList {type} {locale} />
+    </div>
+    <article class="min-w-0 md:grow">
+      {typeDescription && <p class="mb-6 ml-10 text-lg opacity-80 sm:ml-0">{typeDescription}</p>}
+    </article>
+  </div>
+</Layout>
