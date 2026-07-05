@@ -99,14 +99,10 @@ export default defineConfig({
   vite: {
     plugins: [
       tailwindcss(),
-      // The `glob()` content loader (astro/loaders) pulls in `fdir` -> `tinyglobby` -> `picomatch`.
-      // `fdir`'s bundled output calls `createRequire(import.meta.url)` at module top-level. In the
-      // workerd runtime (on-demand SSR routes) `import.meta.url` is not a file URL, so this throws
-      // "The argument 'path' ... Received 'undefined'" and 500s every on-demand route. The only
-      // use of the resulting `__require` is a build-time probe for `picomatch` inside a try/catch
-      // (it sets `pm = null` when unavailable), so stubbing it out at build time is safe.
-      // `optimizeDeps.include` cannot fix this because it only affects the dev server, not the
-      // Rollup server bundle that ships to Cloudflare.
+      // The following are workarounds for issues with the Cloudflare adapter and its on-demand SSR runtime (workerd).
+      // See https://docs.astro.build/en/guides/integrations-guide/cloudflare/#some-dependencies-might-need-to-be-pre-compiled for details.
+      //
+      // Custom Plugin: Neutralize `createRequire(import.meta.url)` in fdir (used by astro/loaders -> tinyglobby -> picomatch) to avoid "The argument 'path' ... Received 'undefined'" errors in workerd.
       {
         name: 'neutralize-create-require-for-workerd',
         enforce: 'post',
@@ -120,14 +116,7 @@ export default defineConfig({
         },
       },
     ],
-    // The Cloudflare adapter renders on-demand routes (e.g. an unmatched URL hitting the 404 page)
-    // inside the workerd runtime during `astro dev`. Some transitive CommonJS deps (e.g. debug -> ms, pulled
-    // in via astro-icon -> @iconify/utils) reference the Node-only `module` global, which throws
-    // "module is not defined" in workerd. Pre-bundling them with the dep optimizer (esbuild) converts
-    // the CJS to ESM so they no longer reference `module`.
-    // Production is unaffected as long as things are prerendered (output: 'static'), but would also fail with on-demand SSR.
-    // The pre-bundling mitigates the issue for both dev and production, so we do it here.
-    // see https://docs.astro.build/en/guides/integrations-guide/cloudflare/#some-dependencies-might-need-to-be-pre-compiled
+    // Pre-compilation of dependencies that are not compatible with the Cloudflare workerd runtime (on-demand SSR) or that are ESM-only and not pre-bundled by Vite.
     optimizeDeps: {
       include: ['debug', 'ms', 'reading-time', 'fdir > picomatch', 'expressive-code > postcss'],
     },

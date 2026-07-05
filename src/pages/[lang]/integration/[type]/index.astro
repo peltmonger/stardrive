@@ -1,7 +1,12 @@
 ---
+import Layout from "@layouts/default.astro";
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import { themeConfig } from '~/theme.config';
+import { useTranslations } from "@utils/i18n";
+
+const locale = Astro.params.lang;
+const t = useTranslations(locale);
 
 export async function getStaticPaths() {
   const langs = themeConfig.i18n.locales.filter(
@@ -34,3 +39,4 @@ export async function getStaticPaths() {
 
 return Astro.redirect(`/${Astro.params.lang}/integration/${Astro.params.type}/${Astro.props.item}`, 302);
 ---
+<Layout title={t('pages.integration.title')} description={t('pages.integration.description')} {locale}></Layout>
