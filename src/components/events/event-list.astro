@@ -98,10 +98,14 @@ const entriesByMonth = months.map((month) => ({
     document.querySelectorAll<HTMLElement>('.atcb-wrapper').forEach((wrapper) => {
       if (wrapper.dataset.atcbIntercepted === '1') return;
       wrapper.dataset.atcbIntercepted = '1';
-      wrapper.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }, { capture: true });
+      wrapper.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        },
+        { capture: true },
+      );
     });
   }
 

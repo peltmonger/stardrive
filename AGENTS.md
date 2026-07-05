@@ -68,7 +68,6 @@ This project is either the Astro Stardrive boilerplate or based on it. If you ar
 - TailwindCSS
 - ESLint
 - Prettier
-- SolidJS
 - Cloudflare Workers with Wrangler (prepared - might have been already dropped when you process this information here)
 - Additional things that got added after the initial setup of this project
 
@@ -82,11 +81,10 @@ They extend any existing general Agent guidelines, profiles, or skills.
 - Use svg files alwas as components and never via Astro's <Image> component. The latter one would break in some cases - especially with Cloudflare.
 - Always mind accessibility (create proper aria-labels, use semantic tags, consider keyboard + mouse + touch navigation, consider contrast colors when working with text).
 - Always try to use what is native to Astro and can be found in its documentation, before creating own logic.
-- Astro comes with an [Island Architecture](https://docs.astro.build/en/concepts/islands/), which means that you can also create dynamic components with React, Vue, or Svelte. However, they add a lot of complexity, so try to avoid it. Decision tree (use what fits first):
+- Astro comes with an [Island Architecture](https://docs.astro.build/en/concepts/islands/), which means that you can also create dynamic components with React, Vue, Svelte, or SolidJS. However, they add a lot of complexity, so try to avoid it. Decision tree (use what fits first):
   1. Can the functionality by achieved with Astro defaults or existing HTML?
   2. Would it be <50 lines with VanillaJS?
-  3. Can it be achieved with a solidJS component, sticking to its core (smaller footprint than React)?
-  4. Ask the user whether React, Vue, or Svelte is prefered for more complex things.
+  3. Ask the user whether React, Vue, Svelte, or SolidJS is prefered for more complex things.
 - Before implementing:
   - State your assumptions explicitly. If uncertain, ask.
   - If multiple interpretations exist, present them - don't pick silently.

@@ -50,9 +50,9 @@ const dateParts = formatRange(entry.data.startDate, entry.data.endDate, entry.da
   <div class="flex flex-col">
     {
       imageFile ? (
-        <Image src={imageFile} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority />
+        <Image src={imageFile} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} sizes="(max-width: 767px) 528px, (max-width: 975px) 710px, 912px" id="title-image" transition:name={'image-' + entry.id} draggable="false" priority />
       ) : entry.data.image?.url ? (
-        <Image src={entry.data.image.url} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority inferSize />
+        <Image src={entry.data.image.url} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} sizes="(max-width: 767px) 528px, (max-width: 975px) 710px, 912px" id="title-image" transition:name={'image-' + entry.id} draggable="false" priority inferSize />
       ) : null
     }
     <Headline text={entry.data.title} class="pb-10" />

@@ -41,11 +41,18 @@ const pmtilesUrl = "/map/office.pmtiles";
     const pmtilesUrl = el.dataset.pmtiles as string;
     const pinTitle = el.dataset.pinTitle ?? '';
 
+    // Disable dragging on touch devices so the map doesn't hijack page scroll.
+    // Approach based on https://github.com/Leaflet/Leaflet/issues/4544 — detect
+    // a coarse pointer (no fine mouse) and toggle dragging accordingly.
+    const isTouch = typeof window !== 'undefined' && window.matchMedia !== undefined && window.matchMedia('(pointer: coarse)').matches;
+
     const map = L.map(el, {
       center: [lat, lng],
       zoom,
       zoomControl: true,
       scrollWheelZoom: false, // avoid hijacking page scroll
+      dragging: !isTouch, // disable on mobile/touch devices
+      tapHold: false, // avoid 300ms tap delay + stray tap events on mobile
       attributionControl: true,
     });
 

@@ -1,7 +1,6 @@
 import { defineConfig, svgoOptimizer } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
-import solidJs from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import { unified, rehypeHeadingIds } from '@astrojs/markdown-remark';
@@ -59,6 +58,7 @@ export default defineConfig({
             overrides: {
               cleanupIds: false,
               inlineStyles: false,
+              mergeStyles: false,
               removeHiddenElems: false,
               convertShapeToPath: false,
               convertEllipseToCircle: false,
@@ -139,7 +139,6 @@ export default defineConfig({
   },
 
   integrations: [
-    solidJs(),
     setOnDemandPrerender,
     sitemap({
       i18n: sitemap_i18n,

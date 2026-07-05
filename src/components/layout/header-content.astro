@@ -47,7 +47,9 @@ const { locale, button, tabIndex = 0, shrink = true, isHome, ctaButton, github, 
       </span>
     ) : (
       <a href={getLocaleUrl('/', locale)} class="block w-fit select-none" tabindex={tabIndex}>
-        <p class="sr-only hidden" id="siteNameLogo">{themeConfig.name}</p>
+        <p class="sr-only hidden" id="siteNameLogo">
+          {themeConfig.name}
+        </p>
         <Logo aria-labelledby="siteNameLogo" class:list={['header-logo-dark h-10 w-fit', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
         <LogoWhite aria-labelledby="siteNameLogo" class:list={['header-logo-white h-10 w-fit', logoTheme === 'light' ? 'hidden' : logoTheme === 'dark' ? 'block' : 'hidden dark:block']} />
       </a>
@@ -66,7 +68,10 @@ const { locale, button, tabIndex = 0, shrink = true, isHome, ctaButton, github, 
       {
         github && (
           <a href={github} target="_blank" rel="noopener" class="hidden lg:block" tabindex={tabIndex}>
-            <Icon name="fa6-brands:github" class="h-6 w-6" />
+            <p class="sr-only hidden" id="GitHubLink">
+              GitHub
+            </p>
+            <Icon aria-labelledby="GitHubLink" name="fa6-brands:github" class="h-6 w-6" />
           </a>
         )
       }

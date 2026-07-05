@@ -63,7 +63,6 @@
     "@astrojs/cloudflare": "^14.1.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "@astrojs/solid-js": "^7.0.1",
     "@fontsource/geist": "^5.2.9",
     "@tailwindcss/vite": "^4.3.2",
     "add-to-calendar-button": "^2.14.0",
@@ -74,7 +73,6 @@
     "pmtiles": "^4.4.1",
     "protomaps-leaflet": "^5.1.0",
     "slot-text": "^0.3.2",
-    "solid-js": "^1.9.14",
     "tailwindcss": "^4.3.2",
     "wrangler": "^4.107.0"
   },

@@ -65,3 +65,8 @@ interface Navigator {
   /** Deprecated location of modelContext in Chrome < 150; use document.modelContext. Can be dropped in future versions. */
   readonly modelContext?: WebMCPModelContext;
 }
+
+interface Window {
+  /** Guard flag set once WebMCP tools have been registered for this page session. */
+  __webmcpRegistered?: boolean;
+}

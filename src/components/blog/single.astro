@@ -8,7 +8,6 @@ import type { ImageMetadata } from 'astro';
 import CatTagList from "@components/blog/cat-tag-list.astro";
 import ListItem from "@components/blog/list-item.astro";
 import TableOfContents from "@components/blog/table-of-contents.astro";
-import Toc from "@components/blog/toc.tsx";
 import { useTranslations, getCleanLocaleUrl} from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
 import { getReadingTime } from '@utils/reading-time';
@@ -40,7 +39,7 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
 ---
 
 <div id="start" class="flex flex-col">
-  {imageFile ? <Image src={imageFile} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority /> : entry.data.image?.url ? <Image src={entry.data.image.url} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority inferSize /> : null}
+  {imageFile ? <Image src={imageFile} sizes="(max-width: 767px) 528px, (max-width: 975px) 710px, 912px" alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority /> : entry.data.image?.url ? <Image src={entry.data.image.url} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority inferSize /> : null}
 
   <h1 class="max-w-3xl px-2 text-3xl font-bold italic select-none sm:py-5 sm:text-5xl md:px-6">{entry.data.title}</h1>
 
@@ -140,10 +139,75 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
   )
 }
 
-{
-  !hideToC && (
-    <>
-      <Toc client:only />
-    </>
-  )
-}
+<script>
+  const getFocusable = () => {
+    const el = document.getElementById('toc-overlay');
+    if (!el) return [];
+    return Array.from(el.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+  };
+
+  const trapFocus = (event: KeyboardEvent) => {
+    const tocOverlay = document.getElementById('toc-overlay');
+    if (!tocOverlay || tocOverlay.classList.contains('hidden')) return;
+    if (event.key !== 'Tab') return;
+
+    const focusable = getFocusable();
+    if (!focusable.length) return;
+
+    event.preventDefault();
+    const current = document.activeElement;
+    const index = focusable.indexOf(current as HTMLElement);
+    if (event.shiftKey) {
+      const prev = index <= 0 ? focusable.length - 1 : index - 1;
+      focusable.at(prev)?.focus();
+    } else {
+      const next = index === -1 || index === focusable.length - 1 ? 0 : index + 1;
+      focusable.at(next)?.focus();
+    }
+  };
+
+  const openToC = () => {
+    const tocOverlay = document.getElementById('toc-overlay');
+    if (tocOverlay) {
+      tocOverlay.classList.remove('hidden');
+      tocOverlay.classList.add('fixed');
+      document.body.classList.add('overflow-y-hidden');
+      // Focus the first focusable element inside the overlay
+      const focusable = getFocusable();
+      focusable.at(0)?.focus();
+    }
+  };
+
+  const closeToC = () => {
+    const tocOverlay = document.getElementById('toc-overlay');
+    if (!tocOverlay || tocOverlay.classList.contains('hidden')) return;
+    tocOverlay.classList.add('hidden');
+    tocOverlay.classList.remove('fixed');
+    document.body.classList.remove('overflow-y-hidden');
+    (document.getElementById('open-toc') as HTMLElement | null)?.focus();
+  };
+
+  const handleKeyup = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') closeToC();
+  };
+
+  const setupToC = () => {
+    document.getElementById('open-toc')?.addEventListener('click', openToC);
+    document.getElementById('close-toc')?.addEventListener('click', closeToC);
+    document.addEventListener('keyup', handleKeyup);
+    document.addEventListener('keydown', trapFocus);
+    document.querySelectorAll('.toc-link').forEach((link) => link.addEventListener('click', closeToC));
+  };
+
+  const cleanupToC = () => {
+    document.getElementById('open-toc')?.removeEventListener('click', openToC);
+    document.getElementById('close-toc')?.removeEventListener('click', closeToC);
+    document.removeEventListener('keyup', handleKeyup);
+    document.removeEventListener('keydown', trapFocus);
+    document.querySelectorAll('.toc-link').forEach((link) => link.removeEventListener('click', closeToC));
+  };
+
+  // astro:page-load fires on initial load and after every view-transition swap.
+  document.addEventListener('astro:page-load', setupToC);
+  document.addEventListener('astro:before-swap', cleanupToC);
+</script>

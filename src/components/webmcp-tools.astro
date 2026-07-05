@@ -166,8 +166,6 @@ const payload = hasAnyTool ? { blog, faq, labels } : null;
   let hasAnyTool = document.querySelector<HTMLElement>('[data-has-tools]')?.dataset.hasTools === 'true';
 
   if (hasAnyTool) {
-    let abortController: AbortController | null = null;
-
     function matches(value: string, list: TaggedItem[], candidate: string): boolean {
       const needle = candidate.trim().toLowerCase();
       const item = list.find((i) => i.id.toLowerCase() === needle || i.label.toLowerCase() === needle);
@@ -175,139 +173,153 @@ const payload = hasAnyTool ? { blog, faq, labels } : null;
       return value.toLowerCase() === (item?.id.toLowerCase() ?? needle);
     }
 
-    async function registerWebMCPTools() {
-      // The API moved from navigator.modelContext (Chrome < 150) to
-      // document.modelContext (Chrome >= 150); support both.
-      const modelContext = document.modelContext ?? navigator.modelContext;
-      if (!modelContext) return; // WebMCP unsupported in this browser
+    // Mutable data store. Tool `execute` functions close over this variable,
+    // so updating it on navigation instantly changes what the tools return —
+    // without needing to abort and re-register (which races and throws
+    // `InvalidStateError: Duplicate tool name`).
+    let currentData: WebMCPData | null = null;
 
+    function loadData(): WebMCPData | null {
       const dataEl = document.getElementById('webmcp-data');
-      if (!dataEl?.textContent) return;
-
-      let data: WebMCPData;
+      if (!dataEl?.textContent) return null;
       try {
-        data = JSON.parse(dataEl.textContent) as WebMCPData;
+        return JSON.parse(dataEl.textContent) as WebMCPData;
       } catch {
-        return;
-      }
-
-      // Re-register on navigation: abort previously registered tools first.
-      abortController?.abort();
-      abortController = new AbortController();
-      const { signal } = abortController;
-      const readOnly = { readOnlyHint: true, untrustedContentHint: true };
-
-      const { blog, faq, labels } = data;
-
-      if (blog) {
-        await modelContext.registerTool(
-          {
-            name: 'get_blog_tags',
-            description: labels.blogTagsDesc,
-            inputSchema: { type: 'object', properties: {} },
-            annotations: readOnly,
-            execute: async () => JSON.stringify(blog.tags),
-          },
-          { signal },
-        );
-
-        await modelContext.registerTool(
-          {
-            name: 'get_blog_categories',
-            description: labels.blogCategoriesDesc,
-            inputSchema: { type: 'object', properties: {} },
-            annotations: readOnly,
-            execute: async () => JSON.stringify(blog.categories),
-          },
-          { signal },
-        );
-
-        await modelContext.registerTool(
-          {
-            name: 'get_blog_posts',
-            description: labels.blogPostsDesc,
-            inputSchema: {
-              type: 'object',
-              properties: {
-                category: { type: 'string', description: labels.blogPostsCategoryParam },
-                tag: { type: 'string', description: labels.blogPostsTagParam },
-                fromDate: { type: 'string', description: labels.blogPostsFromParam },
-                toDate: { type: 'string', description: labels.blogPostsToParam },
-                limit: { type: 'integer', minimum: 1, description: labels.blogPostsLimitParam },
-                offset: { type: 'integer', minimum: 0, description: labels.blogPostsOffsetParam },
-                page: { type: 'integer', minimum: 1, description: labels.blogPostsPageParam },
-              },
-            },
-            annotations: readOnly,
-            execute: async (args) => {
-              const { category, tag, fromDate, toDate, limit, offset, page } = (args ?? {}) as {
-                category?: string;
-                tag?: string;
-                fromDate?: string;
-                toDate?: string;
-                limit?: number;
-                offset?: number;
-                page?: number;
-              };
-              let posts = blog.posts;
-              if (category) posts = posts.filter((p) => p.categories.some((c) => matches(c, blog.categories, category)));
-              if (tag) posts = posts.filter((p) => p.tags.some((tg) => matches(tg, blog.tags, tag)));
-              if (fromDate) posts = posts.filter((p) => p.date >= fromDate);
-              if (toDate) posts = posts.filter((p) => p.date <= toDate);
-
-              const total = posts.length;
-              // Pagination: `page` (1-based) takes precedence over `offset`.
-              const pageSize = limit && limit > 0 ? Math.floor(limit) : 10;
-              const start = page && page > 0 ? (Math.floor(page) - 1) * pageSize : Math.max(0, Math.floor(offset ?? 0));
-              posts = posts.slice(start, start + pageSize);
-
-              // Return only the headline and URL, plus the total for paging.
-              return JSON.stringify({ total, posts: posts.map((p) => ({ title: p.title, url: p.url })) });
-            },
-          },
-          { signal },
-        );
-      }
-
-      if (faq) {
-        await modelContext.registerTool(
-          {
-            name: 'get_faq_categories',
-            description: labels.faqCategoriesDesc,
-            inputSchema: { type: 'object', properties: {} },
-            annotations: readOnly,
-            execute: async () => JSON.stringify(faq.categories),
-          },
-          { signal },
-        );
-
-        await modelContext.registerTool(
-          {
-            name: 'get_faq',
-            description: labels.faqDesc,
-            inputSchema: {
-              type: 'object',
-              properties: {
-                category: { type: 'string', description: labels.faqCategoryParam },
-              },
-            },
-            annotations: readOnly,
-            execute: async (args) => {
-              const { category } = (args ?? {}) as { category?: string };
-              let entries = faq.entries;
-              if (category) entries = entries.filter((e) => e.category && matches(e.category, faq.categories, category));
-              return JSON.stringify(entries);
-            },
-          },
-          { signal },
-        );
+        return null;
       }
     }
 
-    registerWebMCPTools().catch(console.error);
-    // Re-register after Astro view transitions (content/locale may change).
-    document.addEventListener('astro:after-swap', () => {
+    async function registerWebMCPTools() {
+      // The API moved from navigator.modelContext (Chrome < 150) to
+      // document.modelContext (Chrome >= 150); support both.
+      // TODO: Drop navigator.modelContext once Chrome 150 is stable and widely deployed.
+      const modelContext = document.modelContext ?? navigator.modelContext;
+      if (!modelContext) return; // WebMCP unsupported in this browser
+
+      const data = loadData();
+      if (!data) return;
+      currentData = data;
+
+      const readOnly = { readOnlyHint: true, untrustedContentHint: true };
+      const { blog, faq, labels } = data;
+
+      if (blog) {
+        await modelContext.registerTool({
+          name: 'get_blog_tags',
+          description: labels.blogTagsDesc,
+          inputSchema: { type: 'object', properties: {} },
+          annotations: readOnly,
+          execute: async () => JSON.stringify(currentData?.blog?.tags ?? []),
+        });
+
+        await modelContext.registerTool({
+          name: 'get_blog_categories',
+          description: labels.blogCategoriesDesc,
+          inputSchema: { type: 'object', properties: {} },
+          annotations: readOnly,
+          execute: async () => JSON.stringify(currentData?.blog?.categories ?? []),
+        });
+
+        await modelContext.registerTool({
+          name: 'get_blog_posts',
+          description: labels.blogPostsDesc,
+          inputSchema: {
+            type: 'object',
+            properties: {
+              category: { type: 'string', description: labels.blogPostsCategoryParam },
+              tag: { type: 'string', description: labels.blogPostsTagParam },
+              fromDate: { type: 'string', description: labels.blogPostsFromParam },
+              toDate: { type: 'string', description: labels.blogPostsToParam },
+              limit: { type: 'integer', minimum: 1, description: labels.blogPostsLimitParam },
+              offset: { type: 'integer', minimum: 0, description: labels.blogPostsOffsetParam },
+              page: { type: 'integer', minimum: 1, description: labels.blogPostsPageParam },
+            },
+          },
+          annotations: readOnly,
+          execute: async (args) => {
+            const blog = currentData?.blog;
+            if (!blog) return JSON.stringify({ total: 0, posts: [] });
+
+            const { category, tag, fromDate, toDate, limit, offset, page } = (args ?? {}) as {
+              category?: string;
+              tag?: string;
+              fromDate?: string;
+              toDate?: string;
+              limit?: number;
+              offset?: number;
+              page?: number;
+            };
+            let posts = blog.posts;
+            if (category) posts = posts.filter((p) => p.categories.some((c) => matches(c, blog.categories, category)));
+            if (tag) posts = posts.filter((p) => p.tags.some((tg) => matches(tg, blog.tags, tag)));
+            if (fromDate) posts = posts.filter((p) => p.date >= fromDate);
+            if (toDate) posts = posts.filter((p) => p.date <= toDate);
+
+            const total = posts.length;
+            // Pagination: `page` (1-based) takes precedence over `offset`.
+            const pageSize = limit && limit > 0 ? Math.floor(limit) : 10;
+            const start = page && page > 0 ? (Math.floor(page) - 1) * pageSize : Math.max(0, Math.floor(offset ?? 0));
+            posts = posts.slice(start, start + pageSize);
+
+            // Return only the headline and URL, plus the total for paging.
+            return JSON.stringify({ total, posts: posts.map((p) => ({ title: p.title, url: p.url })) });
+          },
+        });
+      }
+
+      if (faq) {
+        await modelContext.registerTool({
+          name: 'get_faq_categories',
+          description: labels.faqCategoriesDesc,
+          inputSchema: { type: 'object', properties: {} },
+          annotations: readOnly,
+          execute: async () => JSON.stringify(currentData?.faq?.categories ?? []),
+        });
+
+        await modelContext.registerTool({
+          name: 'get_faq',
+          description: labels.faqDesc,
+          inputSchema: {
+            type: 'object',
+            properties: {
+              category: { type: 'string', description: labels.faqCategoryParam },
+            },
+          },
+          annotations: readOnly,
+          execute: async (args) => {
+            const faq = currentData?.faq;
+            if (!faq) return JSON.stringify([]);
+
+            const { category } = (args ?? {}) as { category?: string };
+            let entries = faq.entries;
+            if (category) entries = entries.filter((e) => e.category && matches(e.category, faq.categories, category));
+            return JSON.stringify(entries);
+          },
+        });
+      }
+    }
+
+    // Register tools only once per page session. The `execute` functions read
+    // from `currentData`, so we never need to re-register — just refresh the
+    // data on navigation.
+    //
+    // Astro inlines this script into every page's HTML. During a view
+    // transition the swapped-in DOM contains the inline `<script>` again, so
+    // the browser re-executes it. Without the guard, `registerTool` would be
+    // called a second time with the same names → `InvalidStateError: Duplicate
+    // tool name`.
+    if (!window.__webmcpRegistered) {
+      window.__webmcpRegistered = true;
       registerWebMCPTools().catch(console.error);
+    } else {
+      // Script re-executed after a swap — just refresh the data.
+      currentData = loadData();
+    }
+
+    // After a view transition, update the data store. The already-registered
+    // tools will instantly return the new locale's content.
+    document.addEventListener('astro:after-swap', () => {
+      currentData = loadData();
     });
   }
 </script>

@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import LightModeSwitcher from "~/src/components/layout/light-mode-switcher";
 
 interface Props {
   label?: string;
@@ -26,4 +25,40 @@ const { label } = Astro.props as Props;
   </span>
 </button>
 
-<LightModeSwitcher client:only />
+<script>
+  import { getUserTheme, setUserTheme } from '@utils/themeSwitch';
+  import type { UserTheme } from '~types/user-theme';
+
+  const SWITCH_ID = 'color-mode-switch';
+
+  const syncUi = (theme: UserTheme) => {
+    const button = document.getElementById(SWITCH_ID);
+    if (button) button.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
+  };
+
+  const toggle = (isPointer: boolean) => {
+    const next: UserTheme = getUserTheme() === 'dark' ? 'light' : 'dark';
+    setUserTheme(next);
+    syncUi(next);
+    if (isPointer && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
+
+  const handleClick = (event: MouseEvent) => {
+    // Browsers synthesize a click with `detail === 0` when a button is
+    // activated via the keyboard (Space / Enter). We still toggle, but
+    // skip the blur so keyboard focus is preserved.
+    toggle(event.detail !== 0);
+  };
+
+  const setup = () => {
+    syncUi(getUserTheme());
+    document.getElementById(SWITCH_ID)?.addEventListener('click', handleClick);
+  };
+
+  // astro:page-load fires on initial load and after every view-transition swap,
+  // so we don't need the manual astro:after-swap re-registration the Solid
+  // version used.
+  document.addEventListener('astro:page-load', setup);
+</script>

@@ -16,7 +16,7 @@ const formAction = "#"; // Replace with your newsletter subscription endpoint
 <div class:list={['flex flex-col gap-2', inFooter ? 'mt-6 border-t border-white/10 pt-6 lg:items-end' : 'lg:items-start']}>
   {inFooter && <h3 class="text-text-dark p-0 text-center text-base font-bold">{t('labels.subscribe')}!</h3>}
   {/* WebMCP: toolautosubmit lets an AI agent both fill and submit this form in one step. Safe here because subscribing is low-risk and reversible (unlike the contact form, which sends real messages and intentionally omits autosubmit). */}
-  <form id="newsletter-form" class:list={['xs:flex-row mx-auto flex max-w-96 flex-col lg:mx-0', inFooter ? 'gap-2' : 'gap-3']} action={formAction} method="POST" aria-label={t('labels.subscribe')} aria-describedby="newsletter-error" toolname="subscribeToNewsletter" tooldescription={t('labels.subscribe-tool')} toolautosubmit>
+  <form id="newsletter-form" class:list={['mx-auto flex max-w-96 lg:mx-0', inFooter ? 'gap-2' : 'gap-3']} action={formAction} method="POST" aria-label={t('labels.subscribe')} aria-describedby="newsletter-error" toolname="subscribeToNewsletter" tooldescription={t('labels.subscribe-tool')} toolautosubmit>
     <label for="email-address" class="sr-only">{t('labels.email')}</label>
     <input type="email" name="email-address" id="email-address" autocomplete="email" required aria-required="true" toolparamdescription={t('labels.subscribe-email-param')} class:list={['input-primary', inFooter ? 'input-primary-inFooter' : 'input-primary-inverse']} placeholder={t('labels.email')} />
     <button id="newsletter-submit" type="submit" aria-label={t('labels.subscribe')} class:list={['btn-primary', inFooter && 'btn-primary-inFooter']}>

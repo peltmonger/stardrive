@@ -78,6 +78,66 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
 }
 
 <script>
+  // Hide the CSS-fixed header once the footer covers more than 30% of the viewport.
+  // Only applies to the CSS-fixed variant (has `header-base-style` + `fixed`, no `data-overlay-scroll`).
+  let _footerHideHandler: (() => void) | null = null;
+  let _footerHideState = false; // whether the header is currently hidden
+
+  function teardownFooterHide() {
+    if (_footerHideHandler) {
+      window.removeEventListener('scroll', _footerHideHandler, { passive: true } as EventListenerOptions);
+      window.removeEventListener('resize', _footerHideHandler);
+      _footerHideHandler = null;
+    }
+    _footerHideState = false;
+  }
+
+  function setupFooterHide() {
+    teardownFooterHide();
+    const header = document.getElementById('header');
+    if (!header) return;
+    // Only the CSS-fixed variant: carries `header-base-style` + `fixed` and is not an overlay-scroll header.
+    if (!header.classList.contains('header-base-style') || !header.classList.contains('fixed')) return;
+    if (header.hasAttribute('data-overlay-scroll')) return;
+
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+
+    const threshold = 0.3; // fraction of the viewport the footer must cover
+
+    const update = () => {
+      const vh = window.innerHeight;
+      const r = (footer as HTMLElement).getBoundingClientRect();
+      // How much of the viewport height is covered by the footer.
+      const covered = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+      const ratio = vh > 0 ? covered / vh : 0;
+      const shouldHide = ratio > threshold;
+
+      if (shouldHide === _footerHideState) return;
+      _footerHideState = shouldHide;
+
+      if (shouldHide) {
+        header.style.transition = 'transform 300ms ease, opacity 300ms ease';
+        header.style.transform = 'translateY(-100%)';
+        header.style.opacity = '0';
+      } else {
+        header.style.transition = 'transform 300ms ease, opacity 300ms ease';
+        header.style.transform = 'translateY(0)';
+        header.style.opacity = '1';
+      }
+    };
+
+    _footerHideHandler = update;
+    window.addEventListener('scroll', _footerHideHandler, { passive: true });
+    window.addEventListener('resize', _footerHideHandler);
+    update();
+  }
+
+  setupFooterHide();
+  document.addEventListener('astro:page-load', setupFooterHide);
+</script>
+
+<script>
   let _bannerOffsetHandler: (() => void) | null = null;
   let _bannerTargets: Array<{ el: HTMLElement; offset: number; base: number }> = [];
   const _bannerMql: MediaQueryList | null = typeof window !== 'undefined' && typeof window.matchMedia === 'function' ? window.matchMedia('(min-width: 576px)') : null;
@@ -141,6 +201,7 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
 
 <script>
   let _scrollHandler: (() => void) | null = null;
+  let _overlayResizeHandler: (() => void) | null = null;
   let _pendingHideEnd: ((e: TransitionEvent) => void) | null = null;
   let _pendingHideTarget: HTMLElement | null = null;
 
@@ -148,6 +209,10 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
     if (_scrollHandler) {
       window.removeEventListener('scroll', _scrollHandler);
       _scrollHandler = null;
+    }
+    if (_overlayResizeHandler) {
+      window.removeEventListener('resize', _overlayResizeHandler);
+      _overlayResizeHandler = null;
     }
     if (_pendingHideEnd && _pendingHideTarget) {
       _pendingHideTarget.removeEventListener('transitionend', _pendingHideEnd);
@@ -225,11 +290,27 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
     const threshold = rawThreshold !== undefined ? parseInt(rawThreshold, 10) : NaN;
     const effectiveThreshold = isNaN(threshold) ? header.offsetHeight : threshold;
 
+    // Hide the header not only below the scroll threshold, but also once the
+    // footer covers more than 30% of the viewport (so it doesn't overlap the footer).
+    const footerThreshold = 0.3;
+    const footerCoverageRatio = () => {
+      const footer = document.querySelector('footer');
+      if (!footer) return 0;
+      const vh = window.innerHeight;
+      const r = (footer as HTMLElement).getBoundingClientRect();
+      const covered = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+      return vh > 0 ? covered / vh : 0;
+    };
+
     _scrollHandler = () => {
-      if (window.scrollY >= effectiveThreshold) show();
+      const footerCovered = footerCoverageRatio() > footerThreshold;
+      if (window.scrollY >= effectiveThreshold && !footerCovered) show();
       else hide();
     };
     window.addEventListener('scroll', _scrollHandler, { passive: true });
+    // Footer coverage can change on resize without a scroll event.
+    _overlayResizeHandler = () => _scrollHandler!();
+    window.addEventListener('resize', _overlayResizeHandler);
     _scrollHandler(); // check immediately on setup / page load
   }
 

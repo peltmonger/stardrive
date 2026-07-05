@@ -1,6 +1,11 @@
 {
   "compatibility_date": "2026-05-27",
-  "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
+  // `assets_navigation_has_no_effect` is required when on-demand (SSR) routes are used together with
+  // `assets.not_found_handling: "404-page"`. Without it, Cloudflare's navigation-request optimization
+  // (active for compatibility dates >= 2025-04-01) serves the static 404.html for any unmatched
+  // navigation request WITHOUT invoking the Worker - which breaks on-demand rendering in production
+  // (dev/wrangler dev is unaffected). See https://developers.cloudflare.com/workers/static-assets/routing/static-site-generation/#navigation-requests
+  "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat", "assets_navigation_has_no_effect"],
   "name": "stardrive",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "assets": {
