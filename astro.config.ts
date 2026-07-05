@@ -107,19 +107,7 @@ export default defineConfig({
     // The pre-bundling mitigates the issue for both dev and production, so we do it here.
     // see https://docs.astro.build/en/guides/integrations-guide/cloudflare/#some-dependencies-might-need-to-be-pre-compiled
     optimizeDeps: {
-      include: [
-        'debug',
-        'ms',
-        'reading-time',
-        // `tinyglobby` (pulled in by astro + @astrojs/cloudflare) bundles `fdir`, which calls
-        // `createRequire(import.meta.url)` at module top-level. In workerd `import.meta.url` is
-        // not a file URL, so this throws "The argument 'path' ... Received 'undefined'" and breaks
-        // every on-demand (SSR) route with a 500. Pre-bundling converts the CJS to ESM and drops
-        // the `createRequire` call. Prerendered routes are unaffected (they run in Node).
-        'tinyglobby',
-        'fdir',
-        'picomatch',
-      ],
+      include: ['debug', 'ms', 'reading-time'],
     },
   },
 
