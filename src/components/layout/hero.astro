@@ -6,6 +6,7 @@ import References from "@components/layout/references.astro";
 import { themeConfig } from '~/theme.config';
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 import promoVideoThumbnail from "@images/promo-video-thumbnail.jpg";
+import { Code } from "astro-expressive-code/components";
 
 interface Props {
   locale: string;
@@ -44,12 +45,15 @@ const stars3 = generateStars(22);  // 3 px - few bright
     <h1 class="hero-title">{t('pages.home.hero-title')}</h1>
     <p class="hero-subline">{t('pages.home.hero-sub-slogan')}</p>
 
-    <div class="mt-1 flex flex-wrap justify-center gap-4">
-      <a href={getLocaleUrl('docs', locale)} class="btn-primary">{t('labels.get-started')}</a>
-      <a href={getLocaleUrl('features', locale)} class="group inline-flex cursor-pointer items-center gap-2 rounded border-2 border-white/30 bg-white/5 px-4 py-2 pr-3 text-base font-semibold whitespace-nowrap text-white/80 no-underline transition-all select-none hover:border-white hover:text-white">
-        <span>{t('labels.explore-features')}</span>
-        <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" />
-      </a>
+    <div class="flex flex-col gap-10">
+      <div class="mt-1 flex flex-wrap justify-center gap-4">
+        <a href={getLocaleUrl('docs', locale)} class="btn-primary">{t('labels.get-started')}</a>
+        <a href={getLocaleUrl('features', locale)} class="group inline-flex cursor-pointer items-center gap-2 rounded border-2 border-white/30 bg-white/5 px-4 py-2 pr-3 text-base font-semibold whitespace-nowrap text-white/80 no-underline transition-all select-none hover:border-white hover:text-white">
+          <span>{t('labels.explore-features')}</span>
+          <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" />
+        </a>
+      </div>
+      <Code code="npm create stardrive@latest" lang='sh' frame="none" class="hidden md:block" />
     </div>
 
     <div class="promo-video card-glow-light relative mt-16 aspect-video w-full max-w-4xl overflow-hidden rounded-3xl border-4 border-white/20 bg-white/3 backdrop-blur" aria-label={t('labels.get-started') + ': npm create stardrive@latest'}>
