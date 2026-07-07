@@ -44,7 +44,6 @@ const svgoConfig: Config = {
         },
       },
     },
-    'removeXMLNS',
     'convertStyleToAttrs',
     'removeRasterImages',
     'reusePaths',
