@@ -395,7 +395,7 @@ Anyone is welcome to contribute. Mind the [guidelines](.github/CONTRIBUTING.md):
 - [Feature requests](.github/CONTRIBUTING.md#features)
 - [Pull requests](.github/CONTRIBUTING.md#pull-requests)
 
-**IMPORTANT NOTE:** Run `npm install` and `npm run format` to auto-lint!
+**IMPORTANT NOTE:** Run `npm run fix` to auto-fix linting issues!
 
 <br /><br />
 
