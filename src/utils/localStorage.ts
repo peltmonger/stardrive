@@ -14,16 +14,30 @@ export const get = (key: string): string | null => {
   return ls.getItem(key);
 };
 
-export const set = (key: string, value: string | object) => {
-  if (!ls) {
-    return;
-  }
+export const set = (key: string, value: string | object): Promise<void> => {
+  // Always persist asynchronously so the (synchronous, blocking)
+  // `localStorage.setItem` call never runs on the critical rendering path.
+  // Callers that don't `await` the result simply fire-and-forget, which is
+  // fine for non-urgent persistence.
+  return new Promise((resolve) => {
+    if (!ls) {
+      resolve();
+      return;
+    }
 
-  if (value && typeof value === 'object') {
-    value = JSON.stringify(value);
-  }
+    if (value && typeof value === 'object') {
+      value = JSON.stringify(value);
+    }
 
-  ls.setItem(key, value);
+    setTimeout(() => {
+      try {
+        ls.setItem(key, value as string);
+      } catch {
+        // localStorage may be unavailable (private mode, disabled, etc.) — ignore.
+      }
+      resolve();
+    }, 0);
+  });
 };
 
 export const remove = (key: string) => ls && ls.removeItem(key);

@@ -24,7 +24,7 @@ const t = useTranslations(locale);
 const repoUrl = "https://github.com/Peltmonger/stardrive";
 const dataFilePath = "src/data/examples.json";
 const dataFileUrl = `${repoUrl}/blob/main/${dataFilePath}`;
-const discussionsUrl = `${repoUrl}/discussions`;
+const discussionsUrl = `${repoUrl}/discussions/categories/show-and-tell`;
 const generatorTag = '<meta name="generator" content="Astro StarDrive" />';
 
 // Split a translated string on a placeholder so the middle part can be rendered
@@ -133,7 +133,7 @@ const steps = [
   </section>
 
   <!-- CTA -->
-  <div class="flex flex-wrap gap-3">
+  <div class="flex flex-wrap gap-y-6 justify-center md:justify-between gap-3">
     <a href={dataFileUrl} target="_blank" rel="noopener" class="btn-primary">
       <Icon name="heroicons:pencil-square" class="h-5 w-5" aria-hidden="true" />
       {t('pages.get-listed.cta')}

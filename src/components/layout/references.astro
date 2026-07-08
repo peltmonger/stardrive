@@ -10,10 +10,16 @@ interface Props {
   locale: string;
   slogan?: boolean;
   hideSloganMobile?: boolean;
+  /** Minimum number of duplicated content units in the marquee. */
+  minCopies?: number;
 }
 
-const { locale, slogan = true, hideSloganMobile = false } =
-  Astro.props;
+const {
+  locale,
+  slogan = true,
+  hideSloganMobile = false,
+  minCopies = 2,
+} = Astro.props;
 const t = useTranslations(locale);
 ---
 
@@ -42,7 +48,7 @@ const t = useTranslations(locale);
       )
     }
     {slogan && <div class="z-20 hidden h-8 w-32 shrink-0 bg-linear-to-r from-stone-800 via-stone-800 via-20% to-transparent md:block" />}
-    <div class:list={['make-marquee w-full overflow-hidden', slogan && 'z-10 md:-ml-30']}>
+    <div class:list={['make-marquee w-full overflow-hidden', slogan && 'z-10 md:-ml-30']} data-min-copies={minCopies}>
       <div class="flex items-center whitespace-nowrap">
         <Cloudflare class="mx-10 h-8 w-auto touch-none select-none" />
         <AstroLogo class="mx-10 h-8 w-auto touch-none select-none" />
@@ -140,7 +146,8 @@ const t = useTranslations(locale);
       firstUnit.appendChild(originalContent.cloneNode(true));
       track.appendChild(firstUnit);
 
-      const copies = Math.max(2, Math.ceil((viewportWidth + unitWidth) / unitWidth) + 1);
+      const minCopies = Number(container.dataset.minCopies) || 2;
+      const copies = Math.max(minCopies, Math.ceil((viewportWidth + unitWidth) / unitWidth) + 1);
       for (let i = 1; i < copies; i++) {
         const unit = document.createElement('div');
         unit.className = 'marquee-unit';
@@ -183,8 +190,15 @@ const t = useTranslations(locale);
     });
   }
 
-  // Initialize as early as possible.
-  initMarquees();
-  document.addEventListener('astro:page-load', initMarquees);
+  // Initialize as early as possible without blocking the main thread.
+  // requestIdleCallback defers the work to an idle period; fall back to
+  // setTimeout(0) on browsers that don't support it (e.g. Safari < 17).
+  const scheduleInit =
+    typeof window.requestIdleCallback === 'function'
+      ? (fn: () => void) => window.requestIdleCallback(fn, { timeout: 200 })
+      : (fn: () => void) => window.setTimeout(fn, 0);
+
+  scheduleInit(initMarquees);
+  document.addEventListener('astro:page-load', () => scheduleInit(initMarquees));
   document.addEventListener('astro:before-swap', destroyMarquees);
 </script>

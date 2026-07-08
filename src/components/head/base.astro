@@ -20,6 +20,16 @@ const canonical = externalCanonical || getCleanLocaleUrl(Astro.url, locale);
 
 <!-- theme init: runs synchronously before first paint to prevent flash -->
 <script is:inline set:html={THEME_INIT_SCRIPT} />
+<script>
+  // Persist the current locale to localStorage on every page load to have it available at client side scripts
+  import { set } from '@utils/localStorage';
+  document.addEventListener('astro:page-load', () => {
+    const locale = document.documentElement.lang;
+    if (locale) {
+      void set('locale', locale);
+    }
+  });
+</script>
 <!-- technical -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />

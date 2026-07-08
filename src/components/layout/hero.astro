@@ -164,6 +164,8 @@ const stars3 = generateStars(22);  // 3 px - few bright
 </style>
 
 <script>
+  import { get } from '@utils/localStorage';
+
   function setupPromoVideo() {
     const triggers = document.querySelectorAll<HTMLElement>('.promo-video__trigger');
     triggers.forEach((trigger) => {
@@ -176,7 +178,8 @@ const stars3 = generateStars(22);  // 3 px - few bright
         if (!videoId) return;
         const frame = trigger.parentElement?.querySelector<HTMLElement>('.promo-video__frame');
         if (!frame) return;
-        const src = `${host}/embed/${videoId}?autoplay=1&controls=0&modestbranding=1&rel=0&iv_load_policy=3&cc_load_policy=3&playsinline=1&enablejsapi=1`;
+        const ccLang = get('locale') || 'en';
+        const src = `${host}/embed/${videoId}?autoplay=1&controls=0&rel=0&iv_load_policy=3&cc_load_policy=3&cc_lang_pref=${encodeURIComponent(ccLang)}&playsinline=1&enablejsapi=1`;
         frame.innerHTML = `<iframe class="w-full h-full" src="${src}" title="Discover the Astro Stardrive boilerplate, build today, and ship faster" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
         frame.classList.remove('hidden');
         trigger.classList.add('hidden');

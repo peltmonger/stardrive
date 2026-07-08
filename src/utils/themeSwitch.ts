@@ -41,7 +41,7 @@ export const getUserTheme = (): UserTheme => {
   let theme = get('user-theme') as UserTheme;
   if (!theme) {
     theme = getSystemPreference();
-    set('user-theme', theme);
+    void set('user-theme', theme);
   }
   // adjust the html element (dark class + data-theme) before returning the theme
   applyTheme(theme);
@@ -49,8 +49,8 @@ export const getUserTheme = (): UserTheme => {
 };
 
 export const setUserTheme = (theme: UserTheme) => {
-  // save the theme to local storage
-  set('user-theme', theme);
+  // save the theme to local storage (async, non-blocking)
+  void set('user-theme', theme);
   // adjust the html element (dark class + data-theme)
   applyTheme(theme);
 };

@@ -1,6 +1,8 @@
 import { visit } from 'unist-util-visit';
 import type { RehypePlugin } from '@astrojs/markdown-remark';
 import type { Root } from 'hast';
+import { fileURLToPath } from 'node:url';
+import { themeConfig } from '../../theme.config';
 
 // scheme: youtube.com/watch?v=VIDEO_ID&t=TIME&list=PLAYLIST_ID&title=TITLE with t and list being optional
 const ID_PATTERN = /^[\w-]+$/;
@@ -45,8 +47,35 @@ const parseYoutube = (textContent: string): YoutubeParts | null => {
   };
 };
 
+/**
+ * Derives the locale of the markdown file being processed from its VFile path.
+ * Content collections live under `src/content/<collection>/<locale>/…`, so the
+ * locale is the directory segment immediately before the file name. Falls back
+ * to the configured default locale when the path is unavailable or does not
+ * match a known locale.
+ */
+const getLocaleFromFile = (filePath: string | undefined): string => {
+  const defaultLocale = themeConfig.i18n.defaultLocale;
+  const locales = themeConfig.i18n.locales;
+  if (!filePath) return defaultLocale;
+
+  // `file.path` is a `file://` URL (see @astrojs/markdown-remark `render()`).
+  let path: string;
+  try {
+    path = filePath.startsWith('file:') ? fileURLToPath(filePath) : filePath;
+  } catch {
+    return defaultLocale;
+  }
+
+  const segments = path.split('/');
+  // Last segment is the file name; the one before it is the locale folder.
+  const candidate = segments.at(-2);
+  return candidate && locales.includes(candidate) ? candidate : defaultLocale;
+};
+
 export const rehypeYoutubePlugin: RehypePlugin = () => {
-  return (tree: Root) => {
+  return (tree: Root, file) => {
+    const locale = getLocaleFromFile(file.path);
     visit(tree, 'element', (node) => {
       if (node.tagName != 'p' || node.children.length !== 1 || node.children[0].type != 'text') {
         return;
@@ -70,7 +99,7 @@ export const rehypeYoutubePlugin: RehypePlugin = () => {
             class: 'video-embed',
             width: '560',
             height: '315',
-            src: `https://www.youtube-nocookie.com/embed/${videoId}?rel=0${time}${list}`,
+            src: `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&iv_load_policy=3&cc_load_policy=3&cc_lang_pref=${locale}${time}${list}`,
             title: title ?? 'YouTube video player',
             frameBorder: '0',
             allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',

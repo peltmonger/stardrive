@@ -16,7 +16,7 @@ interface Props {
 
 // define base classes
 const baseCardClasses = "group flex h-full rounded-lg no-underline drop-shadow hover:drop-shadow-xl";
-const baseImageClasses = "aspect-video h-full w-full bg-top object-cover";
+const baseImageClasses = "h-full w-full bg-top object-cover";
 const baseContentClasses = "border border-l-0 flex h-auto grow flex-col justify-between w-full rounded-r-lg bg-white dark:bg-stone-900 text-text dark:text-text-dark";
 const baseTitleClasses = "text-balance font-semibold text-text dark:text-text-dark";
 
@@ -32,14 +32,14 @@ const imageFile = entry.data.image?.file ? entry.data.image.file : (!entry.data.
 
 <div>
   <a href={getLocaleUrl('blog/' + entry.id.split('/').slice(-1)[0], locale)} class:list={[baseCardClasses, !wide && 'sm:flex-col']}>
-    <span class:list={['xs:w-36 relative block h-auto w-28 shrink-0 overflow-clip rounded-l-lg border border-r-0', wide ? 'sm:w-56 md:max-h-60 md:w-80 lg:w-[400px]' : 'sm:h-40 sm:w-full sm:rounded-t-lg sm:rounded-bl-none sm:border-r sm:border-b-0', featured ? 'border-primary' : 'group-hover:border-primary border-stone-400 dark:border-stone-700']}>
+    <span class:list={['xs:w-36 relative flex h-auto w-28 shrink-0 overflow-clip rounded-l-lg border border-r-0', wide ? 'sm:w-56 md:max-h-60 md:w-80 lg:w-[400px]' : 'sm:h-40 sm:w-full sm:rounded-t-lg sm:rounded-bl-none sm:border-r sm:border-b-0', featured ? 'border-primary' : 'group-hover:border-primary border-stone-400 dark:border-stone-700']}>
       {
         imageFile ? (
           <Image src={imageFile} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority />
         ) : entry.data.image?.url ? (
           <Image src={entry.data.image.url} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority inferSize />
         ) : (
-          <span class:list={['flex h-full w-full items-center justify-center p-8', !wide && themeConfig.articles?.textOverImage && 'sm:hidden']}>
+          <span class:list={['absolute inset-0 flex items-center justify-center p-8', !wide && themeConfig.articles?.textOverImage && 'sm:hidden']}>
             <Icon name="heroicons:document-text" class="h-12 w-12 opacity-70 lg:h-16 lg:w-16" />
           </span>
         )

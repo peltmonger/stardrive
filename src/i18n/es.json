@@ -198,7 +198,7 @@
       "req-content-text": "No permitimos enlaces a páginas con contenido no apto para niños - como apuestas, contenido sexual/pornográfico o relacionado con el alcohol.",
       "alt-title": "¿No te sientes cómodo con un PR?",
       "alt-text": "También puedes publicar tu sitio web en la sección de Discusiones de GitHub. La revisamos de vez en cuando y añadimos entradas nosotros mismos - sin embargo, es más lento que un pull request y algunas cosas podrían pasar desapercibidas.",
-      "alt-link": "Abrir las discusiones en GitHub",
+      "alt-link": "Publicar en GitHub",
       "cta": "Abre el repositorio en GitHub",
       "back-to-examples": "Ver los ejemplos"
     },

@@ -198,7 +198,7 @@
       "req-content-text": "We do not allow links to pages containing content unsuitable for children - such as gambling, sexual/pornographic, or alcohol-related content.",
       "alt-title": "Not comfortable with a PR?",
       "alt-text": "You can also post your website in the Discussions section on GitHub. We scan it from time to time and add entries ourselves - however, this is slower than a pull request and things might get overlooked.",
-      "alt-link": "Open the discussions on GitHub",
+      "alt-link": "Post on GitHub",
       "cta": "Open the repository on GitHub",
       "back-to-examples": "See the examples"
     },
