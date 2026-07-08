@@ -15,10 +15,6 @@ export const get = (key: string): string | null => {
 };
 
 export const set = (key: string, value: string | object): Promise<void> => {
-  // Always persist asynchronously so the (synchronous, blocking)
-  // `localStorage.setItem` call never runs on the critical rendering path.
-  // Callers that don't `await` the result simply fire-and-forget, which is
-  // fine for non-urgent persistence.
   return new Promise((resolve) => {
     if (!ls) {
       resolve();
