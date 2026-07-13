@@ -4,7 +4,6 @@
     "features": "Funktionen",
     "docs": "Dokumentation",
     "docs-installation": "Installation",
-    "docs-installation-explainer": "Zum Laufen bringen",
     "docs-configuration": "Konfiguration",
     "docs-guide": "Anleitung",
     "docs-guide-explainer": "So arbeitest du damit",
@@ -279,9 +278,9 @@
     "support": "Support"
   },
   "ads": {
-    "atcp": {
-      "title": "Add to Calendar Pro",
-      "description": "Entdecke die besten Event-Marketing-Tools zu fairen Preisen"
+    "demo": {
+      "title": "Regenbogen-Gold",
+      "description": "Entdecke die neue Art, ein Vermögen zu finden"
     }
   },
   "home-content": {

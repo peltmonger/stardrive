@@ -15,10 +15,9 @@ const formAction = "#"; // Replace with your newsletter subscription endpoint
 
 <div class:list={['flex flex-col gap-2', inFooter ? 'mt-6 border-t border-white/10 pt-6 lg:items-end' : 'lg:items-start']}>
   {inFooter && <h3 class="text-text-dark p-0 text-center text-base font-bold">{t('labels.subscribe')}!</h3>}
-  {/* WebMCP: toolautosubmit lets an AI agent both fill and submit this form in one step. Safe here because subscribing is low-risk and reversible (unlike the contact form, which sends real messages and intentionally omits autosubmit). */}
-  <form id="newsletter-form" class:list={['mx-auto flex max-w-96 lg:mx-0', inFooter ? 'gap-2' : 'gap-3']} action={formAction} method="POST" aria-label={t('labels.subscribe')} aria-describedby="newsletter-error" toolname="subscribeToNewsletter" tooldescription={t('labels.subscribe-tool')} toolautosubmit>
+  <form id="newsletter-form" class:list={['mx-auto flex max-w-96 lg:mx-0', inFooter ? 'gap-2' : 'gap-3']} action={formAction} method="POST" aria-label={t('labels.subscribe')} aria-describedby="newsletter-error" data-toolname="subscribeToNewsletter" data-tooldescription={t('labels.subscribe-tool')} data-toolautosubmit="">
     <label for="email-address" class="sr-only">{t('labels.email')}</label>
-    <input type="email" name="email-address" id="email-address" autocomplete="email" required aria-required="true" toolparamdescription={t('labels.subscribe-email-param')} class:list={['input-primary', inFooter ? 'input-primary-inFooter' : 'input-primary-inverse']} placeholder={t('labels.email')} />
+    <input type="email" name="email-address" id="email-address" autocomplete="email" required aria-required="true" data-toolparamdescription={t('labels.subscribe-email-param')} class:list={['input-primary', inFooter ? 'input-primary-inFooter' : 'input-primary-inverse']} placeholder={t('labels.email')} />
     <button id="newsletter-submit" type="submit" aria-label={t('labels.subscribe')} class:list={['btn-primary', inFooter && 'btn-primary-inFooter']}>
       <Icon name="heroicons:check" id="icon-default" class:list={['mx-auto', inFooter ? 'h-4 w-4' : 'h-6 w-6']} aria-hidden="true" />
       <Icon name="heroicons:face-smile" id="icon-success" class:list={['mx-auto hidden', inFooter ? 'h-4 w-4' : 'h-6 w-6']} aria-hidden="true" />
@@ -29,41 +28,18 @@ const formAction = "#"; // Replace with your newsletter subscription endpoint
 </div>
 
 <script>
-  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
-  const button = document.getElementById('newsletter-submit') as HTMLButtonElement | null;
-  const errorDiv = document.getElementById('newsletter-error') as HTMLDivElement | null;
-
-  if (form && button) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const action = form.action;
-      const body = new FormData(form);
-
-      button.blur();
-      button.disabled = true;
-      button.setAttribute('aria-busy', 'true');
-
-      try {
-        const response = await fetch(action, { method: 'POST', body });
-        if (response.ok) {
-          const input = form.elements.namedItem('email-address') as HTMLInputElement;
-          input.value = '';
-          input.blur();
-        }
-        setButtonState(response.ok ? 'success' : 'error');
-      } catch {
-        setButtonState('error');
-      } finally {
-        button.disabled = false;
-        button.removeAttribute('aria-busy');
-      }
-    });
-  }
-
-  const iconDefault = document.getElementById('icon-default');
-  const iconSuccess = document.getElementById('icon-success');
-  const iconError = document.getElementById('icon-error');
+  // Module scripts are deduplicated by URL, so the browser runs this block only
+  // once for the whole session — even across ClientRouter navigations. We must
+  // therefore re-bind to the fresh DOM on every navigation (astro:page-load)
+  // and tear down before the old DOM is swapped out (astro:before-swap)
+  let form: HTMLFormElement | null = null;
+  let button: HTMLButtonElement | null = null;
+  let errorDiv: HTMLDivElement | null = null;
+  let iconDefault: HTMLElement | null = null;
+  let iconSuccess: HTMLElement | null = null;
+  let iconError: HTMLElement | null = null;
+  let resetTimer: ReturnType<typeof setTimeout> | undefined;
+  let submitHandler: ((e: SubmitEvent) => Promise<void>) | null = null;
 
   function setButtonState(state: 'success' | 'error') {
     if (!button) return;
@@ -73,12 +49,94 @@ const formAction = "#"; // Replace with your newsletter subscription endpoint
     iconSuccess?.classList.toggle('hidden', state !== 'success');
     iconError?.classList.toggle('hidden', state !== 'error');
     errorDiv?.classList.toggle('hidden', state !== 'error');
-    setTimeout(() => {
-      button.classList.remove('bg-green-600', 'border-green-600', 'bg-red-500', 'border-red-500');
+
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(() => {
+      button?.classList.remove('bg-green-600', 'border-green-600', 'bg-red-500', 'border-red-500');
       iconDefault?.classList.remove('hidden');
       iconSuccess?.classList.add('hidden');
       iconError?.classList.add('hidden');
       errorDiv?.classList.add('hidden');
     }, 3000);
   }
+
+  function setupNewsletterForm() {
+    // Re-query every time: after a ClientRouter swap these point at the new DOM.
+    form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+    button = document.getElementById('newsletter-submit') as HTMLButtonElement | null;
+    errorDiv = document.getElementById('newsletter-error') as HTMLDivElement | null;
+    iconDefault = document.getElementById('icon-default');
+    iconSuccess = document.getElementById('icon-success');
+    iconError = document.getElementById('icon-error');
+
+    if (!form || !button) return;
+
+    submitHandler = async (e: SubmitEvent) => {
+      e.preventDefault();
+      const action = form!.action;
+      const body = new FormData(form!);
+
+      button!.blur();
+      button!.disabled = true;
+      button!.setAttribute('aria-busy', 'true');
+
+      try {
+        const response = await fetch(action, { method: 'POST', body });
+        if (response.ok) {
+          const input = form!.elements.namedItem('email-address') as HTMLInputElement;
+          input.value = '';
+          input.blur();
+        }
+        setButtonState(response.ok ? 'success' : 'error');
+      } catch {
+        setButtonState('error');
+      } finally {
+        button!.disabled = false;
+        button!.removeAttribute('aria-busy');
+      }
+    };
+
+    form.addEventListener('submit', submitHandler);
+  }
+
+  function cleanupNewsletterForm() {
+    // Clear the pending reset so it cannot mutate detached nodes after a swap.
+    clearTimeout(resetTimer);
+    resetTimer = undefined;
+    if (form && submitHandler) {
+      form.removeEventListener('submit', submitHandler);
+    }
+    form = null;
+    button = null;
+    errorDiv = null;
+    iconDefault = null;
+    iconSuccess = null;
+    iconError = null;
+    submitHandler = null;
+  }
+
+  // Promote the WebMCP declarative attributes from data-* to real tool*
+  // attributes exactly once per page session. Doing this via JS on the stable
+  // initial DOM avoids re-triggering Chrome's WebMCP observer during ClientRouter
+  // swaps (which causes RESULT_CODE_KILLED_BAD_MESSAGE). We never re-apply them
+  // after a swap — the tool registration persists for the session.
+  function applyWebMcpAttributes() {
+    const f = document.getElementById('newsletter-form');
+    if (!f || f.hasAttribute('toolname')) return;
+    const toolName = f.getAttribute('data-toolname');
+    const toolDesc = f.getAttribute('data-tooldescription');
+    const autoSubmit = f.hasAttribute('data-toolautosubmit');
+    if (toolName) f.setAttribute('toolname', toolName);
+    if (toolDesc) f.setAttribute('tooldescription', toolDesc);
+    if (autoSubmit) f.setAttribute('toolautosubmit', '');
+    const input = document.getElementById('email-address');
+    const paramDesc = input?.getAttribute('data-toolparamdescription');
+    if (input && paramDesc) input.setAttribute('toolparamdescription', paramDesc);
+  }
+
+  // Initial + every ClientRouter navigation.
+  setupNewsletterForm();
+  applyWebMcpAttributes();
+  document.addEventListener('astro:page-load', setupNewsletterForm);
+  document.addEventListener('astro:before-swap', cleanupNewsletterForm);
 </script>

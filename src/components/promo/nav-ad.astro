@@ -10,18 +10,20 @@ interface Props {
 
 const { locale } = Astro.props as Props;
 const t = useTranslations(locale);
+
+const target = "#"; // Replace with your ad target URL
 ---
 
-<a href="https://add-to-calendar-pro.com" target="_blank" rel="noopener" role="menuitem" tabindex="-1" class="group m-4 w-64 shrink-0 border-l border-stone-100 pl-4 no-underline dark:border-stone-700">
+<a href={target} target="_blank" rel="noopener" role="menuitem" tabindex="-1" class="group m-4 w-64 shrink-0 border-l border-stone-100 pl-4 no-underline dark:border-stone-700">
   <span class="relative block overflow-hidden rounded">
-    <Image src={AdImage} alt={t('ads.atcp.title')} class="rounded transition-opacity duration-300 group-hover:opacity-50" />
+    <Image src={AdImage} alt={t('ads.demo.title')} class="rounded transition-opacity duration-300 group-hover:opacity-50" />
     <span class="bg-secondary absolute top-1 right-1 block rounded px-2 py-0.5 text-xs text-white opacity-50">{t('labels.ad')}</span>
     <span class="absolute right-0 bottom-0 left-0 block bg-linear-to-t from-black/90 via-black/70 to-transparent p-3 pt-20">
       <span class="flex items-center gap-2">
-        <span class="text-sm font-semibold text-white">{t('ads.atcp.title')}</span>
+        <span class="text-sm font-semibold text-white">{t('ads.demo.title')}</span>
         <Icon name="heroicons:arrow-right" class="h-4 w-4 text-white transition-all group-hover:ml-1" />
       </span>
-      <span class="mt-0.5 block text-xs text-white/80">{t('ads.atcp.description')}</span>
+      <span class="mt-0.5 block text-xs text-white/80">{t('ads.demo.description')}</span>
     </span>
   </span>
 </a>

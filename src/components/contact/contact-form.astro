@@ -12,20 +12,20 @@ const t = useTranslations(locale);
 const formAction = "#"; // Replace with your contact form endpoint
 ---
 
-<form id="contact-form" class="flex flex-col gap-4 rounded-lg border border-stone-300 bg-stone-100 p-4 sm:p-6 dark:border-stone-700 dark:bg-stone-800" action={formAction} method="POST" aria-label={t('pages.contact.title')} aria-describedby="contact-success contact-error" novalidate toolname="sendContactMessage" tooldescription={t('pages.contact.tool-description')}>
+<form id="contact-form" class="flex flex-col gap-4 rounded-lg border border-stone-300 bg-stone-100 p-4 sm:p-6 dark:border-stone-700 dark:bg-stone-800" action={formAction} method="POST" aria-label={t('pages.contact.title')} aria-describedby="contact-success contact-error" novalidate data-toolname="sendContactMessage" data-tooldescription={t('pages.contact.tool-description')}>
   <div class="flex flex-col gap-1">
     <label for="contact-name" class="text-sm font-semibold">{t('pages.contact.name')}</label>
-    <input type="text" name="name" id="contact-name" autocomplete="name" required aria-required="true" aria-describedby="contact-name-error" toolparamdescription={t('pages.contact.tool-name-param')} class="input-primary input-primary-contact" placeholder={t('pages.contact.name-placeholder')} />
+    <input type="text" name="name" id="contact-name" autocomplete="name" required aria-required="true" aria-describedby="contact-name-error" data-toolparamdescription={t('pages.contact.tool-name-param')} class="input-primary input-primary-contact" placeholder={t('pages.contact.name-placeholder')} />
     <p id="contact-name-error" class="hidden text-xs font-semibold text-red-500 dark:text-red-400" data-required-note={t('pages.contact.required-note')}></p>
   </div>
   <div class="flex flex-col gap-1">
     <label for="contact-email" class="text-sm font-semibold">{t('labels.email')}</label>
-    <input type="email" name="email" id="contact-email" autocomplete="email" required aria-required="true" aria-describedby="contact-email-error" toolparamdescription={t('pages.contact.tool-email-param')} class="input-primary input-primary-contact" placeholder={t('pages.contact.email-placeholder')} />
+    <input type="email" name="email" id="contact-email" autocomplete="email" required aria-required="true" aria-describedby="contact-email-error" data-toolparamdescription={t('pages.contact.tool-email-param')} class="input-primary input-primary-contact" placeholder={t('pages.contact.email-placeholder')} />
     <p id="contact-email-error" class="hidden text-xs font-semibold text-red-500 dark:text-red-400" data-required-note={t('pages.contact.required-note')} data-invalid-note={t('pages.contact.invalid-email')}></p>
   </div>
   <div class="flex flex-col gap-1">
     <label for="contact-message" class="text-sm font-semibold">{t('pages.contact.message')}</label>
-    <textarea name="message" id="contact-message" rows="5" required aria-required="true" aria-describedby="contact-message-error" toolparamdescription={t('pages.contact.tool-message-param')} class="input-primary input-primary-contact resize-y" placeholder={t('pages.contact.message-placeholder')}></textarea>
+    <textarea name="message" id="contact-message" rows="5" required aria-required="true" aria-describedby="contact-message-error" data-toolparamdescription={t('pages.contact.tool-message-param')} class="input-primary input-primary-contact resize-y" placeholder={t('pages.contact.message-placeholder')}></textarea>
     <p id="contact-message-error" class="hidden text-xs font-semibold text-red-500 dark:text-red-400" data-required-note={t('pages.contact.required-note')}></p>
   </div>
   <button id="contact-submit" type="submit" class="btn-primary self-start">
@@ -40,14 +40,21 @@ const formAction = "#"; // Replace with your contact form endpoint
 </form>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const button = document.getElementById('contact-submit') as HTMLButtonElement | null;
-  const successDiv = document.getElementById('contact-success') as HTMLDivElement | null;
-  const errorDiv = document.getElementById('contact-error') as HTMLDivElement | null;
-
-  const iconDefault = document.getElementById('contact-icon-default');
-  const iconSuccess = document.getElementById('contact-icon-success');
-  const iconError = document.getElementById('contact-icon-error');
+  // Module scripts are deduplicated by URL, so the browser runs this block only
+  // once for the whole session — even across ClientRouter navigations. We must
+  // therefore re-bind to the fresh DOM on every navigation (astro:page-load)
+  // and tear down before the old DOM is swapped out (astro:before-swap),
+  // otherwise stale references and pending timeouts leak into detached nodes.
+  let form: HTMLFormElement | null = null;
+  let button: HTMLButtonElement | null = null;
+  let successDiv: HTMLDivElement | null = null;
+  let errorDiv: HTMLDivElement | null = null;
+  let iconDefault: HTMLElement | null = null;
+  let iconSuccess: HTMLElement | null = null;
+  let iconError: HTMLElement | null = null;
+  let resetTimer: ReturnType<typeof setTimeout> | undefined;
+  let submitHandler: ((e: SubmitEvent) => Promise<void>) | null = null;
+  const inputHandlers: Array<{ field: HTMLInputElement | HTMLTextAreaElement; handler: () => void }> = [];
 
   const fieldIds = ['contact-name', 'contact-email', 'contact-message'];
   const invalidClasses = ['border-red-500', 'dark:border-red-400', 'ring-2', 'ring-red-500'];
@@ -77,13 +84,6 @@ const formAction = "#"; // Replace with your contact form endpoint
     }
   }
 
-  for (const id of fieldIds) {
-    const field = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
-    field?.addEventListener('input', () => {
-      if (field.getAttribute('aria-invalid') === 'true') validateField(field);
-    });
-  }
-
   function validateForm(): boolean {
     let firstInvalid: HTMLInputElement | HTMLTextAreaElement | null = null;
     let valid = true;
@@ -99,8 +99,47 @@ const formAction = "#"; // Replace with your contact form endpoint
     return valid;
   }
 
-  if (form && button) {
-    form.addEventListener('submit', async (e) => {
+  function setButtonState(state: 'success' | 'error') {
+    if (!button) return;
+    iconDefault?.classList.add('hidden');
+    iconSuccess?.classList.toggle('hidden', state !== 'success');
+    iconError?.classList.toggle('hidden', state !== 'error');
+    successDiv?.classList.toggle('hidden', state !== 'success');
+    errorDiv?.classList.toggle('hidden', state !== 'error');
+
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(() => {
+      iconDefault?.classList.remove('hidden');
+      iconSuccess?.classList.add('hidden');
+      iconError?.classList.add('hidden');
+      successDiv?.classList.add('hidden');
+      errorDiv?.classList.add('hidden');
+    }, 4000);
+  }
+
+  function setupContactForm() {
+    // Re-query every time: after a ClientRouter swap these point at the new DOM.
+    form = document.getElementById('contact-form') as HTMLFormElement | null;
+    button = document.getElementById('contact-submit') as HTMLButtonElement | null;
+    successDiv = document.getElementById('contact-success') as HTMLDivElement | null;
+    errorDiv = document.getElementById('contact-error') as HTMLDivElement | null;
+    iconDefault = document.getElementById('contact-icon-default');
+    iconSuccess = document.getElementById('contact-icon-success');
+    iconError = document.getElementById('contact-icon-error');
+
+    if (!form || !button) return;
+
+    for (const id of fieldIds) {
+      const field = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
+      if (!field) continue;
+      const handler = () => {
+        if (field.getAttribute('aria-invalid') === 'true') validateField(field);
+      };
+      field.addEventListener('input', handler);
+      inputHandlers.push({ field, handler });
+    }
+
+    submitHandler = async (e: SubmitEvent) => {
       e.preventDefault();
 
       // WebMCP declarative API: signal whether an AI agent triggered this submit
@@ -119,18 +158,18 @@ const formAction = "#"; // Replace with your contact form endpoint
         return;
       }
 
-      const action = form.action;
-      const body = new FormData(form);
+      const action = form!.action;
+      const body = new FormData(form!);
 
-      button.blur();
-      button.disabled = true;
-      button.setAttribute('aria-busy', 'true');
+      button!.blur();
+      button!.disabled = true;
+      button!.setAttribute('aria-busy', 'true');
 
       const submission = (async () => {
         try {
           const response = await fetch(action, { method: 'POST', body });
           if (response.ok) {
-            form.reset();
+            form!.reset();
             for (const id of fieldIds) {
               const field = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
               if (field) setFieldError(field, document.getElementById(`${id}-error`), '');
@@ -142,30 +181,62 @@ const formAction = "#"; // Replace with your contact form endpoint
           setButtonState('error');
           return { ok: false, error: errorDiv?.textContent ?? '' };
         } finally {
-          button.disabled = false;
-          button.removeAttribute('aria-busy');
+          button!.disabled = false;
+          button!.removeAttribute('aria-busy');
         }
       })();
 
       if (agentInvoked && submitEvent.respondWith) {
         submitEvent.respondWith(submission);
       }
-    });
+    };
+
+    form.addEventListener('submit', submitHandler);
   }
 
-  function setButtonState(state: 'success' | 'error') {
-    if (!button) return;
-    iconDefault?.classList.add('hidden');
-    iconSuccess?.classList.toggle('hidden', state !== 'success');
-    iconError?.classList.toggle('hidden', state !== 'error');
-    successDiv?.classList.toggle('hidden', state !== 'success');
-    errorDiv?.classList.toggle('hidden', state !== 'error');
-    setTimeout(() => {
-      iconDefault?.classList.remove('hidden');
-      iconSuccess?.classList.add('hidden');
-      iconError?.classList.add('hidden');
-      successDiv?.classList.add('hidden');
-      errorDiv?.classList.add('hidden');
-    }, 4000);
+  function cleanupContactForm() {
+    // Clear the pending reset so it cannot mutate detached nodes after a swap.
+    clearTimeout(resetTimer);
+    resetTimer = undefined;
+    if (form && submitHandler) {
+      form.removeEventListener('submit', submitHandler);
+    }
+    for (const { field, handler } of inputHandlers) {
+      field.removeEventListener('input', handler);
+    }
+    inputHandlers.length = 0;
+    form = null;
+    button = null;
+    successDiv = null;
+    errorDiv = null;
+    iconDefault = null;
+    iconSuccess = null;
+    iconError = null;
+    submitHandler = null;
   }
+
+  // Promote the WebMCP declarative attributes from data-* to real tool*
+  // attributes exactly once per page session. Doing this via JS on the stable
+  // initial DOM avoids re-triggering Chrome's WebMCP observer during ClientRouter
+  // swaps (which causes RESULT_CODE_KILLED_BAD_MESSAGE). We never re-apply them
+  // after a swap — the tool registration persists for the session.
+  function applyWebMcpAttributes() {
+    const f = document.getElementById('contact-form');
+    if (!f || f.hasAttribute('toolname')) return;
+    const toolName = f.getAttribute('data-toolname');
+    const toolDesc = f.getAttribute('data-tooldescription');
+    if (toolName) f.setAttribute('toolname', toolName);
+    if (toolDesc) f.setAttribute('tooldescription', toolDesc);
+    for (const id of fieldIds) {
+      const field = document.getElementById(id) as HTMLElement | null;
+      const paramDesc = field?.getAttribute('data-toolparamdescription');
+      if (field && paramDesc) field.setAttribute('toolparamdescription', paramDesc);
+    }
+  }
+
+  // Initial + every ClientRouter navigation.
+  setupContactForm();
+  applyWebMcpAttributes();
+  document.addEventListener('astro:page-load', setupContactForm);
+  document.addEventListener('astro:before-swap', cleanupContactForm);
 </script>

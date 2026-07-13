@@ -12,7 +12,7 @@ const yearsBuilding = new Date().getFullYear() - 2003;
 
 const content = {
   imageAlt: "L'équipe derrière Astro Stardrive",
-  lead: "Salut, je suis Jens. Je crée des sites web depuis l'an 2000 - du HTML tout simple à l'époque, en passant par PHP et WordPress, jusqu'aux frameworks modernes comme React, Angular et Vue. Stardrive rassemble toute cette expérience.",
+  lead: "Salut. Je crée des sites web depuis l'an 2000 - du HTML tout simple à l'époque, en passant par PHP et WordPress, jusqu'aux frameworks modernes comme React, Angular et Vue. Stardrive rassemble toute cette expérience.",
   stats: [
     { icon: "heroicons:calendar-days", value: `${yearsBuilding}+ ans`, label: "à créer pour le web" },
     { icon: "heroicons:code-bracket-square", value: "HTML → Astro", label: "tout le parcours" },
@@ -67,11 +67,10 @@ const content = {
   ],
   openSourceHeading: "Construit au grand jour",
   openSourceText: "Stardrive est open source parce que je crois au pouvoir de faire les choses au grand jour - recevoir des retours, les voir grandir et trouver des contributeurs en chemin. S'il vous aide à livrer un meilleur site web plus rapidement, c'est exactement le but.",
-  authorCtaLabel: "En savoir plus sur Jens",
 };
 ---
 
 <Layout title={t('pages.about.title')} description={t('pages.about.description')} {locale}>
   <Headline text={t('pages.about.title')} class="pb-10" />
-  <AboutContent {...content} />
+  <AboutContent {...content} {locale} />
 </Layout>

@@ -1,6 +1,5 @@
 ---
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
-import { themeConfig } from '~/theme.config';
 
 interface Props {
   locale: string;
@@ -18,5 +17,5 @@ const currentYear = new Date().getFullYear();
     <a class="unstyle-link hover:text-text-dark" href={getLocaleUrl('privacy-policy', locale)}>{t('nav.privacy-policy')}</a>
   </div>
   <div class="hidden opacity-50 lg:block">|</div>
-  <div>&copy; {currentYear} {themeConfig.publisher.name} | MIT license</div>
+  <div>&copy; {currentYear}</div>
 </nav>

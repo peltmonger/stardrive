@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import GroupShot from "@images/group-shot.png";
 import Reveal from "@components/reveal.astro";
-import { themeConfig } from "~/theme.config";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
 
 interface Stat {
   icon: string;
@@ -42,8 +42,8 @@ interface Props {
   openSourceHeading: string;
   /** Open-source section body. */
   openSourceText: string;
-  /** Label for the button linking to the author. */
-  authorCtaLabel: string;
+  /** Locale for translations. */
+  locale: string;
 }
 
 const {
@@ -56,10 +56,11 @@ const {
   highlights,
   openSourceHeading,
   openSourceText,
-  authorCtaLabel,
+  locale,
 } = Astro.props;
 
-const authorUrl = themeConfig.author.url;
+const t = useTranslations(locale);
+
 const githubUrl = "https://github.com/Peltmonger/stardrive";
 ---
 
@@ -146,9 +147,9 @@ const githubUrl = "https://github.com/Peltmonger/stardrive";
             GitHub
             <Icon name="heroicons:arrow-top-right-on-square" class="h-4 w-4" aria-hidden="true" />
           </a>
-          <a href={authorUrl} target="_blank" rel="noopener" class="btn-subtle rounded px-3">
-            {authorCtaLabel}
-            <Icon name="heroicons:arrow-top-right-on-square" class="h-4 w-4" aria-hidden="true" />
+          <a href={getLocaleUrl('docs', locale)} class="btn-subtle group rounded px-3">
+            {t('labels.get-started')}
+            <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
           </a>
         </div>
       </div>

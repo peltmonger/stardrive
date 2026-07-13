@@ -24,14 +24,14 @@ export const themeConfig: ThemeConfig = {
   // Structured data
   author: {
     type: 'Person',
-    name: 'Jens Kuerschner',
-    url: 'https://jekuer.com',
+    name: 'John Doe',
+    url: 'https://en.wikipedia.org/wiki/John_Doe',
     image: '',
   },
   publisher: {
     type: 'Organization',
-    name: 'Peltmonger Ventures',
-    url: 'https://peltmonger.com',
+    name: 'ACME Inc.',
+    url: 'https://www.firefox.com',
     image: '',
   },
 
@@ -54,12 +54,12 @@ export const themeConfig: ThemeConfig = {
     translatedStructuredData: {
       de: {
         author: {
-          name: 'Jens Kürschner',
-          url: 'https://jekuer.de',
+          name: 'Max Mustermann',
+          url: 'https://de.wikipedia.org/wiki/Mustermann#Max_Mustermann',
         },
         publisher: {
-          name: 'Peltmonger Ventures',
-          url: 'https://peltmonger.com/de',
+          name: 'ACME GmbH',
+          url: 'https://www.firefox.com/de',
         },
       },
     },
@@ -82,8 +82,8 @@ export const themeConfig: ThemeConfig = {
     tocMaxDepth: 3,
     defaults: {
       author: {
-        name: 'Jens Kuerschner',
-        url: 'https://www.linkedin.com/in/jenskuerschner/',
+        name: 'Jane Doe',
+        url: 'https://en.wikipedia.org/wiki/Jane_Doe_(disambiguation)',
       },
     },
     social: {

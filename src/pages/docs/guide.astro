@@ -74,6 +74,40 @@ logo:
   file: "@images/content/integration-options/google-sheets.svg"
   alt: "Google Sheets logo"
 ${fence}`;
+
+const headerPageExample = `${fence}
+import Layout from "@layouts/default.astro";
+
+<Layout
+  title="My page"
+  header={{
+    overlay: true,            // start as an overlay over the hero
+    scrollDownThreshold: 600, // switch to the fixed bar after 600px
+    showTopBanner: false,     // hide the top promo banner on this page
+  }}
+>
+  <section class="hero">…</section>
+  <section class="content">…</section>
+</Layout>
+${fence}`;
+
+const headerButtonExample = `${fence}
+<Layout
+  title="Article"
+  header={{
+    button: { text: "Back to blog", href: "/blog" },
+    fixed: true,
+  }}
+>
+  …
+</Layout>
+${fence}`;
+
+const headerHiddenExample = `${fence}
+<Layout title="Landing page" header={{ hidden: true }}>
+  …
+</Layout>
+${fence}`;
 ---
 
 <Layout title={t('pages.docs.title-guide')} description={t('pages.docs.description-guide')}>
@@ -242,6 +276,195 @@ ${fence}`;
             with a filter on a specific event group. Events are then mirrored into the page dynamically - marketing can make changes in the web app with <strong>no re-deployment needed</strong>.
           </p>
           <p>Great for webinars, corporate events, and investor-relations calendars.</p>
+        </Callout>
+      </Topic>
+
+      <!-- Header -->
+      <Topic icon="heroicons:bars-3" title="Header options" tagline="Sticky bar, overlay, close button, or none at all">
+        <p>The header is one of the most flexible parts of Stardrive. It can be a sticky bar, an overlay that morphs on scroll, a minimal close button, or disappear entirely. Options flow through three layers, from the page down to the component that renders the bar:</p>
+        <div class="my-4 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+            <p class="text-primary text-sm font-semibold tracking-wide uppercase">1. Page</p>
+            <h4 class="mb-1 font-bold">Pass a <code>header</code> prop</h4>
+            <p class="text-sm text-stone-600 dark:text-stone-300">Each page hands a <code>header</code> object to the Layout. This is where you override behaviour per route.</p>
+          </div>
+          <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+            <p class="text-primary text-sm font-semibold tracking-wide uppercase">2. Layout</p>
+            <h4 class="mb-1 font-bold"><code>default.astro</code> / <code>article.astro</code></h4>
+            <p class="text-sm text-stone-600 dark:text-stone-300">The Layout reads the page's <code>header</code> prop, merges it with its own hardcoded defaults, and forwards the result to the Header component.</p>
+          </div>
+          <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+            <p class="text-primary text-sm font-semibold tracking-wide uppercase">3. Component</p>
+            <h4 class="mb-1 font-bold"><code>header.astro</code></h4>
+            <p class="text-sm text-stone-600 dark:text-stone-300">The component receives the final props and renders one of four variants based on the combination.</p>
+          </div>
+        </div>
+
+        <h4 class="mt-6 mb-2 font-bold">Two levels of defaults</h4>
+        <p class="mb-3 max-w-2xl text-stone-600 dark:text-stone-300">
+          There is no <code>header</code> key in <code>theme.config.ts</code>. Defaults are coded in two places - both are plain code, so you edit them directly.
+        </p>
+        <div class="mb-4 rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+          <p class="mb-1 font-bold">Layout default</p>
+          <p class="mb-2 text-sm text-stone-600 dark:text-stone-300">
+            In <code>./src/layouts/default.astro</code> (and <code>article.astro</code>), some values are hardcoded and passed to every page that uses the Layout. These are the things you almost never want to change per page:
+          </p>
+          <ul class="ml-5 list-disc text-sm text-stone-600 dark:text-stone-300">
+            <li><code>github</code> - the GitHub link shown on the right (currently points at the Stardrive repo).</li>
+            <li><code>ctaButton</code> - the call-to-action button (defaults to the "Sign up" label and the signup route).</li>
+            <li><code>isHome</code> - forwarded from the Layout so the logo is not linked on the homepage.</li>
+          </ul>
+          <p class="mt-2 text-sm text-stone-600 dark:text-stone-300">Edit these directly in the Layout file to change them globally.</p>
+        </div>
+        <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+          <p class="mb-1 font-bold">Component default</p>
+          <p class="text-sm text-stone-600 dark:text-stone-300">
+            In <code>./src/components/layout/header.astro</code>, the variant is chosen from the combination of <code>fixed</code>, <code>overlay</code>, and <code>closeIcon</code>. When none of those are set, the component falls back to the <strong>CSS-fixed</strong> variant - a header that sticks to the top while scrolling and hides once the footer covers most of the viewport. That fallback lives
+            in the component's own logic, not in a config file.
+          </p>
+        </div>
+        <Callout variant="tip" title="Change a default once, apply everywhere" class="mt-4">
+          <p>Because the defaults live in code, a single edit in the Layout (for <code>github</code> / <code>ctaButton</code>) or the component (for the fallback variant) propagates to every page. You only need the per-page <code>header</code> prop when a route should behave differently.</p>
+        </Callout>
+
+        <h4 class="mt-6 mb-2 font-bold">Overriding on the page</h4>
+        <p class="mb-3 max-w-2xl text-stone-600 dark:text-stone-300">
+          Pass a <code>header</code> object to the Layout to override the defaults for a single page. Only the keys you set are applied - everything else falls back to the Layout and component defaults.
+        </p>
+        <Code code={headerPageExample} lang="astro" title="src/pages/my-page.astro" />
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <Callout variant="note" title="Back button instead of logo">
+            <p>Set <code>button</code> to replace the logo with a "back" link - ideal for detail pages.</p>
+          </Callout>
+          <Callout variant="note" title="Hide the header entirely">
+            <p>Set <code>hidden: true</code> when a page should not show a header at all (e.g. a landing page).</p>
+          </Callout>
+        </div>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <Code code={headerButtonExample} lang="astro" title="Back-button header" />
+          <Code code={headerHiddenExample} lang="astro" title="No header" />
+        </div>
+
+        <h4 class="mt-6 mb-2 font-bold">All header options</h4>
+        <p class="mb-3 max-w-2xl text-stone-600 dark:text-stone-300">
+          These are the props accepted by the <code>header</code> object on the Layout. The Layout forwards the relevant subset to the Header component; a few additional props (<code>github</code>, <code>ctaButton</code>, <code>overlayTheme</code>) are only set at the Layout or component level.
+        </p>
+        <div class="overflow-x-auto rounded-lg border border-stone-300 dark:border-stone-700">
+          <table class="w-full border-collapse text-sm">
+            <thead class="bg-stone-100 text-left dark:bg-stone-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Prop</th>
+                <th class="px-4 py-3 font-semibold">Type</th>
+                <th class="px-4 py-3 font-semibold">Default</th>
+                <th class="px-4 py-3 font-semibold">What it does</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 dark:divide-stone-800">
+              <tr>
+                <td class="px-4 py-3 align-top"><code>hidden</code></td>
+                <td class="px-4 py-3 align-top">boolean</td>
+                <td class="px-4 py-3 align-top"><code>undefined</code></td>
+                <td class="px-4 py-3 align-top">When <code>true</code>, the header is not rendered at all. Use for full-bleed landing pages.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>fixed</code></td>
+                <td class="px-4 py-3 align-top">boolean</td>
+                <td class="px-4 py-3 align-top"><code>undefined</code></td>
+                <td class="px-4 py-3 align-top">Renders a full-width bar pinned to the very top that does not move on scroll. Mutually exclusive with <code>overlay</code> and <code>closeIcon</code>.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>overlay</code></td>
+                <td class="px-4 py-3 align-top">boolean</td>
+                <td class="px-4 py-3 align-top"><code>undefined</code></td>
+                <td class="px-4 py-3 align-top">Starts the header as an absolute overlay (typically over a hero), then transitions to a fixed bar once <code>scrollDownThreshold</code> is passed. Mutually exclusive with <code>fixed</code>.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>scrollDownThreshold</code></td>
+                <td class="px-4 py-3 align-top">number</td>
+                <td class="px-4 py-3 align-top">header out of viewport</td>
+                <td class="px-4 py-3 align-top">Only used with <code>overlay</code>. Pixels scrolled before the overlay morphs into the fixed bar. Should be larger than the header height for a clean transition.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>closeIcon</code></td>
+                <td class="px-4 py-3 align-top">boolean</td>
+                <td class="px-4 py-3 align-top"><code>undefined</code></td>
+                <td class="px-4 py-3 align-top">Replaces the logo/button with a close icon that links back to the home page. Used on the 404 page. Mutually exclusive with <code>fixed</code> and <code>overlay</code>.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>button</code></td>
+                <td class="px-4 py-3 align-top"><code>{`{ text, href }`}</code></td>
+                <td class="px-4 py-3 align-top">logo</td>
+                <td class="px-4 py-3 align-top">Shows a "back" button (with an arrow icon) instead of the site logo. Common on list and detail pages (e.g. "Back to blog").</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>showTopBanner</code></td>
+                <td class="px-4 py-3 align-top">boolean</td>
+                <td class="px-4 py-3 align-top">from <code>theme.config.ts</code></td>
+                <td class="px-4 py-3 align-top">Force-hides (<code>false</code>) or force-shows (<code>true</code>) the top promo banner for this page, overriding the global <code>topBanner</code> setting.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <Callout variant="note" title="Layout-only props" class="mt-4">
+          <p>
+            A few props are not exposed on the page-level <code>header</code> object because they are project-wide: <code>github</code> (the repo link), <code>ctaButton</code> (the right-hand CTA), and <code>overlayTheme</code> (force light/dark for overlay headers). Edit them directly in <code>./src/layouts/default.astro</code> or <code>./src/components/layout/header.astro</code>.
+          </p>
+        </Callout>
+
+        <h4 class="mt-6 mb-2 font-bold">Common combinations</h4>
+        <p class="mb-3 max-w-2xl text-stone-600 dark:text-stone-300">
+          The variant is picked from the combination of <code>fixed</code>, <code>overlay</code>, and <code>closeIcon</code>. These three are mutually exclusive - set at most one.
+        </p>
+        <div class="overflow-x-auto rounded-lg border border-stone-300 dark:border-stone-700">
+          <table class="w-full border-collapse text-sm">
+            <thead class="bg-stone-100 text-left dark:bg-stone-800">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Combination</th>
+                <th class="px-4 py-3 font-semibold">Result</th>
+                <th class="px-4 py-3 font-semibold">Typical use</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-stone-200 dark:divide-stone-800">
+              <tr>
+                <td class="px-4 py-3 align-top">(none set)</td>
+                <td class="px-4 py-3 align-top">CSS-fixed header that sticks to the top and hides when the footer covers the viewport.</td>
+                <td class="px-4 py-3 align-top">Most content pages.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>fixed: true</code></td>
+                <td class="px-4 py-3 align-top">Full-width bar pinned to the very top, never moves.</td>
+                <td class="px-4 py-3 align-top">List pages with a back button (blog categories, tags).</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>overlay: true</code> + <code>scrollDownThreshold</code></td>
+                <td class="px-4 py-3 align-top">Overlay over the hero, then morphs into a fixed bar after the threshold.</td>
+                <td class="px-4 py-3 align-top">Homepage and hero-driven pages.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>closeIcon: true</code></td>
+                <td class="px-4 py-3 align-top">Just a close icon linking home.</td>
+                <td class="px-4 py-3 align-top">Error pages (e.g. 404).</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>button</code> + <code>fixed: true</code></td>
+                <td class="px-4 py-3 align-top">Pinned bar with a back button instead of the logo.</td>
+                <td class="px-4 py-3 align-top">Sub-listings where the user came from an overview.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>hidden: true</code></td>
+                <td class="px-4 py-3 align-top">No header at all.</td>
+                <td class="px-4 py-3 align-top">Standalone landing or splash pages.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 align-top"><code>showTopBanner: false</code></td>
+                <td class="px-4 py-3 align-top">Any variant, but the top promo banner is hidden.</td>
+                <td class="px-4 py-3 align-top">Legal/privacy pages where you want a calmer chrome.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <Callout variant="warning" title="Mutually exclusive variants" class="mt-4">
+          <p><code>fixed</code>, <code>overlay</code>, and <code>closeIcon</code> select different rendering branches in the component. Setting more than one produces undefined behaviour - the component checks <code>closeIcon</code> first, then <code>fixed</code>, then <code>overlay</code>, so only one ever applies. Pick the one that matches your intent.</p>
         </Callout>
       </Topic>
     </div>

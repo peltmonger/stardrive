@@ -4,7 +4,6 @@
     "features": "Funciones",
     "docs": "Docs",
     "docs-installation": "Instalación",
-    "docs-installation-explainer": "Ponlo en marcha",
     "docs-configuration": "Configuración",
     "docs-guide": "Guía",
     "docs-guide-explainer": "Cómo trabajar con él en la práctica",
@@ -279,9 +278,9 @@
     "support": "Soporte"
   },
   "ads": {
-    "atcp": {
-      "title": "Add to Calendar Pro",
-      "description": "Explora las mejores herramientas de marketing de eventos a precios justos"
+    "demo": {
+      "title": "Oro Arcoíris Gratis",
+      "description": "Descubre la nueva forma de encontrar una fortuna"
     }
   },
   "home-content": {

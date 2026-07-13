@@ -77,7 +77,7 @@ const showTopBanner = (themeConfig.promotions?.topBanner && header?.showTopBanne
     <!-- Structured Data -->
     <ArticleStructuredData {title} {description} {articleEntry} {locale} />
     <!-- Transitions -->
-    <!--<ClientRouter />-->
+    <ClientRouter />
   </head>
   <body>
     {showTopBanner ? <TopBanner {locale} /> : null}
