@@ -54,11 +54,14 @@ const { label } = Astro.props as Props;
 
   const setup = () => {
     syncUi(getUserTheme());
-    document.getElementById(SWITCH_ID)?.addEventListener('click', handleClick);
+    const button = document.getElementById(SWITCH_ID);
+    // Keep setup idempotent when both the module script and astro:page-load run.
+    button?.removeEventListener('click', handleClick);
+    button?.addEventListener('click', handleClick);
   };
 
-  // astro:page-load fires on initial load and after every view-transition swap,
-  // so we don't need the manual astro:after-swap re-registration the Solid
-  // version used.
+  // Module scripts run on regular page loads; astro:page-load also covers
+  // initial and subsequent ClientRouter navigations.
+  setup();
   document.addEventListener('astro:page-load', setup);
 </script>

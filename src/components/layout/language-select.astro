@@ -107,6 +107,9 @@ const languageUrls = await Promise.all(
   };
 
   const setupLanguageSelect = () => {
+    // Keep setup idempotent: this runs immediately for regular navigation and
+    // again after each ClientRouter navigation.
+    cleanupLanguageSelect();
     document.getElementById('close-language-menu')?.addEventListener('click', closeLanguageSelect);
     document.getElementById('open-language-menu')?.addEventListener('click', openLanguageSelect);
     document.addEventListener('keyup', handleKeyup);
@@ -120,8 +123,9 @@ const languageUrls = await Promise.all(
     document.removeEventListener('keydown', trapFocus);
   };
 
-  // astro:page-load fires on initial load and after every view-transition swap.
+  // Module scripts run on regular page loads; astro:page-load also covers
+  // initial and subsequent ClientRouter navigations.
+  setupLanguageSelect();
   document.addEventListener('astro:page-load', setupLanguageSelect);
-  // astro:before-swap fires right before the DOM is swapped out.
   document.addEventListener('astro:before-swap', cleanupLanguageSelect);
 </script>

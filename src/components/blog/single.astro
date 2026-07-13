@@ -192,6 +192,9 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
   };
 
   const setupToC = () => {
+    // Keep setup idempotent: this runs immediately for regular navigation and
+    // again after each ClientRouter navigation.
+    cleanupToC();
     document.getElementById('open-toc')?.addEventListener('click', openToC);
     document.getElementById('close-toc')?.addEventListener('click', closeToC);
     document.addEventListener('keyup', handleKeyup);
@@ -207,7 +210,9 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
     document.querySelectorAll('.toc-link').forEach((link) => link.removeEventListener('click', closeToC));
   };
 
-  // astro:page-load fires on initial load and after every view-transition swap.
+  // Module scripts run on regular page loads; astro:page-load also covers
+  // initial and subsequent ClientRouter navigations.
+  setupToC();
   document.addEventListener('astro:page-load', setupToC);
   document.addEventListener('astro:before-swap', cleanupToC);
 </script>

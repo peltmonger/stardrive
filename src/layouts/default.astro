@@ -95,7 +95,7 @@ const showTopBanner = (themeConfig.promotions?.topBanner && header?.showTopBanne
     {isHome ? <WebsiteStructuredData {title} image={structuredDataImage} {author} {publisher} {locale} /> : null}
     <WebPageStructuredData {type} {title} {description} image={structuredDataImage} {author} {publisher} {locale} />
     <!-- Transitions -->
-    <ClientRouter />
+    <!--<ClientRouter />-->
   </head>
   <body>
     {showTopBanner ? <TopBanner {locale} /> : null}
