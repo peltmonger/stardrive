@@ -31,35 +31,35 @@ const activeButtonsSmallScreen = buttonsSmallScreen || themeConfig.articles?.soc
       </a>
 
       <a href={`https://www.facebook.com/sharer/sharer.php?u=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': Facebook'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.facebook ? 'flex' : 'hidden', activeButtons.facebook ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:facebook-f" class="h-4 w-4" />
+        <Icon name="fa7-brands:facebook-f" class="h-4 w-4" />
       </a>
 
       <a href={`http://news.ycombinator.com/submitlink?u=${encoded_url}&t=${title}`} target="_blank" aria-label={t('labels.share-article') + ': Hackernews / YCombinator'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.hackernews ? 'flex' : 'hidden', activeButtons.hackernews ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:hacker-news" class="h-5 w-5" />
+        <Icon name="fa7-brands:hacker-news" class="h-5 w-5" />
       </a>
 
       <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': LinkedIn'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.linkedin ? 'flex' : 'hidden', activeButtons.linkedin ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:linkedin-in" class="h-5 w-5" />
+        <Icon name="fa7-brands:linkedin-in" class="h-5 w-5" />
       </a>
 
       <a href={`https://pinterest.com/pin/create/button/?url=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': Pinterest'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.pinterest ? 'flex' : 'hidden', activeButtons.pinterest ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:pinterest-p" class="h-5 w-5" />
+        <Icon name="fa7-brands:pinterest-p" class="h-5 w-5" />
       </a>
 
       <a href={`https://www.reddit.com/submit?url=${encoded_url}&title=${title}`} target="_blank" aria-label={t('labels.share-article') + ': Reddit'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.reddit ? 'flex' : 'hidden', activeButtons.reddit ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:reddit-alien" class="h-5 w-5" />
+        <Icon name="fa7-brands:reddit-alien" class="h-5 w-5" />
       </a>
 
       <a href={`https://t.me/share/url?url=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': Telegram'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.telegram ? 'flex' : 'hidden', activeButtons.telegram ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:telegram" class="h-6 w-6" />
+        <Icon name="fa7-brands:telegram" class="h-6 w-6" />
       </a>
 
       <a href={`https://x.com/intent/post?url=${encoded_url}` + (xHandle ? `&via=${xHandle}` : '')} target="_blank" aria-label={t('labels.share-article') + ': X'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.x ? 'flex' : 'hidden', activeButtons.x ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:x-twitter" class="h-5 w-5" />
+        <Icon name="fa7-brands:x-twitter" class="h-5 w-5" />
       </a>
 
       <a href={`https://api.whatsapp.com/send?text=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': WhatsApp'} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.whatsapp ? 'flex' : 'hidden', activeButtons.whatsapp ? 'md:flex' : 'md:hidden']}>
-        <Icon name="fa6-brands:whatsapp" class="h-5 w-5" />
+        <Icon name="fa7-brands:whatsapp" class="h-5 w-5" />
       </a>
     </div>
   )

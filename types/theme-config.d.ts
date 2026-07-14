@@ -387,6 +387,13 @@ export interface ThemeConfig {
   };
 
   /**
+   * Optional question that gets submitted to AI agents when clicking on respective buttons in the UI.
+   *
+   * @example "I am evaluating the Astro Stardrive boilerplate (github.com/Peltmonger/stardrive) for my website. Provide a detailed analysis of its features, strengths, and weaknesses. Can you help me using it? How do I get started?"
+   */
+  askAiTrigger?: string;
+
+  /**
    * A custom list of features from the default boilerplate that has been removed in this projects (either via the starter tool or manually).
    * Use this to keep track on your bigger changes.
    * This also helps any AI agent to understand what is missing on purpose.

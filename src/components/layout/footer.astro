@@ -17,46 +17,64 @@ interface Props {
 const { locale, isError, isHome } = Astro.props as Props;
 const t = useTranslations(locale);
 
+const promptLocaleAdd = locale !== 'en' ? ` - Translate your answer into "${locale}" language` : '';
+
 const githubUrl: string|undefined = 'https://github.com/peltmonger/stardrive';
 const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmonger';
 ---
 
 <footer role="contentinfo" class="from-secondary-dark bg-linear-to-t to-stone-900 pt-14">
-  <div class="container flex flex-col items-start justify-between gap-20 px-7 md:flex-row">
-    <div class="flex flex-col items-start gap-5 sm:max-w-[350px]">
+  <div class="container flex flex-col items-start justify-between gap-x-20 gap-y-10 px-7 md:flex-row">
+    <div class="flex flex-col w-full items-center text-center md:text-left md:items-start gap-5 md:max-w-[350px] pb-10 border-b md:border-0 border-white/10">
       <div class="w-auto max-w-[200px]">
         <a href={getLocaleUrl('/', locale)} class="block w-full select-none">
           <p class="sr-only hidden" id="siteNameLogo">{themeConfig.name}</p>
           <Logo class="h-auto w-full drop-shadow" aria-labelledby="siteNameLogo" />
         </a>
       </div>
-      <div class="flex flex-col gap-1 text-left text-balance text-stone-50">
+      <div class="flex flex-col gap-1 text-balance text-stone-50">
         <div class="text-sm font-semibold">{t('meta.slogan')}</div>
         <div class="text-xs">{t('meta.sub-slogan')}</div>
       </div>
       <div class="flex items-center justify-center space-x-6 lg:justify-start lg:space-x-3">
         {
           githubUrl && (
-            <a class="btn-subtle rounded-full p-1" title="Work with us on GitHub" target="_blank" rel="noopener" href={githubUrl}>
-              <Icon name="fa6-brands:github" class="h-5 w-5" />
+            <a class="btn-subtle rounded-full p-0.5" title="Work with us on GitHub" target="_blank" rel="noopener" href={githubUrl}>
+              <Icon name="fa7-brands:github" class="h-6 w-6" />
             </a>
           )
         }
         {
           themeConfig.xHandle && (
-            <a class="btn-subtle rounded-full p-1.5" title="Follow us on X" target="_blank" rel="noopener" href={'https://x.com/' + themeConfig.xHandle}>
-              <Icon name="fa6-brands:x-twitter" class="h-4 w-4" />
+            <a class="btn-subtle rounded-full p-1" title="Follow us on X" target="_blank" rel="noopener" href={'https://x.com/' + themeConfig.xHandle}>
+              <Icon name="fa7-brands:x-twitter" class="h-5 w-5" />
             </a>
           )
         }
         {
           linkedinUrl && (
-            <a class="btn-subtle rounded-full p-1.5" title="Follow us on LinkedIn" target="_blank" rel="noopener" href={linkedinUrl}>
-              <Icon name="fa6-brands:linkedin" class="h-4 w-4" />
+            <a class="btn-subtle rounded-full p-1" title="Follow us on LinkedIn" target="_blank" rel="noopener" href={linkedinUrl}>
+              <Icon name="fa7-brands:linkedin-in" class="h-5 w-5" />
             </a>
           )
         }
       </div>
+      {themeConfig.askAiTrigger && (
+        <div class="mt-14 md:mt-5">
+          <div class="text-xs mb-3 text-text-dark">{t('labels.ask-ai')}:</div>
+          <div class="flex items-center justify-center space-x-6 lg:justify-start lg:space-x-3">
+            <a class="btn-subtle rounded-full p-1.5" title="ChatGPT" target="_blank" rel="noopener" href={`https://chatgpt.com/?prompt=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="simple-icons:openai" class="h-5 w-5" />
+            </a>
+            <a class="btn-subtle rounded-full p-1.5" title="Claude" target="_blank" rel="noopener" href={`https://claude.ai/new?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="simple-icons:claude" class="h-5 w-5" />
+            </a>
+            <a class="btn-subtle rounded-full p-1.5" title="Perplexity" target="_blank" rel="noopener" href={`https://www.perplexity.ai/search?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="simple-icons:perplexity" class="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      )}
     </div>
     <div class="flex w-full flex-col md:w-fit">
       <FooterNav {locale} {isHome} />
