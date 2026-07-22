@@ -44,7 +44,7 @@ const allArticles = page.data as CollectionEntry<'articles'>[];
 const numberofPages = Math.ceil(page.total / page.size);
 ---
 
-<Layout title={t('labels.tag') + ': ' + t('tags-t.' + tag)} header={{ button: { text: t('labels.back-overview'), href: getLocaleUrl('blog/tags', locale) }, fixed: true }} noi18n={true}>
+<Layout title={t('labels.tag') + ': ' + t('tags-t.' + tag) + (page.currentPage > 1 ? ' | ' + t('labels.page') + ' ' + page.currentPage : '')} header={{ button: { text: t('labels.back-overview'), href: getLocaleUrl('blog/tags', locale) }, fixed: true }} noi18n={true}>
   <Headline text={t('labels.tag') + ': ' + t('tags-t.' + tag)} icon="heroicons:tag" />
   <div class="flex w-full flex-wrap justify-start px-3 pb-10 font-semibold italic opacity-50 md:justify-end">
     {page.currentPage > 1 ? t('labels.page') + ': ' + page.currentPage : ''}

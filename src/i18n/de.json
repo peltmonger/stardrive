@@ -109,7 +109,7 @@
       "title-install": "So installierst du",
       "description-install": "Erfahre, wie du Astro Stardrive installierst und dein Projekt schnell zum Laufen bringst.",
       "title-configuration": "Konfiguration",
-      "description-configuration": "Konfiguriere Astro Stardrive nach den Anforderungen deines Projekts.",
+      "description-configuration": "Konfiguriere Astro Stardrive nach den Anforderungen deines Projekts. Lerne Schritt für Schritt mehr darüber.",
       "title-guide": "Anleitung",
       "description-guide": "Folge der Anleitung, um zu verstehen, wie du Astro Stardrive effektiv nutzt."
     },
@@ -122,8 +122,8 @@
       "cta": "Deine Seite eintragen lassen"
     },
     "faq": {
-      "title": "Häufig gestellte Fragen",
-      "description": "Antworten auf die häufigsten Fragen zu Astro Stardrive.",
+      "title": "Häufige Fragen",
+      "description": "Antworten auf die häufigsten Fragen zu Astro Stardrive. Ja, es ist kostenlos und Open Source.",
       "search-placeholder": "Fragen durchsuchen...",
       "filter-all-categories": "Alle Kategorien",
       "no-results": "Keine Fragen passen zu deiner Suche."
@@ -181,7 +181,7 @@
     },
     "get-listed": {
       "title": "Eintragen lassen",
-      "description": "Erfahre, wie du deine Website als Praxisbeispiel eintragen lässt.",
+      "description": "Erfahre, wie du deine Website als Praxisbeispiel mit Backlink auf unserer Website eintragen lässt.",
       "intro": "Deine Seite mit Astro Stardrive gebaut? Super - füge sie zur Beispielgalerie hinzu. Das geht mit einem kleinen Pull Request.",
       "steps-heading": "So funktioniert's",
       "step-1-title": "Öffne die Beispiel-Datendatei",

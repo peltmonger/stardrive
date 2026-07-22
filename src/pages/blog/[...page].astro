@@ -27,7 +27,7 @@ const allArticles = page.data as CollectionEntry<'articles'>[];
 const numberofPages = Math.ceil(page.total / page.size);
 ---
 
-<Layout title={t('pages.blog.title') + (page.currentPage > 1 ? ': ' + t('labels.page') + ' ' + page.currentPage : '')} noi18n={page.currentPage > 1} {locale}>
+<Layout title={t('pages.blog.title') + (page.currentPage > 1 ? ' | ' + t('labels.page') + ' ' + page.currentPage : '')} noi18n={page.currentPage > 1} {locale}>
   <Headline text={t('pages.blog.title') + (page.currentPage > 1 ? ': ' + t('labels.page') + ' ' + page.currentPage : '')} />
   {
     allArticles.length > 0 && themeConfig.articles && (themeConfig.articles.categories || themeConfig.articles.tags) && (

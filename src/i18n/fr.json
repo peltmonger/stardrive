@@ -109,7 +109,7 @@
       "title-install": "Comment installer",
       "description-install": "Apprenez à installer Astro Stardrive et à mettre rapidement votre projet en route.",
       "title-configuration": "Configuration",
-      "description-configuration": "Configurez Astro Stardrive selon les besoins de votre projet.",
+      "description-configuration": "Configurez Astro Stardrive selon les besoins de votre projet. Apprenez-en plus étape par étape.",
       "title-guide": "Guide",
       "description-guide": "Suivez le guide pour comprendre comment utiliser efficacement Astro Stardrive."
     },
@@ -118,12 +118,12 @@
       "description": "Découvrez des exemples concrets de sites web créés avec Astro Stardrive pour inspirer votre prochain projet.",
       "intro": "Une vitrine grandissante de sites web créés avec Astro Stardrive. Parcourez-les pour vous inspirer - et si vous en avez lancé un, ajoutez-le à la liste avec une simple pull request.",
       "list-label": "Sites web créés avec Astro Stardrive",
-      "empty": "Aucun exemple pour l'instant - soyez le tout premier à être référencé !",
+      "empty": "Aucun exemple pour l'instant - soyez le tout premier à être référencé!",
       "cta": "Faites référencer votre site"
     },
     "faq": {
       "title": "Foire aux questions",
-      "description": "Trouvez les réponses aux questions les plus fréquentes sur Astro Stardrive.",
+      "description": "Trouvez les réponses aux questions les plus fréquentes sur Astro Stardrive. Oui, c'est gratuit et open source.",
       "search-placeholder": "Rechercher des questions...",
       "filter-all-categories": "Toutes les catégories",
       "no-results": "Aucune question ne correspond à votre recherche."
@@ -181,11 +181,11 @@
     },
     "get-listed": {
       "title": "Être référencé",
-      "description": "Apprenez comment faire référencer votre site web comme exemple concret.",
-      "intro": "Vous avez créé votre site avec Astro Stardrive ? Génial - ajoutez-le à la galerie d'exemples. Il suffit d'une petite pull request.",
+      "description": "Apprenez comment faire référencer votre site web comme exemple concret avec un backlink sur notre site web.",
+      "intro": "Vous avez créé votre site avec Astro Stardrive? Génial - ajoutez-le à la galerie d'exemples. Il suffit d'une petite pull request.",
       "steps-heading": "Comment ça marche",
       "step-1-title": "Ouvrez le fichier de données des exemples",
-      "step-1-text": "Toutes les entrées se trouvent dans un unique fichier JSON du dépôt : {file}.",
+      "step-1-text": "Toutes les entrées se trouvent dans un unique fichier JSON du dépôt: {file}.",
       "step-2-title": "Modifiez-le sur GitHub",
       "step-2-text": "Ajoutez un objet avec vos {fields}. Vous pouvez forker le dépôt, mais ouvrir un Codespace est le plus simple - modifiez directement dans le navigateur et validez.",
       "step-3-title": "Créez une pull request",
@@ -193,7 +193,7 @@
       "requirements-heading": "Conditions d'approbation",
       "req-generator-title": "Conservez la balise generator",
       "req-generator-text": "Votre site doit exposer la balise {tag} dans son <head>. Elle est présente automatiquement sauf si vous l'avez supprimée - c'est ainsi que nous vérifions qu'un site fonctionne vraiment avec Stardrive.",
-      "req-generator-warning": "Remarque : dès que cette balise est supprimée, votre entrée sera retirée de la liste.",
+      "req-generator-warning": "Remarque: dès que cette balise est supprimée, votre entrée sera retirée de la liste.",
       "req-content-title": "Uniquement des liens adaptés à tous",
       "req-content-text": "Nous n'autorisons pas les liens vers des pages au contenu inadapté aux enfants - comme les jeux d'argent, le contenu sexuel/pornographique ou lié à l'alcool.",
       "alt-title": "Pas à l'aise avec une PR ?",

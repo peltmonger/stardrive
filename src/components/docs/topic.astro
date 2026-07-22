@@ -29,7 +29,7 @@ const { icon, title, tagline, open = false, class: className = "" } = Astro.prop
       <Icon name={icon} class="h-6 w-6" aria-hidden="true" />
     </span>
     <span class="flex min-w-0 grow flex-col">
-      <span class="text-lg font-bold">{title}</span>
+      <h2 class="text-lg font-bold">{title}</h2>
       {tagline && <span class="text-sm text-stone-600 dark:text-stone-300">{tagline}</span>}
     </span>
     <Icon name="heroicons:chevron-down" class="group-hover:text-primary h-5 w-5 shrink-0 text-stone-400 transition-transform group-open:rotate-180" aria-hidden="true" />

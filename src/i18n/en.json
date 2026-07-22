@@ -109,9 +109,9 @@
       "title-install": "How to Install",
       "description-install": "Learn how to install Astro Stardrive and get your project up and running quickly.",
       "title-configuration": "Configuration",
-      "description-configuration": "Configure Astro Stardrive to suit your project's needs.",
+      "description-configuration": "Configure Astro Stardrive to suit your project's needs. Learn more about it step by step.",
       "title-guide": "Guide",
-      "description-guide": "Follow the guide to understand how to effectively use Astro Stardrive."
+      "description-guide": "Follow the guide to understand how to effectively use Astro Stardrive and its features."
     },
     "examples": {
       "title": "Real-World Examples",
@@ -122,8 +122,8 @@
       "cta": "Get your site listed"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
-      "description": "Find answers to the most common questions about Astro Stardrive.",
+      "title": "FAQ",
+      "description": "Find answers to the most common questions about Astro Stardrive. Yes, it is free and open source.",
       "search-placeholder": "Search questions...",
       "filter-all-categories": "All categories",
       "no-results": "No questions match your search."
@@ -181,7 +181,7 @@
     },
     "get-listed": {
       "title": "Get Listed",
-      "description": "Learn how to get your website listed as a real world example.",
+      "description": "Learn how to get your website listed as a real world example with backlink on our website.",
       "intro": "Built your site with Astro Stardrive? Awesome - add it to the examples gallery. It only takes a small pull request.",
       "steps-heading": "How it works",
       "step-1-title": "Open the examples data file",
@@ -236,7 +236,7 @@
     },
     "signup": {
       "title": "Sign Up",
-      "description": "Use this page to promote a signup, directly add a respective form, or redirect to another page. This is for demo purposes only, since there is no real signup form here.",
+      "description": "Add a signup! As a respective form, or redirect to another page. This is for demo purposes only, since there is no real signup form here.",
       "intro": "This is where your visitors would sign up. In the Stardrive boilerplate it is intentionally left empty - how you turn it into a conversion point is entirely up to you.",
       "option-form-title": "Embed a form",
       "option-form-text": "Drop in a real signup or lead form and connect it to your backend or an email service.",

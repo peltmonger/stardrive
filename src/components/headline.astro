@@ -20,10 +20,10 @@ const { text, class: className = "", backgroundColor, backgroundColorDark } = As
     </div>
     <div class="fade-overlay absolute top-0 right-0 h-full w-32" style={`--fade-to: var(--color-${backgroundColor || 'background'}); --fade-to-dark: var(--color-${backgroundColorDark || 'background-dark'})`}></div>
   </div>
-  <h2 class="flex items-center gap-1 pt-9 text-3xl font-bold italic opacity-60 select-none sm:gap-2 sm:pt-14 sm:text-5xl">
+  <h1 class="flex items-center gap-1 pt-9 text-3xl font-bold italic opacity-60 select-none sm:gap-2 sm:pt-14 sm:text-5xl">
     {Astro.props.icon && <Icon name={Astro.props.icon} class="mt-0.5 h-7 w-7 sm:mt-1 sm:h-10 sm:w-10" />}
     {text}
-  </h2>
+  </h1>
 </div>
 
 <style>

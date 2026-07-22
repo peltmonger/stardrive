@@ -109,7 +109,7 @@
       "title-install": "Cómo instalar",
       "description-install": "Aprende a instalar Astro Stardrive y a poner tu proyecto en marcha rápidamente.",
       "title-configuration": "Configuración",
-      "description-configuration": "Configura Astro Stardrive según las necesidades de tu proyecto.",
+      "description-configuration": "Configura Astro Stardrive según las necesidades de tu proyecto. Aprende más sobre ello paso a paso.",
       "title-guide": "Guía",
       "description-guide": "Sigue la guía para entender cómo usar Astro Stardrive de forma eficaz."
     },
@@ -123,7 +123,7 @@
     },
     "faq": {
       "title": "Preguntas frecuentes",
-      "description": "Encuentra respuestas a las preguntas más comunes sobre Astro Stardrive.",
+      "description": "Encuentra respuestas a las preguntas más comunes sobre Astro Stardrive. Sí, es gratis y de código abierto.",
       "search-placeholder": "Buscar preguntas...",
       "filter-all-categories": "Todas las categorías",
       "no-results": "Ninguna pregunta coincide con tu búsqueda."
@@ -181,7 +181,7 @@
     },
     "get-listed": {
       "title": "Aparece en la lista",
-      "description": "Aprende cómo conseguir que tu sitio web aparezca como un ejemplo real.",
+      "description": "Aprende cómo conseguir que tu sitio web aparezca como un ejemplo real con un backlink en nuestro sitio web.",
       "intro": "¿Construiste tu sitio con Astro Stardrive? Genial - añádelo a la galería de ejemplos. Solo requiere un pequeño pull request.",
       "steps-heading": "Cómo funciona",
       "step-1-title": "Abre el archivo de datos de ejemplos",
