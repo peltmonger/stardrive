@@ -23,6 +23,7 @@
     "fix:eslint": "eslint --fix .",
     "fix:prettier": "prettier -w .",
     "generate-types": "wrangler types",
+		"test": "npm run check:astro",
     "sync-version": "node scripts/syncVersion.js"
   },
   "repository": {
