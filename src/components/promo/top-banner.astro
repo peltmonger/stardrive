@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { useTranslations } from "@utils/i18n";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
 
 interface Props {
   locale: string;
@@ -10,10 +10,12 @@ const { locale } = Astro.props as Props;
 const t = useTranslations(locale);
 ---
 
-<a href="https://www.producthunt.com/products/stardrive-free-astro-boilerplate" target="_blank" id="top-banner" tabindex="-1" class="group z-50 hidden h-9 items-center justify-center gap-1 bg-rose-800 px-3 py-2 text-sm text-white no-underline hover:bg-rose-700 xs:flex">
-  <span>{t('global-promo.top-text-1')} 🤩</span>
+<a href={getLocaleUrl('docs', locale)} target="_self" id="top-banner" tabindex="-1" class="group z-50 hidden h-9 items-center justify-center gap-1 bg-rose-800 px-3 py-2 text-sm text-white no-underline hover:bg-rose-700 sm:flex">
+  <span>{t('global-promo.top-text-1')} 💡</span>
   <span class="hidden truncate lg:inline">{t('global-promo.top-text-2')}</span>
+  <span class="text-normal px-1.5 opacity-50" aria-hidden="true">|</span>
   <span class="flex shrink-0 items-center gap-2">
+    {t('global-promo.top-cta')}
     <Icon name="heroicons:arrow-right" class="mr-1 h-4 w-4 shrink-0 transition-all group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
   </span>
 </a>
