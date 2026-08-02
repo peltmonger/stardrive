@@ -352,7 +352,13 @@ const featuresUrl = getLocaleUrl("features", locale);
    * - Respects prefers-reduced-motion: loads the video but leaves it on the
    *   first frame (CSS also disables the sticky pin in that case).
    */
+  let cleanupParallaxVideo = () => {};
+
   function setupParallaxVideo() {
+    // ClientRouter keeps this module alive between pages. Remove listeners that
+    // still reference the previous page's detached video before binding again.
+    cleanupParallaxVideo();
+
     const root = document.querySelector<HTMLElement>('[data-parallax-video]');
     const video = root?.querySelector<HTMLVideoElement>('[data-parallax-video-el]');
     if (!root || !video) return;
@@ -375,7 +381,7 @@ const featuresUrl = getLocaleUrl("features", locale);
 
     function updateProgress() {
       rafId = 0;
-      if (!media.duration) return;
+      if (!Number.isFinite(media.duration) || media.duration <= 0) return;
       const rect = track.getBoundingClientRect();
       // Progress 0 → 1 as the track scrolls from entering to leaving the viewport.
       const trackLen = rect.height - window.innerHeight;
@@ -393,24 +399,23 @@ const featuresUrl = getLocaleUrl("features", locale);
       rafId = requestAnimationFrame(updateProgress);
     }
 
-    function bind() {
-      if (prefersReducedMotion) {
-        // Leave the video on its first frame; nothing to drive.
-        return;
-      }
+    if (!prefersReducedMotion) {
+      // Bind immediately so scroll state is retained while metadata loads.
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
       media.addEventListener('loadedmetadata', updateProgress);
       updateProgress();
     }
 
-    // Defer binding until the video has metadata so seeking works.
-    if (media.readyState >= 1) {
-      bind();
-    } else {
-      media.addEventListener('loadedmetadata', bind, { once: true });
-    }
+    cleanupParallaxVideo = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      media.removeEventListener('loadedmetadata', updateProgress);
+      cleanupParallaxVideo = () => {};
+    };
   }
 
   document.addEventListener('astro:page-load', setupParallaxVideo);
+  document.addEventListener('astro:before-swap', () => cleanupParallaxVideo());
 </script>
