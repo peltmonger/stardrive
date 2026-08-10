@@ -199,7 +199,7 @@ Adjust this based on your project, personal taste, and coding guidelines!
 ├── .ai/                         # AI guides on specific topics and tasks. Triggered via AGENTS.md
 │
 ├── public/                       # Served as-is at the site root
-│   ├── _headers                  # Cloudflare HTTP headers (security, caching)
+│   ├── _headers                  # Cloudflare HTTP headers (security, agent discovery, caching)
 │   ├── _redirects                # Cloudflare redirects (keep updated on migrations)
 │   ├── favicon.svg               # Dynamic light/dark favicon (handled inside the SVG)
 │   ├── favicon.ico               # Classic favicon fallbacks (+ dark-mode variant)
@@ -349,7 +349,7 @@ We have created a step by step guide, so you do not miss anything.
 17. Adjust or delete the [map data file](./public/map/office.pmtiles), which is used at the demo contact page.
 18. Delete the demo content in ./src/images. Mind to keep the folder structure for the content! The images for your website should go into this images folder, images for articles and integrations into their respective subdirectoy. Fyi: Use ./public/images/ for images that need to be available via a clean and stable url to external pages/services/bots and **are not** about articles. Use ./public/data/ for public files you want to share - files used in articles go into the respective subfolder.
 19. Run `npm run check:astro` and resolve all potential erros that popped up due to now missing links or stuff. This easily happens when you delete some demo content while you keep other demo files untouched.
-20. Adjust the [`_headers`](./public/_headers) and [`_redirects`](./public/_redirects) files - only if on Cloudflare. Check their [documentation](https://developers.cloudflare.com/workers/static-assets/).
+20. Adjust the [`_headers`](./public/_headers) and [`_redirects`](./public/_redirects) files - only if on Cloudflare. Check their [documentation](https://developers.cloudflare.com/workers/static-assets/). The homepage `Link` header advertises `/llms.txt` for agent discovery; preserve it or point it to another useful machine-readable resource. Configure an equivalent response header at your host if you are not using Cloudflare.
     If your project is a migration from an existing website, when using Cloudflare, adjust ./public/\_redirects to redirect old paths to the new structure. If not using Cloudlfare, set up your hosting setup accordingly.
 21. Prepare for deployment. If going with Cloudflare, you can use the integrated wrangler/worker config. Adjust the [wrangler.jsonc](./wrangler.jsonc) to your needs and link your (usually) GitHub repository with a Cloudflare worker. Set environment variables for `CF_PURGE_API_KEY` and `CF_PURGE_ZONE_ID` and set `npm run purge:cloudflare` as command after build to clean the cache on each deployment. If you do this, you should consider setting up a rule on Cloudflare to cache all requests and not only static files. Also mind to activate Media > Images > Transformations in the Cloudflare dashboard for your Zone/Worker!
     > **⚠️ Important:** Disable **Speed Brain** in your Cloudflare dashboard (Speed → Optimization → Speed Brain). Stardrive (like Astro in general) ships with its own [prefetching logic](https://docs.astro.build/en/guides/prefetch/) that conflicts with Cloudflare's Speed Brain, which can cause double-fetches, stale content, or broken navigation. Keep it off for any zone/worker serving an Astro site.
