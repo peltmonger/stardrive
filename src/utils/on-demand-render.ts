@@ -34,7 +34,7 @@ export const setOnDemandPrerender: AstroIntegration = {
       // Match both the default-locale (`src/pages/blog/...`) and the localized
       // (`src/pages/[lang]/blog/...`) variants of each collection route.
       const collection = Object.entries(onDemandRoutes).find(([suffix]) => route.component.endsWith(suffix))?.[1];
-      const dynamicEvents = Boolean(themeConfig.dynamicEvents?.pullFromAddToCalendarPro);
+      const dynamicEvents = Boolean(themeConfig.events?.dynamicEvents?.pullFromAddToCalendarPro);
       // The events overview list is prerendered for markdown events but must be SSR when events come from the API so new entries appear without a rebuild.
       if (collection === 'events_overview' || collection === 'dynamic_events_sitemap') {
         if (dynamicEvents) route.prerender = false;
@@ -124,7 +124,7 @@ export function getOnDemandSitemapPages(): string[] {
   const site = themeConfig.site.replace(/\/+$/, '');
   const { defaultLocale, locales } = themeConfig.i18n;
   const urls: string[] = [];
-  const dynamicEvents = Boolean(themeConfig.dynamicEvents?.pullFromAddToCalendarPro);
+  const dynamicEvents = Boolean(themeConfig.events?.dynamicEvents?.pullFromAddToCalendarPro);
 
   for (const collection of onDemandCollections) {
     // When events are pulled from the Add to Calendar PRO API, the sitemap

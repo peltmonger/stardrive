@@ -40,6 +40,7 @@ Remove the following as part of the always-on cleanup:
 - `./repository-header.png`
 - `./.github` (whole directory)
 - `./scripts/syncVersion.js`
+- `./public/.well-known/agent-skills` (boilerplate-specific public skill and discovery index)
 
 In the [package.json](../package.json), remove the "prebuild" script, the "sync-version" script, and the `npm run sync-version && ` from the "fix" script.
 
@@ -117,7 +118,7 @@ Ask the user whether they want to keep the events (built on Astro's content coll
 Then edit:
 
 - `./src/content.config.ts` - remove the `const events` declaration and remove `events` from the export statement at the bottom.
-- `./theme.config.ts` - remove the `dynamicEvents` section and `addEvents` from the `llms` settings.
+- `./theme.config.ts` - remove the `events` section and `addEvents` from the `llms` settings.
 - `./astro.config.ts` - remove the `customSitemaps:` line in the i18n block.
 
 ## Step 6 - Cleanup (always, if anything was removed)

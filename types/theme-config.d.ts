@@ -300,25 +300,30 @@ export interface ThemeConfig {
   onDemandRenderedCollections?: CollectionKey[];
 
   /**
-   * Load events from Add to Calendar PRO via API instead of the local content collection.
-   * This allows for real-time updates of events without touching the code or rebuilding the site, but requires an active Add to Calendar PRO subscription and API key (Read scope).
-   * The API key needs to be set in the environment variable `ADD_TO_CALENDAR_PRO_API_KEY` and the `dynamicEvents` property needs to be set to `true`.
-   *
-   * Mind that this will exclude the events from the sitemap since the sitemap only updates on rebuild; but this is usually neglectable.
-   *
-   * IMPORTANT: Recurring events are currently not supported, even if Add to Calendar PRO supports them. If you have recurring events, please create separate events for each occurrence instead.
-   * This would be also a TODO to optimize later.
+   * Settings that control the events section of the site.
    */
-  dynamicEvents?: {
-    pullFromAddToCalendarPro?: boolean;
-    /** If you want to only show some events, filter */
-    filterBy?: {
-      /** from a specific date on, set the UTC ISO datetime (or "now" to use the current date and time) here */
-      from?: string;
-      /** until a specific date, set the UTC ISO datetime (or "now" to use the current date and time) here */
-      to?: string;
-      /** from a specific group, add the group's Prokey here */
-      group?: string;
+  events?: {
+    /**
+     * Load events from Add to Calendar PRO via API instead of the local content collection.
+     * This allows for real-time updates of events without touching the code or rebuilding the site, but requires an active Add to Calendar PRO subscription and API key (Read scope).
+     * The API key needs to be set in the environment variable `ADD_TO_CALENDAR_PRO_API_KEY` and the `dynamicEvents` property needs to be set to `true`.
+     *
+     * Mind that this will exclude the events from the sitemap since the sitemap only updates on rebuild; but this is usually neglectable.
+     *
+     * IMPORTANT: Recurring events are currently not supported, even if Add to Calendar PRO supports them. If you have recurring events, please create separate events for each occurrence instead.
+     * This would be also a TODO to optimize later.
+     */
+    dynamicEvents?: {
+      pullFromAddToCalendarPro?: boolean;
+      /** If you want to only show some events, filter */
+      filterBy?: {
+        /** from a specific date on, set the UTC ISO datetime (or "now" to use the current date and time) here */
+        from?: string;
+        /** until a specific date, set the UTC ISO datetime (or "now" to use the current date and time) here */
+        to?: string;
+        /** from a specific group, add the group's Prokey here */
+        group?: string;
+      };
     };
   };
 

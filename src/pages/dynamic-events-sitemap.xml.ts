@@ -27,7 +27,7 @@ interface ApiListEvent {
 const getApiKey = (): string => {
   const key = import.meta.env.ADD_TO_CALENDAR_PRO_API_KEY || process.env.ADD_TO_CALENDAR_PRO_API_KEY;
   if (!key) {
-    throw new Error('dynamicEvents.pullFromAddToCalendarPro is enabled but ADD_TO_CALENDAR_PRO_API_KEY is not set.');
+    throw new Error('events.dynamicEvents.pullFromAddToCalendarPro is enabled but ADD_TO_CALENDAR_PRO_API_KEY is not set.');
   }
   return key;
 };
@@ -35,7 +35,7 @@ const getApiKey = (): string => {
 const buildAllQuery = (): string => {
   const params = new URLSearchParams();
   params.set('dates', 'true');
-  const filterBy = themeConfig.dynamicEvents?.filterBy;
+  const filterBy = themeConfig.events?.dynamicEvents?.filterBy;
   if (filterBy?.from) params.set('from', filterBy.from);
   if (filterBy?.to) params.set('to', filterBy.to);
   if (filterBy?.group) params.set('group', filterBy.group);
@@ -44,7 +44,7 @@ const buildAllQuery = (): string => {
 
 const dateSlug = (prokey: string, index: number, total: number): string => (total > 1 ? `${prokey}-${index}` : prokey);
 
-const usesDynamicEvents = (): boolean => Boolean(themeConfig.dynamicEvents?.pullFromAddToCalendarPro);
+const usesDynamicEvents = (): boolean => Boolean(themeConfig.events?.dynamicEvents?.pullFromAddToCalendarPro);
 
 // ---------------------------------------------------------------------------
 // Sitemap XML generation

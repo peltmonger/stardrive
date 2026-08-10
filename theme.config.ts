@@ -71,7 +71,7 @@ export const themeConfig: ThemeConfig = {
     dark: 'min-dark',
   },
 
-  // content/article settings
+  // content/articles settings
   articles: {
     imageFallback: true,
     gridView: true,
@@ -126,13 +126,16 @@ export const themeConfig: ThemeConfig = {
   // for the purpose of this demo, we render intergration options on-demand instead of prerendering them.
   onDemandRenderedCollections: ['integration_options'],
 
-  // you can also dynamically integrate events from your Add to Calendar PRO account (https://add-to-calendar-pro.com/), having your API key set as environment variable ADD_TO_CALENDAR_PRO_API_KEY.
-  dynamicEvents: {
-    pullFromAddToCalendarPro: false,
-    filterBy: {
-      from: '',
-      to: '',
-      group: '',
+  // content/events settings
+  events: {
+    // you can also dynamically integrate events from your Add to Calendar PRO account (https://add-to-calendar-pro.com/), having your API key set as environment variable ADD_TO_CALENDAR_PRO_API_KEY.
+    dynamicEvents: {
+      pullFromAddToCalendarPro: false,
+      filterBy: {
+        from: '',
+        to: '',
+        group: '',
+      },
     },
   },
 

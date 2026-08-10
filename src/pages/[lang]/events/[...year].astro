@@ -97,7 +97,7 @@ const hasMultipleYears = sortedAvailableYears.length > 1;
 // Mind this file's copy at the [lang] folder, which is used for the localized version of this page.
 const customSubscribeProkey = undefined as string | undefined;
 //const customSubscribeProkey = 'Place-your-key-here'; // <-- uncomment and set your Prokey here if you want to override the default behavior
-const subscribeProkey = customSubscribeProkey ? customSubscribeProkey : themeConfig.dynamicEvents?.filterBy?.group ? themeConfig.dynamicEvents.filterBy.group : undefined;
+const subscribeProkey = customSubscribeProkey ? customSubscribeProkey : themeConfig.events?.dynamicEvents?.filterBy?.group ? themeConfig.events.dynamicEvents.filterBy.group : undefined;
 
 ---
 

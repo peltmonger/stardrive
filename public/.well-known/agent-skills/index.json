@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "stardrive-project",
+      "type": "skill-md",
+      "description": "Configure, customize, extend, and maintain websites built with the Astro Stardrive boilerplate.",
+      "url": "/.well-known/agent-skills/stardrive-project/SKILL.md",
+      "digest": "sha256:1e66cbebf166651aabcb5e7c7d4c9377f73a0687f89ae57b53ed432038a5f7ed"
+    }
+  ]
+}

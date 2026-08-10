@@ -7,7 +7,7 @@ import { themeConfig } from '~/theme.config';
  * Event bridge
  *
  * Single source of truth for reading events.
- * Depending on `themeConfig.dynamicEvents.pullFromAddToCalendarPro` the events are either read from the local `events` content collection or pulled live from the Add to Calendar PRO API (https://add-to-calendar-pro.com).
+ * Depending on `themeConfig.events.dynamicEvents.pullFromAddToCalendarPro` the events are either read from the local `events` content collection or pulled live from the Add to Calendar PRO API (https://add-to-calendar-pro.com).
  *
  * All call sites keep working with the familiar `getCollection('events', predicate)` signature by calling {@link getEvents} instead, and `getEntry('events', id)` by calling {@link getEventEntry}.
  *
@@ -27,7 +27,7 @@ type EventEntry = CollectionEntry<'events'>;
 type EventFilter = (entry: { id: string; data: EventEntry['data'] }) => boolean;
 
 /** Whether events should be pulled from the Add to Calendar PRO API. */
-export const usesDynamicEvents = (): boolean => Boolean(themeConfig.dynamicEvents?.pullFromAddToCalendarPro);
+export const usesDynamicEvents = (): boolean => Boolean(themeConfig.events?.dynamicEvents?.pullFromAddToCalendarPro);
 
 /** A single date inside an event. With `?dates=true` the `/all` endpoint returns one of these per date; an event can have more than one (multi-date event). */
 interface ApiEventDate {
@@ -96,7 +96,7 @@ const buildAllQuery = (): string => {
   const params = new URLSearchParams();
   // `dates=true` makes the endpoint return the full date objects per event
   params.set('dates', 'true');
-  const filterBy = themeConfig.dynamicEvents?.filterBy;
+  const filterBy = themeConfig.events?.dynamicEvents?.filterBy;
   if (filterBy?.from) params.set('from', filterBy.from);
   if (filterBy?.to) params.set('to', filterBy.to);
   if (filterBy?.group) params.set('group', filterBy.group);
@@ -283,7 +283,7 @@ const singleEntryCache = new Map<string, Promise<BridgeEventEntry | undefined>>(
 /**
  * Drop-in replacement for `getCollection('events', predicate)`.
  *
- * Returns local markdown events when `dynamicEvents.pullFromAddToCalendarPro` is disabled, and Add to Calendar PRO API events (duplicated across all locales) when enabled.
+ * Returns local markdown events when `events.dynamicEvents.pullFromAddToCalendarPro` is disabled, and Add to Calendar PRO API events (duplicated across all locales) when enabled.
  */
 export const getEvents = async (filter?: EventFilter): Promise<EventEntry[]> => {
   if (!usesDynamicEvents()) {
