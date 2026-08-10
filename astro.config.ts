@@ -71,12 +71,7 @@ export default defineConfig({
   // Best approach: Use static and opt-out some pages from prerendering if needed and supported by your hosting solution (https://docs.astro.build/en/reference/routing-reference/#per-page-override).
   // You can find an option in the themes.config.ts to mark content collections as dynamic, which will then render them on-demand instead of prerendering them.
   output: 'static',
-  session: {
-    // remove if you require this feature; see https://docs.astro.build/en/reference/session-driver-reference/ for details
-    driver: {
-      entrypoint: 'unstorage/drivers/null',
-    },
-  },
+  session: false, // adjust if you require session support for your site (e.g. for user login, etc.)
   trailingSlash: 'never',
 
   build: {

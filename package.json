@@ -1,7 +1,7 @@
 {
   "name": "stardrive",
-  "version": "1.4.4",
-  "stardriveVersion": "1.4.4",
+  "version": "1.4.5",
+  "stardriveVersion": "1.4.5",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
@@ -23,7 +23,7 @@
     "fix:eslint": "eslint --fix .",
     "fix:prettier": "prettier -w .",
     "generate-types": "wrangler types",
-		"test": "npm run check:astro",
+    "test": "npm run check:astro",
     "sync-version": "node scripts/syncVersion.js"
   },
   "repository": {
@@ -60,22 +60,22 @@
   },
   "homepage": "https://astro-stardrive.com/",
   "dependencies": {
-    "@astrojs/cloudflare": "^14.1.7",
+    "@astrojs/cloudflare": "^14.2.0",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/geist": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "add-to-calendar-button": "^2.15.0",
-    "astro": "^7.1.6",
+    "astro": "^7.2.0",
     "astro-expressive-code": "^0.44.1",
     "astro-icon": "^1.1.5",
     "leaflet": "^1.9.4",
     "pmtiles": "^4.4.1",
     "protomaps-leaflet": "^5.1.0",
     "sanitize-html": "^2.17.6",
-    "slot-text": "^0.3.3",
+    "slot-text": "^0.3.4",
     "tailwindcss": "^4.3.3",
-    "wrangler": "^4.118.0"
+    "wrangler": "^4.120.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -85,13 +85,13 @@
     "@expressive-code/plugin-line-numbers": "^0.44.1",
     "@iconify-json/fa7-brands": "^1.2.4",
     "@iconify-json/heroicons": "^1.2.3",
-    "@iconify-json/simple-icons": "^1.2.92",
+    "@iconify-json/simple-icons": "^1.2.93",
     "@types/leaflet": "^1.9.22",
     "@types/sanitize-html": "^2.16.1",
-    "@typescript-eslint/parser": "^8.65.0",
-    "astro-compress": "^2.4.1",
+    "@typescript-eslint/parser": "^8.67.0",
+    "astro-compress": "^2.4.3",
     "astro-eslint-parser": "^3.0.0",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^3.1.0",
     "eslint-plugin-prettier": "^5.5.6",
@@ -110,7 +110,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.35.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.65.0",
+    "typescript-eslint": "^8.67.0",
     "url": "^0.11.4"
   }
 }
