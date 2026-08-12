@@ -28,7 +28,12 @@ const applyTheme = (theme: UserTheme) => {
  * Must be self-contained (no imports) - injected via `set:html` in base.astro.
  * The Expressive Code theme names are interpolated at build time from `theme.config.ts`.
  */
-export const THEME_INIT_SCRIPT = `(function(){var t=localStorage.getItem('user-theme');` + `var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);` + `if(d){document.documentElement.classList.add('dark')}` + `document.documentElement.setAttribute('data-theme',d?'${EC_THEME_DARK}':'${EC_THEME_LIGHT}')})();`;
+export const THEME_INIT_SCRIPT =
+  `(function(){function a(doc){var t=localStorage.getItem('user-theme');` +
+  `var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);` +
+  `doc.documentElement.classList.toggle('dark',d);` +
+  `doc.documentElement.setAttribute('data-theme',d?'${EC_THEME_DARK}':'${EC_THEME_LIGHT}')}a(document);` +
+  `document.addEventListener('astro:before-swap',function(e){a(e.newDocument)})})();`;
 
 function getSystemPreference(): UserTheme {
   // check for the system and fall back to light

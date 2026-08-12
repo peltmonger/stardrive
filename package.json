@@ -1,7 +1,7 @@
 {
   "name": "stardrive",
-  "version": "1.5.0",
-  "stardriveVersion": "1.5.0",
+  "version": "1.5.1",
+  "stardriveVersion": "1.5.1",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
@@ -60,22 +60,22 @@
   },
   "homepage": "https://astro-stardrive.com/",
   "dependencies": {
-    "@astrojs/cloudflare": "^14.2.0",
+    "@astrojs/cloudflare": "^14.2.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/geist": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "add-to-calendar-button": "^2.15.0",
-    "astro": "^7.2.0",
+    "astro": "^7.2.1",
     "astro-expressive-code": "^0.44.1",
     "astro-icon": "^1.1.5",
     "leaflet": "^1.9.4",
-    "pmtiles": "^4.4.1",
+    "pmtiles": "^4.5.0",
     "protomaps-leaflet": "^5.1.0",
     "sanitize-html": "^2.17.6",
     "slot-text": "^0.3.4",
     "tailwindcss": "^4.3.3",
-    "wrangler": "^4.120.1"
+    "wrangler": "^4.122.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -98,7 +98,7 @@
     "eslint-plugin-regexp": "^3.1.1",
     "eslint-plugin-security": "^4.0.1",
     "fs-extra": "^11.4.0",
-    "globals": "^17.9.0",
+    "globals": "^17.11.0",
     "jsdom": "^30.0.1",
     "mdast-util-from-markdown": "^2.0.3",
     "mdast-util-to-string": "^4.0.0",

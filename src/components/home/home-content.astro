@@ -416,6 +416,9 @@ const featuresUrl = getLocaleUrl("features", locale);
     };
   }
 
+  // The module can execute after Astro's initial page-load event has already
+  // fired, so initialize the current DOM immediately as well as after swaps.
+  setupParallaxVideo();
   document.addEventListener('astro:page-load', setupParallaxVideo);
   document.addEventListener('astro:before-swap', () => cleanupParallaxVideo());
 </script>
