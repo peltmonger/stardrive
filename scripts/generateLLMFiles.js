@@ -15,8 +15,8 @@
 //   - addArticles, addFAQ ("none" | "all" | "selected")
 
 import fs from 'fs-extra';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 
 const __filename = fileURLToPath(import.meta.url);

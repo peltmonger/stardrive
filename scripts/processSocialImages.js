@@ -4,8 +4,8 @@
 
 import sharp from 'sharp';
 import fs from 'fs-extra';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Needed to handle __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
