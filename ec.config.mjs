@@ -1,6 +1,6 @@
 import { defineEcConfig } from 'astro-expressive-code';
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
-import { themeConfig } from './theme.config.ts';
+import { expressiveCodeThemes } from './expressive-code-themes.mjs';
 
 // Expressive Code configuration.
 //
@@ -12,7 +12,7 @@ import { themeConfig } from './theme.config.ts';
 // Moving them here lets both the Markdown integration and the `<Code>` component
 // pick up the exact same configuration.
 export default defineEcConfig({
-  themes: [themeConfig.expressiveCodeThemes.light, themeConfig.expressiveCodeThemes.dark],
+  themes: [expressiveCodeThemes.light, expressiveCodeThemes.dark],
   useDarkModeMediaQuery: false,
   plugins: [pluginLineNumbers()],
   defaultProps: { showLineNumbers: false },

@@ -190,6 +190,7 @@ Adjust this based on your project, personal taste, and coding guidelines!
 .
 ├── astro.config.ts              # Base Astro config (integrations, build, adapter)
 ├── theme.config.ts              # 🎯 Central project config: branding, i18n, blog, promo, llms.txt
+├── expressive-code-themes.mjs   # Shared light/dark code themes for Node and Astro
 ├── eslint.config.mjs            # ESLint rules
 ├── tsconfig.json                # TypeScript config
 ├── wrangler.jsonc               # Cloudflare Worker deployment config
@@ -321,7 +322,7 @@ We have created a step by step guide, so you do not miss anything.
 
    - Set the base information first - like the site url, primary color, and so on. Everything is typed here - your IDE should be able to read-he comments from the types to help you understand the respective settings.
    - Decide which languages you want to support, create a respective json file in the ./src/i18n/ directory, and import it in the config file. Adjust the "i18n" block respectively.
-   - Load the expressiveCodeThemes you want to use. Pick two. 1 for light and 1 for dark mode. If you do not use dark mode, only pick one. Find the available options at the [Expressive Code repository](https://expressive-code.com/guides/themes/#available-themes).
+   - Choose the `expressiveCodeThemes` in [expressive-code-themes.mjs](./expressive-code-themes.mjs). Pick two: one for light and one for dark mode. If you do not use dark mode, use the same theme for both. Find the available options at the [Expressive Code repository](https://expressive-code.com/guides/themes/#available-themes).
    - If you are using the blog feature, specifying basic article settings would be next. This mainly defines the general layout and functionality. if you decide to use the image fallback feature, check the [demo fallback image](./src/images/content/articles-fallback.jpg) and replace it.
    - Set promotion slots, if you want to - you can adjust the content later. Drop it or set everything to `false`, if you do not need this at the moment.
    - Last but not least, define how the llms.txt file is created. As of today, it is not clearly stated whether this is really useful or not - however, Lighthouse has started testing for it, so it doesn't hurt.

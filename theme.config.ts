@@ -1,4 +1,5 @@
 import type { ThemeConfig } from './types/theme-config.d.ts';
+import { expressiveCodeThemes } from './expressive-code-themes.mjs';
 
 // language files from ./src/i18n
 // The `with { type: 'json' }` import attribute is required so this file can also be
@@ -65,11 +66,8 @@ export const themeConfig: ThemeConfig = {
     },
   },
 
-  // md(x) code block rendering
-  expressiveCodeThemes: {
-    light: 'min-light',
-    dark: 'min-dark',
-  },
+  // md(x) code block rendering - edit them in ./expressive-code-themes.mjs
+  expressiveCodeThemes,
 
   // content/articles settings
   articles: {

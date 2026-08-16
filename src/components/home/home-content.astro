@@ -368,11 +368,12 @@ const featuresUrl = getLocaleUrl("features", locale);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Assign the source now that we know we're on a wide viewport.
+    // Assign and preload the small asset now that we know we're on a wide
+    // viewport. Metadata-only loading makes cold-cache frame seeking unreliable.
     const src = video.dataset.src;
     if (!src) return;
+    video.preload = 'auto';
     video.src = src;
-    // Load enough to seek without starting playback.
     video.load();
 
     const track = root;
@@ -404,6 +405,8 @@ const featuresUrl = getLocaleUrl("features", locale);
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll, { passive: true });
       media.addEventListener('loadedmetadata', updateProgress);
+      media.addEventListener('loadeddata', updateProgress);
+      media.addEventListener('canplay', updateProgress);
       updateProgress();
     }
 
@@ -412,6 +415,8 @@ const featuresUrl = getLocaleUrl("features", locale);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       media.removeEventListener('loadedmetadata', updateProgress);
+      media.removeEventListener('loadeddata', updateProgress);
+      media.removeEventListener('canplay', updateProgress);
       cleanupParallaxVideo = () => {};
     };
   }

@@ -15,6 +15,7 @@ Interview the user wherever a choice is ambiguous.
 6. **`theme.config.ts`** - the core config pass:
    - Set base info: site URL, primary color, etc.
    - Choose languages, make sure there is a matching JSON in `./src/i18n/`, import it in theme.config.ts, and update the `i18n` block.
+   - Choose the light and dark code themes in `./expressive-code-themes.mjs`; this plain ESM file is shared with Expressive Code's Node-loaded config.
    - If using the blog: set article settings (layout + functionality). If using the image fallback, replace [articles-fallback.jpg](../src/images/content/articles-fallback.jpg).
    - Set promo slots, or set them to `false` / drop them if unused.
    - Define how `llms.txt` is generated and set an intro text.

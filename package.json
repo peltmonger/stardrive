@@ -1,7 +1,7 @@
 {
   "name": "stardrive",
-  "version": "1.5.1",
-  "stardriveVersion": "1.5.1",
+  "version": "1.5.2",
+  "stardriveVersion": "1.5.2",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
@@ -66,16 +66,16 @@
     "@fontsource/geist": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "add-to-calendar-button": "^2.15.0",
-    "astro": "^7.2.1",
+    "astro": "^7.2.2",
     "astro-expressive-code": "^0.44.1",
     "astro-icon": "^1.1.5",
     "leaflet": "^1.9.4",
     "pmtiles": "^4.5.0",
     "protomaps-leaflet": "^5.1.0",
-    "sanitize-html": "^2.17.6",
+    "sanitize-html": "^2.17.7",
     "slot-text": "^0.3.4",
     "tailwindcss": "^4.3.3",
-    "wrangler": "^4.122.0"
+    "wrangler": "^4.123.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -90,12 +90,12 @@
     "@types/sanitize-html": "^2.16.1",
     "@typescript-eslint/parser": "^8.67.0",
     "astro-compress": "^2.4.3",
-    "astro-eslint-parser": "^3.0.0",
+    "astro-eslint-parser": "^3.1.0",
     "eslint": "^10.8.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^3.1.0",
     "eslint-plugin-prettier": "^5.5.6",
-    "eslint-plugin-regexp": "^3.1.1",
+    "eslint-plugin-regexp": "^3.2.0",
     "eslint-plugin-security": "^4.0.1",
     "fs-extra": "^11.4.0",
     "globals": "^17.11.0",
@@ -112,5 +112,8 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.67.0",
     "url": "^0.11.4"
+  },
+  "overrides": {
+    "@cloudflare/vite-plugin": "1.45.1"
   }
 }
