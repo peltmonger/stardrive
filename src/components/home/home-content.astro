@@ -368,20 +368,17 @@ const featuresUrl = getLocaleUrl("features", locale);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Assign and preload the small asset now that we know we're on a wide
-    // viewport. Metadata-only loading makes cold-cache frame seeking unreliable.
-    const src = video.dataset.src;
+    // Cloudflare static assets do not honor HTTP Range requests. Fetch the
+    // small video in full and seek an in-memory Blob URL instead.
+    const src = video.dataset.src ?? '';
     if (!src) return;
-    video.preload = 'auto';
-    video.src = src;
-    video.load();
 
     const track = root;
     const media = video;
-    let rafId = 0;
+    const loadController = new AbortController();
+    let objectUrl: string | undefined;
 
     function updateProgress() {
-      rafId = 0;
       if (!Number.isFinite(media.duration) || media.duration <= 0) return;
       const rect = track.getBoundingClientRect();
       // Progress 0 → 1 as the track scrolls from entering to leaving the viewport.
@@ -396,8 +393,23 @@ const featuresUrl = getLocaleUrl("features", locale);
     }
 
     function onScroll() {
-      if (rafId) return;
-      rafId = requestAnimationFrame(updateProgress);
+      updateProgress();
+    }
+
+    async function loadMedia() {
+      try {
+        const response = await fetch(src, { signal: loadController.signal });
+        if (!response.ok) throw new Error(`Failed to load parallax video: ${response.status}`);
+        const blob = await response.blob();
+        if (loadController.signal.aborted) return;
+        objectUrl = URL.createObjectURL(blob);
+        media.preload = 'auto';
+        media.src = objectUrl;
+        media.load();
+      } catch (error) {
+        if (loadController.signal.aborted) return;
+        console.error(error);
+      }
     }
 
     if (!prefersReducedMotion) {
@@ -411,14 +423,17 @@ const featuresUrl = getLocaleUrl("features", locale);
     }
 
     cleanupParallaxVideo = () => {
-      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
       media.removeEventListener('loadedmetadata', updateProgress);
       media.removeEventListener('loadeddata', updateProgress);
       media.removeEventListener('canplay', updateProgress);
+      loadController.abort();
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
       cleanupParallaxVideo = () => {};
     };
+
+    void loadMedia();
   }
 
   // The module can execute after Astro's initial page-load event has already
