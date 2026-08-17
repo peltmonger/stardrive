@@ -16,5 +16,10 @@
       "description": "The company behind the Astro Stardrive project.",
       "url": "https://peltmonger.com"
     }
+		{
+  	 "title": "Sartoris Consulting",
+  	 "description": "Compliance-Beratung und externe Beauftragte für Datenschutz, Informationssicherheit und Hinweisgeberschutz für mittelständische Unternehmen.",
+  	 "url": "https://www.dsb-datenschutz.de"
+	  }
   ]
 }
