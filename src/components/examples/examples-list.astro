@@ -10,10 +10,17 @@
 import { Icon } from "astro-icon/components";
 import examplesData from "@data/examples.json";
 
+interface SiteI18nEntry {
+  title?: string;
+  description?: string;
+  url?: string;
+}
+
 interface Site {
   title: string;
   description: string;
   url: string;
+  i18n?: Record<string, SiteI18nEntry>;
 }
 
 interface Props {
@@ -21,9 +28,22 @@ interface Props {
   emptyText: string;
   /** Accessible label for the whole listing. */
   listLabel: string;
+  /** Current locale, used to pick translated description/url (English fallback). */
+  locale?: string;
 }
 
-const { emptyText, listLabel } = Astro.props;
+const { emptyText, listLabel, locale } = Astro.props;
+
+// Resolve the title, description and url for a site in the given locale,
+// falling back to the English (top-level) values when no translation is present.
+function resolveSite(site: Site, lang?: string) {
+  const tr = lang ? site.i18n?.[lang as keyof typeof site.i18n] : undefined;
+  return {
+    title: tr?.title ?? site.title,
+    description: tr?.description ?? site.description,
+    url: tr?.url ?? site.url,
+  };
+}
 
 // Determine the section letter for a title: first A-Z letter, otherwise "#".
 function sectionKey(title: string): string {
@@ -33,6 +53,7 @@ function sectionKey(title: string): string {
 
 const sites = (examplesData.sites as Site[])
   .slice()
+  .map((site) => resolveSite(site, locale))
   .sort((a, b) => a.title.localeCompare(b.title, "en", { sensitivity: "base" }));
 
 // Group into ordered sections, skipping empty letters entirely.

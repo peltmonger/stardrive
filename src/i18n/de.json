@@ -190,6 +190,7 @@
       "step-2-text": "Füge ein Objekt mit deinen {fields} hinzu. Du kannst das Repo forken, aber ein Codespace ist am einfachsten - direkt im Browser bearbeiten und committen.",
       "step-3-title": "Erstelle einen Pull Request",
       "step-3-text": "Öffne einen PR aus deinem Fork oder Codespace. Wir prüfen neue Einträge regelmäßig.",
+      "step-2-note": "Optional kannst du Übersetzungen für Titel, Beschreibung und URL unter einem \"i18n\"-Schlüssel hinzufügen (z. B. \"de\", \"es\", \"fr\"). Englisch ist immer erforderlich und dient als Fallback für fehlende Übersetzungen.",
       "requirements-heading": "Voraussetzungen für die Aufnahme",
       "req-generator-title": "Behalte das Generator-Tag",
       "req-generator-text": "Deine Seite muss das {tag}-Tag im <head> haben. Es ist automatisch vorhanden, sofern du es nicht entfernt hast - so prüfen wir, ob eine Seite wirklich auf Stardrive läuft.",

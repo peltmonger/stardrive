@@ -1,25 +1,57 @@
 {
-  "_comment": "Websites built with Astro Stardrive. Add yours via a pull request: append an object with 'title', 'description' and 'url'. Entries are sorted alphabetically by title automatically, so order here does not matter. Requirement: your site must still expose the <meta name=\"generator\" content=\"Astro Stardrive\" /> tag (present by default) so it can be verified. No links to content unsuitable for children (e.g. gambling, sexual/pornographic, or alcohol-related).",
+  "_comment": "Websites built with Astro Stardrive. Add yours via a pull request: append an object with 'title', 'description' and 'url'. Language must be English. Add translations for German, Spanish, and French (aka the demo languages) optionally. Entries are sorted alphabetically by title automatically, so order here does not matter. Requirement: your site must still expose the <meta name=\"generator\" content=\"Astro Stardrive\" /> tag (present by default) so it can be verified. No links to content unsuitable for children (e.g. gambling, sexual/pornographic, or alcohol-related).",
   "sites": [
     {
       "title": "Astro Stardrive",
       "description": "The official demo and home of the boilerplate itself - batteries included.",
-      "url": "https://astro-stardrive.com"
+      "url": "https://astro-stardrive.com",
+      "i18n": {
+        "de": {
+          "description": "Die offizielle Demo und Heimat des Boilerplates selbst - alles inklusive.",
+          "url": "https://astro-stardrive.com/de"
+        },
+        "es": {
+          "description": "La demostración oficial y el hogar del propio boilerplate, con todo incluido.",
+          "url": "https://astro-stardrive.com/es"
+        },
+        "fr": {
+          "description": "La démo officielle et le foyer du boilerplate lui-même - tout compris.",
+          "url": "https://astro-stardrive.com/fr"
+        }
+      }
     },
     {
-      "title": "Jens Kürschner - Personal Website",
+      "title": "Jens Kuerschner - Portfolio Website",
       "description": "Personal website of the Stardrive creator, showcasing his work and projects.",
-      "url": "https://jekuer.com"
+      "url": "https://jekuer.com",
+      "i18n": {
+        "de": {
+          "title": "Jens Kürschner - Portfolio-Webseite",
+          "description": "Persönliche Website des Stardrive-Machers.",
+          "url": "https://jekuer.com/de"
+        }
+      }
     },
     {
       "title": "Peltmonger Ventures",
       "description": "The company behind the Astro Stardrive project.",
-      "url": "https://peltmonger.com"
+      "url": "https://peltmonger.com",
+      "i18n": {
+        "de": {
+          "description": "Das Unternehmen hinter dem Astro Stardrive Projekt.",
+          "url": "https://peltmonger.com/de"
+        }
+      }
     },
     {
       "title": "Sartoris Consulting",
-      "description": "Compliance-Beratung und externe Beauftragte für Datenschutz, Informationssicherheit und Hinweisgeberschutz für mittelständische Unternehmen.",
-      "url": "https://www.dsb-datenschutz.de/"
+      "description": "Compliance consulting and external officers for data protection, information security and whistleblower protection for medium-sized companies.",
+      "url": "https://www.dsb-datenschutz.de/",
+      "i18n": {
+        "de": {
+          "description": "Compliance-Beratung und externe Beauftragte für Datenschutz, Informationssicherheit und Hinweisgeberschutz für mittelständische Unternehmen."
+        }
+      }
     }
   ]
 }

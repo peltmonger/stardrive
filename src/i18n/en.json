@@ -190,6 +190,7 @@
       "step-2-text": "Add an object with your {fields}. You can fork the repo, but opening a Codespace is the easiest way - edit right in the browser and commit.",
       "step-3-title": "Create a pull request",
       "step-3-text": "Open a PR from your fork or Codespace. We review new entries regularly.",
+      "step-2-note": "Optionally, you can add translations for the title, description and url under an \"i18n\" key (e.g. \"de\", \"es\", \"fr\"). English is always required and serves as the fallback for any missing translation.",
       "requirements-heading": "Requirements for approval",
       "req-generator-title": "Keep the generator tag",
       "req-generator-text": "Your site must expose the {tag} tag in its <head>. It is there automatically unless you removed it - this is how we verify that a site actually runs on Stardrive.",

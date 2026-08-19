@@ -77,6 +77,12 @@ const steps = [
                   {step2After}
                 </p>
               )}
+              {step.key === 'step2' && (
+                <p class="mt-2 flex items-start gap-2 rounded-md bg-stone-100 p-3 text-xs text-stone-600 dark:bg-stone-800 dark:text-stone-300">
+                  <Icon name="heroicons:information-circle" class="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{t('pages.get-listed.step-2-note')}</span>
+                </p>
+              )}
               {step.key === 'step3' && <p class="text-sm text-stone-600 dark:text-stone-300">{t('pages.get-listed.step-3-text')}</p>}
             </div>
           </li>

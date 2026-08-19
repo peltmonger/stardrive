@@ -190,6 +190,7 @@
       "step-2-text": "Ajoutez un objet avec vos {fields}. Vous pouvez forker le dépôt, mais ouvrir un Codespace est le plus simple - modifiez directement dans le navigateur et validez.",
       "step-3-title": "Créez une pull request",
       "step-3-text": "Ouvrez une PR depuis votre fork ou votre Codespace. Nous examinons régulièrement les nouvelles entrées.",
+      "step-2-note": "Optionnellement, vous pouvez ajouter des traductions pour le titre, la description et l'url sous une clé \"i18n\" (par ex. \"de\", \"es\", \"fr\"). L'anglais est toujours requis et sert de repli pour toute traduction manquante.",
       "requirements-heading": "Conditions d'approbation",
       "req-generator-title": "Conservez la balise generator",
       "req-generator-text": "Votre site doit exposer la balise {tag} dans son <head>. Elle est présente automatiquement sauf si vous l'avez supprimée - c'est ainsi que nous vérifions qu'un site fonctionne vraiment avec Stardrive.",
