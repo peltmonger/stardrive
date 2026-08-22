@@ -117,6 +117,7 @@ export default defineConfig({
     // Pre-compilation of dependencies that are not compatible with the Cloudflare workerd runtime (on-demand SSR) or that are ESM-only and not pre-bundled by Vite.
     optimizeDeps: {
       include: ['debug', 'ms', 'reading-time', 'fdir > picomatch', 'expressive-code > postcss'],
+      exclude: ['astro/assets/services/noop'],
     },
   },
 
