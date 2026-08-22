@@ -39,7 +39,7 @@ const groupId = "codetabs-" + Math.random().toString(36).slice(2, 9);
           aria-controls={`${groupId}-panel-${i}`}
           aria-selected={i === 0 ? 'true' : 'false'}
           tabindex={i === 0 ? '0' : '-1'}
-          class="docs-code-tab ring-primary aria-selected:bg-primary aria-selected:text-primary-contrast dark:aria-selected:text-primary-contrast hover:text-primary dark:hover:text-primary-light cursor-pointer rounded px-3 py-1.5 text-sm font-semibold text-stone-600 no-underline ring-offset-white outline-0 transition-colors select-none focus-within:ring-offset-2 dark:text-stone-300 dark:ring-offset-black"
+          class="docs-code-tab ring-primary aria-selected:bg-primary aria-selected:text-primary-contrast dark:aria-selected:text-primary-contrast hover:text-primary dark:hover:text-primary-light cursor-pointer rounded px-3 py-1.5 text-sm font-semibold text-stone-600 no-underline ring-offset-white outline-0 transition-colors select-none focus-visible:ring-offset-2 dark:text-stone-300 dark:ring-offset-black"
         >
           {tab.label}
         </button>

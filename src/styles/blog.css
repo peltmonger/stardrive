@@ -10,6 +10,6 @@
 
   .social-share-buttons button,
   .social-share-buttons a {
-    @apply bg-primary-darker ring-primary hover:bg-secondary h-10 w-10 items-center justify-center rounded-lg no-underline ring-offset-white outline-0 focus-within:ring-offset-2 hover:text-black dark:ring-offset-black;
+    @apply bg-primary-darker ring-primary hover:bg-secondary h-10 w-10 items-center justify-center rounded-lg no-underline ring-offset-white outline-0 focus-visible:ring-offset-2 hover:text-black dark:ring-offset-black;
   }
 }

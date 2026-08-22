@@ -180,7 +180,7 @@ export default defineConfig({
     // Compile image variants at build time so they also work in local and branch previews.
     // The Cloudflare service emits /cdn-cgi/image URLs that only resolve behind a
     // Cloudflare zone with Image Transformations enabled.
-    imageService: 'compile',
+    imageService: 'cloudflare',
     prerenderEnvironment: 'node', // only applies to prerendering at build time. On-demand SSR always uses the Cloudflare workerd runtime. Node is currently required here because some render-time dependencies call Node-only path/url APIs that are not available in workerd's isolated runtime.
   }),
 });

@@ -23,7 +23,7 @@ const t = useTranslations(locale);
             <span
               class:list={[
                 type === 'tags' ? 'rounded-full' : 'rounded-lg',
-                'ring-primary dark:text-text-dark text-text group-hover:text-primary-contrast group-hover:from-primary-light group-hover:to-primary flex items-center border border-stone-300 bg-linear-to-tr from-stone-300/50 to-stone-200 ring-offset-white outline-0 group-focus-within:ring-2 group-focus-within:ring-offset-2 dark:border-stone-600 dark:from-stone-800 dark:to-stone-700 dark:ring-offset-black',
+                'ring-primary dark:text-text-dark text-text group-hover:text-primary-contrast group-hover:from-primary-light group-hover:to-primary flex items-center border border-stone-300 bg-linear-to-tr from-stone-300/50 to-stone-200 ring-offset-white outline-0 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 dark:border-stone-600 dark:from-stone-800 dark:to-stone-700 dark:ring-offset-black',
               ]}
             >
               {type === 'categories' && <span class="group-hover:bg-secondary block h-auto w-3 self-stretch rounded-l-lg" style={'background-color: ' + stringToColor(entry)} />}

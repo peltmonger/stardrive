@@ -82,7 +82,7 @@ const sections = Array.from(groups.entries()).sort(([a], [b]) => a.localeCompare
           <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
             {entries.map((site) => (
               <li class="m-0">
-                <a href={site.url} target="_blank" rel="noopener" class="group ring-primary hover:border-primary dark:hover:border-primary-light flex h-full flex-col gap-2 rounded-lg border border-stone-300 bg-white p-5 no-underline ring-offset-white outline-0 transition-shadow focus-within:ring-offset-2 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:ring-offset-black">
+                <a href={site.url} target="_blank" rel="noopener" class="group ring-primary hover:border-primary dark:hover:border-primary-light flex h-full flex-col gap-2 rounded-lg border border-stone-300 bg-white p-5 no-underline ring-offset-white outline-0 transition-shadow focus-visible:ring-offset-2 hover:shadow-md dark:border-stone-700 dark:bg-stone-900 dark:ring-offset-black">
                   <span class="flex items-center justify-between gap-2">
                     <span class="group-hover:text-primary dark:group-hover:text-primary-light text-lg font-bold">{site.title}</span>
                     <Icon name="heroicons:arrow-up-right" class="group-hover:text-primary dark:group-hover:text-primary-light h-5 w-5 shrink-0 text-stone-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
