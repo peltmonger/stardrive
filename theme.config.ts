@@ -20,7 +20,7 @@ export const themeConfig: ThemeConfig = {
   shortName: 'Stardrive',
   darkMode: true,
   robots: import.meta.env?.ROBOTS || 'index, follow',
-  xHandle: 'example',
+  xHandle: 'jekuer',
 
   // Structured data
   author: {
@@ -86,7 +86,7 @@ export const themeConfig: ThemeConfig = {
     },
     social: {
       // default values - can be overridden at the Single component level
-      xHandle: 'example', // to be added as "via @handle" in the tweet
+      xHandle: 'jekuer', // to be added as "via @handle" in the tweet
       buttons: {
         email: true,
         facebook: true,
