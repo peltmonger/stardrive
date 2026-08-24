@@ -99,7 +99,7 @@ export const rehypeYoutubePlugin: RehypePlugin = () => {
             class: 'video-embed',
             width: '560',
             height: '315',
-            src: `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&iv_load_policy=3&cc_load_policy=3&cc_lang_pref=${locale}${time}${list}`,
+            src: `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&iv_load_policy=3&cc_load_policy=3&cc_lang_pref=${locale}&hl=${locale}${time}${list}`,
             title: title ?? 'YouTube video player',
             frameBorder: '0',
             allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
