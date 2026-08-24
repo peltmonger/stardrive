@@ -44,6 +44,25 @@
       }
     },
     {
+      "title": "The CPTO",
+      "description": "Educating about the role of the Chief Product and Technology Officer. Definition, guides, and resources.",
+      "url": "https://the-cpto.com",
+      "i18n": {
+        "de": {
+          "description": "Die Rolle des Chief Product and Technology Officer im Überblick. Definition, Leitfäden und Ressourcen.",
+          "url": "https://the-cpto.com/de"
+        },
+        "es": {
+          "description": "Educando sobre el papel del Director de Producto y Tecnología. Definición, guías y recursos.",
+          "url": "https://the-cpto.com/es"
+        },
+        "fr": {
+          "description": "Éduquer sur le rôle du Chief Product and Technology Officer. Définition, guides et ressources.",
+          "url": "https://the-cpto.com/fr"
+        }
+      }
+    },
+    {
       "title": "Sartoris Consulting",
       "description": "Compliance consulting and external officers for data protection, information security and whistleblower protection for medium-sized companies.",
       "url": "https://www.dsb-datenschutz.de/",
