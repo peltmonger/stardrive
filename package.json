@@ -1,7 +1,7 @@
 {
   "name": "stardrive",
-  "version": "1.5.6",
-  "stardriveVersion": "1.5.6",
+  "version": "1.5.7",
+  "stardriveVersion": "1.5.7",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
@@ -107,5 +107,8 @@
     "sharp": "^0.35.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.68.0"
+  },
+  "overrides": {
+    "@cloudflare/vite-plugin": "1.42.4"
   }
 }
