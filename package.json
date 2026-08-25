@@ -1,7 +1,7 @@
 {
   "name": "stardrive",
-  "version": "1.5.5",
-  "stardriveVersion": "1.5.5",
+  "version": "1.5.6",
+  "stardriveVersion": "1.5.6",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
@@ -60,13 +60,13 @@
   },
   "homepage": "https://astro-stardrive.com/",
   "dependencies": {
-    "@astrojs/cloudflare": "^14.2.3",
+    "@astrojs/cloudflare": "^14.2.4",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource/geist": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "add-to-calendar-button": "^2.15.0",
-    "astro": "^7.2.4",
+    "astro": "^7.2.6",
     "astro-expressive-code": "^0.44.1",
     "astro-icon": "^1.2.0",
     "leaflet": "^1.9.4",
@@ -89,7 +89,7 @@
     "@types/leaflet": "^1.9.22",
     "@types/sanitize-html": "^2.16.1",
     "astro-compress": "^2.4.3",
-    "eslint": "^10.9.0",
+    "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^3.1.0",
     "eslint-plugin-prettier": "^5.5.6",
@@ -106,6 +106,6 @@
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.35.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.67.0"
+    "typescript-eslint": "^8.68.0"
   }
 }
