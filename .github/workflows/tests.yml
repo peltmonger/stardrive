@@ -11,8 +11,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-latest]
-        node-version: ['24']
-        toolchain: [stable]
+        node-version: ['22.12.0', '24']
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -25,3 +24,5 @@ jobs:
         run: npm run check
       - name: Build
         run: npm run build
+      - name: Verify generated artifacts
+        run: npm run check:artifacts

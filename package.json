@@ -19,6 +19,7 @@
     "check:type": "npm run generate-types && tsc --noEmit",
     "check:eslint": "eslint .",
     "check:prettier": "prettier --check .",
+    "check:artifacts": "node scripts/verifyBuildArtifacts.js",
     "fix": "npm run sync-version && npm run fix:eslint && npm run fix:prettier",
     "fix:eslint": "eslint --fix .",
     "fix:prettier": "prettier -w .",
