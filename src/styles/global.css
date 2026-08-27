@@ -82,11 +82,11 @@
 
 @layer components {
   .btn-subtle {
-    @apply hover:border-primary hover:bg-primary ring-primary flex cursor-pointer items-center gap-2 border border-stone-300 bg-stone-200 fill-current p-1.5 font-semibold whitespace-nowrap text-stone-950 no-underline shadow ring-offset-white select-none visited:text-start focus-visible:ring-2 focus-visible:ring-offset-2 hover:text-white hover:shadow-lg focus:outline-0 dark:border-stone-100 dark:bg-stone-300 dark:ring-offset-black;
+    @apply hover:border-primary hover:bg-primary ring-primary flex cursor-pointer items-center gap-2 border border-stone-300 bg-stone-200 fill-current p-1.5 font-semibold whitespace-nowrap text-stone-950 no-underline shadow ring-offset-white select-none visited:text-start hover:text-white hover:shadow-lg focus:outline-0 focus-visible:ring-2 focus-visible:ring-offset-2 dark:border-stone-100 dark:bg-stone-300 dark:ring-offset-black;
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary-light text-primary-contrast ring-primary-light hover:text-primary-light-contrast flex cursor-pointer items-center gap-2 rounded fill-current px-4 py-2 font-semibold whitespace-nowrap no-underline shadow ring-offset-white select-none visited:text-start focus-visible:ring-2 focus-visible:ring-offset-2 hover:shadow-lg focus:outline-0 dark:ring-offset-black;
+    @apply bg-primary hover:bg-primary-light text-primary-contrast ring-primary-light hover:text-primary-light-contrast flex cursor-pointer items-center gap-2 rounded fill-current px-4 py-2 font-semibold whitespace-nowrap no-underline shadow ring-offset-white select-none visited:text-start hover:shadow-lg focus:outline-0 focus-visible:ring-2 focus-visible:ring-offset-2 dark:ring-offset-black;
   }
 
   .btn-primary-small {
@@ -94,7 +94,7 @@
   }
 
   .input-primary {
-    @apply ring-primary w-full max-w-xl min-w-50 rounded border border-stone-400 bg-white px-3 py-2 text-stone-900 placeholder-stone-400 focus-visible:ring-2 hover:shadow focus:shadow-lg focus:outline-0 dark:bg-stone-200 dark:placeholder-stone-500;
+    @apply ring-primary w-full max-w-xl min-w-50 rounded border border-stone-400 bg-white px-3 py-2 text-stone-900 placeholder-stone-400 hover:shadow focus:shadow-lg focus:outline-0 focus-visible:ring-2 dark:bg-stone-200 dark:placeholder-stone-500;
   }
 
   .input-primary-small {
@@ -110,7 +110,7 @@
   }
 
   .select-primary {
-    @apply ring-primary w-full max-w-xl min-w-50 cursor-pointer appearance-none rounded rounded-tr-xl border border-stone-400 bg-white bg-no-repeat px-3 py-2 pr-9 text-stone-900 placeholder-stone-400 select-none focus-visible:ring-2 hover:shadow focus:shadow-lg focus:outline-0 dark:bg-stone-200 dark:placeholder-stone-500;
+    @apply ring-primary w-full max-w-xl min-w-50 cursor-pointer appearance-none rounded rounded-tr-xl border border-stone-400 bg-white bg-no-repeat px-3 py-2 pr-9 text-stone-900 placeholder-stone-400 select-none hover:shadow focus:shadow-lg focus:outline-0 focus-visible:ring-2 dark:bg-stone-200 dark:placeholder-stone-500;
     background-position: right 10px center;
     background-size: 12px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%2378716c' d='M6 8.825a.5.5 0 01-.354-.146l-4-4a.5.5 0 11.708-.708L6 7.618l3.646-3.647a.5.5 0 01.708.708l-4 4A.5.5 0 016 8.825z'/%3E%3C/svg%3E");
