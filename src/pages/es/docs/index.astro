@@ -77,21 +77,21 @@ Más especificaciones sobre el proyecto que quiero construir:
     </div>
   </Reveal>
 
-  <!-- Alternativa: clonar -->
+  <!-- Alternativa: hacer fork, clonar o descargar -->
   <Reveal delay={120} class="mb-14">
     <div class="rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
       <div class="mb-5 flex items-center gap-3">
         <span class="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200">
           <Icon name="heroicons:code-bracket" class="h-6 w-6" aria-hidden="true" />
         </span>
-        <h2 class="text-2xl font-bold">Alternativa: hacer fork o clonar</h2>
+        <h2 class="text-2xl font-bold">Alternativa: hacer fork, clonar o descargar</h2>
       </div>
-      <p class="mb-5 max-w-2xl text-stone-600 dark:text-stone-300">¿Prefieres control total desde el principio? Haz fork o clona el repositorio oficial directamente. En ese caso te encargas tú de la limpieza inicial - la guía de configuración te acompaña.</p>
+      <p class="mb-5 max-w-2xl text-stone-600 dark:text-stone-300">¿Prefieres control total desde el principio? Haz fork del repositorio oficial y clona tu fork, clona el repositorio oficial directamente o descarga su código fuente. En ese caso te encargas tú de la limpieza inicial - la guía de configuración te acompaña.</p>
       <Code code="git clone https://github.com/peltmonger/stardrive.git mi-proyecto" lang="sh" title="Clonar el repositorio" />
       <div class="mt-6">
         <Callout variant="warning" title="Limpieza manual necesaria">
           <p>
-            Los clones directos siguen conteniendo archivos de demo y del repo. Empieza por la <a href={getLocaleUrl('docs/configuration', locale)}>guía de configuración</a>, que ejecuta el paso de limpieza antes que nada.
+            Los proyectos copiados manualmente siguen conteniendo archivos de demo y del repo. Empieza por la <a href={getLocaleUrl('docs/configuration', locale)}>guía de configuración</a>, que ejecuta el paso de limpieza antes que nada.
           </p>
         </Callout>
       </div>

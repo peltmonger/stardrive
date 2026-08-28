@@ -1,6 +1,6 @@
 ---
 publishDate: 2026-06-01
-updatedDate: 2026-06-04
+updatedDate: 2026-08-28
 draft: false
 question: 'Wie fange ich an'
 category: 'general'
@@ -8,7 +8,7 @@ category: 'general'
 
 **Führe `npm create stardrive@latest` aus und folge der Anleitung.**
 
-**Alternativ kannst du das [Repository](https://github.com/peltmonger/stardrive) direkt klonen oder forken und `npm install` ausführen.**
+**Alternativ kannst du das [Repository](https://github.com/peltmonger/stardrive) forken und deinen Fork klonen, das Repository direkt klonen oder den Quellcode herunterladen. Führe anschließend `npm install` aus.**
 
 Starte den Dev-Server mit `npm run dev`.
 

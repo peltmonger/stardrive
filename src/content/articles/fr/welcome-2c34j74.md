@@ -29,7 +29,7 @@ On y était. Souvent. Et on s'est assez frustrés pour faire quelque chose.
 
 Astro Stardrive est un boilerplate. Pas un thème. Pas un template. Une vraie fondation - une qui a déjà pris les décisions ennuyeuses (mais critiques) pour toi.
 
-L'objectif est simple : **cloner, configurer, déployer.** En minutes, pas en semaines.
+L'objectif est simple : **créer, configurer, déployer.** En minutes, pas en semaines.
 
 Il embarque :
 
@@ -71,7 +71,7 @@ Et si tu utilises Stardrive pour un projet commercial, pense à nous sponsoriser
 
 ## 🎉 Et maintenant ?
 
-Regarde autour. Lis les autres articles. Clone le repo. Lance `npm install && npm run dev`. Et construis quelque chose de génial.
+Regarde autour. Lis les autres articles. Lance `npm create stardrive@latest`, suis les instructions de configuration et démarre ton nouveau projet avec `npm run dev`. Puis construis quelque chose de génial.
 
 Bienvenue sur Stardrive. Rendons le web un peu moins frustrant - ensemble. 🚀
 

@@ -1,10 +1,10 @@
-<!-- Scope: optional initial trimming for a directly cloned project, invoked by CONFIG_GUIDE.md. -->
+<!-- Scope: optional initial trimming for a project copied without the scaffolding tool, invoked by CONFIG_GUIDE.md. -->
 
 # Trimming Guide
 
-This workflow removes optional demo content from a directly cloned Stardrive project. It applies only when invoked during project configuration by [`CONFIG_GUIDE.md`](./CONFIG_GUIDE.md).
+This workflow removes optional demo content from a Stardrive project created by forking the official repository and cloning the fork, cloning the official repository directly, or downloading its source. It applies only when invoked during project configuration by [`CONFIG_GUIDE.md`](./CONFIG_GUIDE.md).
 
-The [`create-stardrive`](https://www.npmjs.com/package/create-stardrive) scaffolding tool performs these removals automatically, so this workflow is only relevant to direct clones (for example, via `git clone`).
+The [`create-stardrive`](https://www.npmjs.com/package/create-stardrive) scaffolding tool performs these removals automatically, so this workflow is only relevant when the project was copied without the scaffolding tool.
 
 Before removing optional features, ask which of these should be retained:
 

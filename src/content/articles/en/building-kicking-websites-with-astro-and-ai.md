@@ -55,7 +55,7 @@ That's the real difference. When you start from scratch, you and the AI spend mo
 
 Here's a typical workflow:
 
-1. **Clone and configure.** Run the setup flow - the agent walks you through it, asks the right questions, and writes a `PLAN.md`.
+1. **Create and configure your project.** Run `npm create stardrive@latest`. The setup flow creates the project and prepares it for your agent, which then walks you through the remaining configuration, asks the right questions, and writes a `PLAN.md`.
 2. **Ask for features.** "Add a pricing page." "Translate the about page to Italian." "Wire up a newsletter form." The agent follows the conventions and produces code that fits.
 3. **Review and ship.** Run `npm run check` to lint and type-check. Preview locally. Deploy.
 
@@ -75,4 +75,4 @@ The agent is told, in plain language, where those boundaries are. So it's much l
 
 Building a website with AI doesn't have to mean "hope the agent doesn't break things." With the right foundation, it's a genuinely fast, pleasant workflow.
 
-Stardrive is that foundation. Clone it, point your agent at it, and go build something kicking. 🎉
+Stardrive is that foundation. Run `npm create stardrive@latest`, point your agent at the new project, and go build something kicking. 🎉

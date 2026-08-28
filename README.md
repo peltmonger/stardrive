@@ -125,7 +125,7 @@ The installer helps you to already adjust the boilerplate a little bit to your n
 
 <br />
 
-_(Alternatively, you can also always simply fork and/or clone the official repository.)_
+_(Alternatively, you can fork the official repository and clone your fork, clone the official repository directly, or download its source.)_
 
 <br />
 

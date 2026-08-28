@@ -54,7 +54,7 @@ C'est la vraie différence. Quand tu pars de zéro, toi et l'IA passez l'essenti
 
 Voici un flux typique :
 
-1. **Cloner et configurer.** Suis le flux de setup - l'agent te guide, pose les bonnes questions et écrit un `PLAN.md`.
+1. **Créer et configurer ton projet.** Lance `npm create stardrive@latest`. Le flux de setup crée le projet et le prépare pour ton agent, qui te guide ensuite dans le reste de la configuration, pose les bonnes questions et écrit un `PLAN.md`.
 2. **Demander des fonctionnalités.** "Ajoute une page tarifs." "Traduis la page about en italien." "Branche un formulaire de newsletter." L'agent suit les conventions et produit du code qui colle.
 3. **Revoir et publier.** Lance `npm run check` pour linter et vérifier les types. Prévisualise en local. Déploie.
 
@@ -74,4 +74,4 @@ L'agent est informé, en mots clairs, où sont ces limites. Il est donc beaucoup
 
 Construire un site avec l'IA ne doit pas signifier "espérer que l'agent ne casse rien". Avec la bonne fondation, c'est un flux réellement rapide et agréable.
 
-Stardrive est cette fondation. Clone-le, pointe ton agent dessus et va construire quelque chose de percutant. 🎉
+Stardrive est cette fondation. Lance `npm create stardrive@latest`, pointe ton agent vers le nouveau projet et va construire quelque chose de percutant. 🎉
