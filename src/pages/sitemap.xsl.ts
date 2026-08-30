@@ -1,56 +1,27 @@
 import type { APIRoute } from 'astro';
 import { themeConfig } from '~/theme.config';
 
-type Rgb = [number, number, number];
-
-const parseHex = (value: string | undefined, fallback: string): Rgb => {
-  const hex = (value || fallback).trim().replace(/^#/, '');
+const normalizeHex = (value: string | undefined): string | undefined => {
+  const hex = value?.trim().replace(/^#/, '');
+  if (!hex) return undefined;
   const normalized = hex.length === 3 ? [...hex].map((character) => character + character).join('') : hex;
-  const match = /^[\da-f]{6}$/i.exec(normalized);
-  const color = match ? normalized : fallback.replace(/^#/, '');
-  return [Number.parseInt(color.slice(0, 2), 16), Number.parseInt(color.slice(2, 4), 16), Number.parseInt(color.slice(4, 6), 16)];
+  return /^[\da-f]{6}$/i.test(normalized) ? `#${normalized.toLowerCase()}` : undefined;
 };
 
-const toHex = (color: Rgb): string => `#${color.map((channel) => Math.round(channel).toString(16).padStart(2, '0')).join('')}`;
-const mix = (from: Rgb, to: Rgb, amount: number): Rgb => [from[0] + (to[0] - from[0]) * amount, from[1] + (to[1] - from[1]) * amount, from[2] + (to[2] - from[2]) * amount];
-const luminance = (color: Rgb): number => {
-  const [red, green, blue] = color.map((channel) => {
-    const value = channel / 255;
+const luminance = (hex: string): number => {
+  const channels = [hex.slice(1, 3), hex.slice(3, 5), hex.slice(5, 7)].map((channel) => {
+    const value = Number.parseInt(channel, 16) / 255;
     return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
   });
+  const [red, green, blue] = channels;
   return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
-};
-const contrast = (first: Rgb, second: Rgb): number => {
-  const lighter = Math.max(luminance(first), luminance(second));
-  const darker = Math.min(luminance(first), luminance(second));
-  return (lighter + 0.05) / (darker + 0.05);
-};
-const contrastingText = (background: Rgb): Rgb => (contrast(background, [0, 0, 0]) >= contrast(background, [255, 255, 255]) ? [0, 0, 0] : [255, 255, 255]);
-const ensureContrast = (color: Rgb, background: Rgb, minimum = 4.5): Rgb => {
-  if (contrast(color, background) >= minimum) return color;
-  const target = contrastingText(background);
-  for (let step = 1; step <= 20; step += 1) {
-    const candidate = mix(color, target, step / 20);
-    if (contrast(candidate, background) >= minimum) return candidate;
-  }
-  return target;
 };
 const escapeXml = (value: string): string => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 
-const background = parseHex(themeConfig.themeColor, '#0a0a0a');
-const text = contrastingText(background);
-const accent = ensureContrast(parseHex(themeConfig.primaryColor, '#0079dc'), background);
-const textMuted = ensureContrast(mix(text, background, 0.45), background);
-const palette = {
-  accent: toHex(accent),
-  background: toHex(background),
-  elevated: toHex(mix(background, text, 0.06)),
-  subtle: toHex(mix(background, text, 0.1)),
-  border: toHex(mix(background, text, 0.18)),
-  borderSubtle: toHex(mix(background, text, 0.12)),
-  text: toHex(text),
-  textMuted: toHex(textMuted),
-};
+const primary = normalizeHex(themeConfig.primaryColor);
+const secondary = normalizeHex(themeConfig.themeColor);
+const lighterBrandColor = primary && secondary ? (luminance(primary) >= luminance(secondary) ? primary : secondary) : primary || secondary;
+const accent = lighterBrandColor && (luminance(lighterBrandColor) + 0.05) / 0.05 >= 4.5 ? lighterBrandColor : '#ffffff';
 const siteName = escapeXml(themeConfig.name || new URL(themeConfig.site).hostname);
 
 const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
@@ -69,14 +40,14 @@ const stylesheet = `<?xml version="1.0" encoding="UTF-8"?>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style type="text/css">
           :root {
-            --accent: ${palette.accent};
-            --bg: ${palette.background};
-            --bg-elevated: ${palette.elevated};
-            --bg-subtle: ${palette.subtle};
-            --border: ${palette.border};
-            --border-subtle: ${palette.borderSubtle};
-            --text: ${palette.text};
-            --text-muted: ${palette.textMuted};
+            --accent: ${accent};
+            --bg: #000;
+            --bg-elevated: #0a0a0a;
+            --bg-subtle: #171717;
+            --border: #404040;
+            --border-subtle: #262626;
+            --text: #fff;
+            --text-muted: #a3a3a3;
           }
           * { box-sizing: border-box; }
           body {
