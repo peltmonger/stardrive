@@ -233,6 +233,7 @@ Adjust this based on your project, personal taste, and coding guidelines!
     │   ├── robots.txt.ts         # Generates robots.txt (honors the ROBOTS env override)
     │   ├── rss.xml.js            # Generates the blog RSS feed
     │   ├── site.webmanifest.ts   # Generates the PWA manifest from theme.config.ts
+    │   ├── sitemap.xsl.ts        # Styles XML sitemaps using the name and accessible colors from theme.config.ts
     │   ├── dynamic-events-sitemap.xml.ts   # Generates a sitemap for events dynamically, if we pull them in from an external API
     │   ├── [lang]/               # i18n routes (string-translated pages share this folder)
     │   ├── de/ · es/ · fr/       # Per-language folders for hard-coded/long-form content

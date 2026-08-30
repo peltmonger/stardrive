@@ -154,6 +154,7 @@ export default defineConfig({
   integrations: [
     setOnDemandPrerender,
     sitemap({
+      xslURL: '/sitemap.xsl',
       i18n: sitemap_i18n,
       customPages: getOnDemandSitemapPages(),
       customSitemaps: [themeConfig.site.replace(/\/+$/, '') + '/dynamic-events-sitemap.xml'],
