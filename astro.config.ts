@@ -157,7 +157,7 @@ export default defineConfig({
       xslURL: '/sitemap.xsl',
       i18n: sitemap_i18n,
       customPages: getOnDemandSitemapPages(),
-      customSitemaps: [themeConfig.site.replace(/\/+$/, '') + '/dynamic-events-sitemap.xml'],
+      customSitemaps: themeConfig.events?.dynamicEvents?.pullFromAddToCalendarPro ? [themeConfig.site.replace(/\/+$/, '') + '/dynamic-events-sitemap.xml'] : [],
     }),
     icon({
       svgoOptions: svgoConfig,
