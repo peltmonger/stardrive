@@ -16,7 +16,7 @@
     "purge:cloudflare": "node scripts/purgeCloudflareCache.js",
     "check": "npm run check:astro && npm run check:type && npm run check:eslint && npm run check:prettier",
     "check:astro": "astro check",
-    "check:type": "npm run generate-types && tsc --noEmit",
+    "check:type": "npm run generate-types && node ./node_modules/@typescript/native/bin/tsc --noEmit",
     "check:eslint": "eslint .",
     "check:prettier": "prettier --check .",
     "check:artifacts": "node scripts/verifyBuildArtifacts.js",
@@ -89,6 +89,7 @@
     "@iconify-json/simple-icons": "^1.2.94",
     "@types/leaflet": "^1.9.22",
     "@types/sanitize-html": "^2.16.1",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "astro-compress": "^2.4.3",
     "eslint": "^10.9.1",
     "eslint-config-prettier": "^10.1.8",
@@ -106,7 +107,7 @@
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.35.4",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.68.0"
   },
   "overrides": {
