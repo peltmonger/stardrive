@@ -77,7 +77,7 @@ Everything you need to launch a fast, modern, AI-ready website - batteries inclu
 ### 📝 Content
 
 - **Powerful blog** - Auto-generated Table of Contents, optimized YouTube embeds, auto-highlighting of external links, reading-time calculation, and proper auto-generated social preview images.
-- **Events** - Markdown-driven, i18n-ready, with one-click "Add to Calendar" buttons, time zones, and rich detail pages. Optionally bridge to **Add to Calendar PRO** for external, code-free event management.
+- **Events** - Markdown-driven, i18n-ready, with server-rendered "Add to Calendar" button shells that hydrate for one-click interaction, time zones, and rich detail pages. Optionally bridge to **Add to Calendar PRO** for external, code-free event management.
 - **Markdown-based FAQ** - Manage answers as simple files.
 
 ### 🖖 Accessibility & SEO

@@ -1,19 +1,21 @@
 ---
 import type { AddToCalendarButtonType } from 'add-to-calendar-button';
+import { atcb_generate_ssr_html_async } from 'add-to-calendar-button/ssr';
 /**
  * Add to Calendar Button
  *
  * Thin Astro wrapper around the `add-to-calendar-button` web component (https://add-to-calendar-button.com).
- * The custom element renders and manages its own UI on the client, so we only emit the markup here and register the element once via a client-side <script>.
+ * Pre-renders a styled shell via declarative shadow DOM; the client script upgrades it for interaction.
+ * PRO events fetch their hosted configuration before rendering the shell.
  * No island framework is required.
  *
- * Attribute values are strings by design (that is how the web component reads them). For list attributes like `options`, pass a JSON-ish string such as '["Apple","Google","iCal","Outlook.com"]'.
+ * The SSR helper serializes the configuration into web component attributes.
  *
  * Drop-in example for an event detail page:
  *   <AddToCalendarButton
  *     name={entry.data.title}
  *     description={entry.data.description}
- *     startDate={...}
+ *     start={entry.data.startDate}
  *     ...
  *   />
  */
@@ -87,9 +89,6 @@ const {
   prokey
 } = Astro.props as Props;
 
-// The web component expects list attributes as a JSON-ish string.
-const optionsAttr = JSON.stringify(options);
-
 // map the event date data to the add-to-calendar-button format
 const pad = (value: number) => String(value).padStart(2, '0');
 const toDate = (date: Date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
@@ -109,66 +108,54 @@ const hideBranding = false;
 // Debug mode. Disable to prevent any warnings showing up.
 // True helps you at the beginning to see if you are passing the right values. False is recommended for production.
 const debug = false;
+// Use the async renderer for hosted PRO configuration; local events render without I/O.
+const html = await atcb_generate_ssr_html_async({
+  language: language as AddToCalendarButtonType['language'],
+  buttonStyle,
+  listStyle,
+  hideTextLabelButton: hideLabel,
+  lightMode: 'bodyScheme',
+  trigger: 'click',
+  forceOverlay,
+  debug,
+  cspnonce: nonce,
+  hideRichData,
+  ...(prokey
+    ? {
+        prokey,
+        proOverride: true,
+        inlineRsvp: 'false',
+        rsvp: { none: true },
+        customCss: '',
+        styleLight: '',
+        styleDark: '',
+        proxy: true
+      }
+    : {
+        name,
+        description,
+        startDate: start ? toDate(start) : undefined,
+        startTime: allDay || !start ? undefined : toTime(start),
+        endDate: end ? toDate(end) : undefined,
+        endTime: allDay || !end ? undefined : toTime(end),
+        timeZone,
+        location,
+        options,
+        organizer: organizerAttr,
+        recurrence,
+        icsFile,
+        hideBranding,
+        images: image ? [image] : undefined
+      })
+});
 ---
 
-{
-  prokey ? (
-    <add-to-calendar-button language={language} buttonStyle={buttonStyle} listStyle={listStyle} hideTextLabelButton={hideLabel} lightMode="bodyScheme" trigger="click" forceOverlay={forceOverlay} debug={debug} cspnonce={nonce} hideRichData={hideRichData} prooverride={true} inlineRsvp={false} rsvp='{ "none": true }' prokey={prokey} customCss="" styleLight="" styleDark="" proxy />
-  ) : (
-    <add-to-calendar-button
-      name={name}
-      description={description}
-      startDate={start ? toDate(start) : undefined}
-      startTime={allDay || !start ? undefined : toTime(start)}
-      endDate={end ? toDate(end) : undefined}
-      endTime={allDay || !end ? undefined : toTime(end)}
-      timeZone={timeZone}
-      location={location}
-      options={optionsAttr}
-      organizer={organizerAttr}
-      recurrence={recurrence}
-      icsFile={icsFile}
-      language={language}
-      buttonStyle={buttonStyle}
-      listStyle={listStyle}
-      hideTextLabelButton={hideLabel}
-      lightMode="bodyScheme"
-      trigger="click"
-      forceOverlay={forceOverlay}
-      hideBranding={hideBranding}
-      debug={debug}
-      cspnonce={nonce}
-      images={image ? `[${image}]` : undefined}
-      hideRichData={hideRichData}
-    />
-  )
-}
-
-<style>
-  @reference '../styles/tailwind.config.css';
-
-  /* Style override. See https://add-to-calendar-button.com/advanced-use for details. */
-  :global(add-to-calendar-button::part(atcb-button)) {
-    @apply ring-primary border-stone-300 bg-stone-200 font-sans text-stone-950 shadow-none;
-  }
-  :global(:where(.dark, .dark *) add-to-calendar-button)::part(atcb-button) {
-    @apply border-stone-400 bg-stone-800 text-white;
-  }
-  :global(add-to-calendar-button::part(atcb-button):hover) {
-    @apply border-primary;
-  }
-  :global(add-to-calendar-button::part(atcb-button):focus) {
-    @apply outline-0;
-  }
-  :global(add-to-calendar-button::part(atcb-button):focus-visible) {
-    @apply ring-primary ring-2;
-  }
-  :global(add-to-calendar-button::part(atcb-list)),
-  :global(.add-to-calendar::part(atcb-list)) {
-    @apply font-sans;
-  }
-</style>
+<Fragment set:html={html} />
 
 <script>
-  // Registers the <add-to-calendar-button> custom element client-side. import 'add-to-calendar-button';
+  import 'add-to-calendar-button';
+  import 'add-to-calendar-button/styles/round';
+  import 'add-to-calendar-button/i18n/de';
+  import 'add-to-calendar-button/i18n/fr';
+  import 'add-to-calendar-button/i18n/es';
 </script>
