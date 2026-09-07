@@ -82,9 +82,14 @@ export function useTranslations(lang?: keyof typeof translations) {
 
 // function to get the current path without the locale
 export function getUrlWithoutLocale(url: URL, currentLang?: keyof typeof translations) {
-  const path = url.pathname;
+  // File-format builds expose HTML filenames in Astro.url; navigation uses clean routes.
+  const path =
+    url.pathname
+      .replace(/\/index\.html$/, '/')
+      .replace(/\.html$/, '')
+      .replace(/\/$/, '') || '/';
   if (!currentLang || currentLang === defaultLocale || path === '/') return path;
-  return path === `/${currentLang}` || path === `/${currentLang}.html` ? '/' : path.replace(`/${currentLang}/`, '/');
+  return path === `/${currentLang}` ? '/' : path.replace(`/${currentLang}/`, '/');
 }
 
 // build a clean, locale-aware absolute URL for the current page
