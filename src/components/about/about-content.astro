@@ -2,7 +2,6 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import GroupShot from "@images/group-shot.png";
-import Reveal from "@components/reveal.astro";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 
 interface Stat {
@@ -67,7 +66,7 @@ const githubUrl = "https://github.com/peltmonger/stardrive";
 <div class="flex flex-col gap-20">
   <!-- Intro: photo + lead + key facts -->
   <p class="max-w-2xl text-lg text-stone-600 dark:text-stone-300">{lead}</p>
-  <Reveal>
+  <div>
     <div class="grid items-center gap-8 md:gap-12 lg:grid-cols-2">
       <div class="overflow-hidden rounded-2xl">
         <Image src={GroupShot} alt={imageAlt} class="h-auto w-full object-cover" />
@@ -84,10 +83,10 @@ const githubUrl = "https://github.com/peltmonger/stardrive";
         }
       </ul>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Story timeline -->
-  <Reveal>
+  <div>
     <section>
       <h2 class="mb-8 text-2xl font-bold">{storyHeading}</h2>
       <div class="relative">
@@ -106,10 +105,10 @@ const githubUrl = "https://github.com/peltmonger/stardrive";
         </ol>
       </div>
     </section>
-  </Reveal>
+  </div>
 
   <!-- Highlights -->
-  <Reveal>
+  <div>
     <section>
       <h2 class="mb-8 text-2xl font-bold">{highlightsHeading}</h2>
       <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
@@ -130,10 +129,10 @@ const githubUrl = "https://github.com/peltmonger/stardrive";
         }
       </ul>
     </section>
-  </Reveal>
+  </div>
 
   <!-- Open source -->
-  <Reveal>
+  <div>
     <section class="border-secondary/30 bg-secondary-light/5 dark:border-secondary-light/40 dark:bg-secondary-dark/20 rounded-2xl border p-6 sm:p-10">
       <div class="flex flex-col items-start gap-4">
         <span class="bg-secondary text-secondary-contrast flex h-12 w-12 items-center justify-center rounded-full">
@@ -154,5 +153,5 @@ const githubUrl = "https://github.com/peltmonger/stardrive";
         </div>
       </div>
     </section>
-  </Reveal>
+  </div>
 </div>

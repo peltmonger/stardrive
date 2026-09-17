@@ -5,7 +5,6 @@ import { Icon } from "astro-icon/components";
 import { Code } from "astro-expressive-code/components";
 import Callout from "@components/docs/callout.astro";
 import CodeTabs from "@components/docs/code-tabs.astro";
-import Reveal from "@components/reveal.astro";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 
 const locale = 'fr';
@@ -31,7 +30,7 @@ Autres spécifications sur le projet que je veux construire :
   <p class="mb-12 max-w-2xl text-lg text-stone-600 dark:text-stone-300">Stardrive vous fait passer de zéro à un site web rapide, moderne et prêt pour l'IA en une seule commande. Choisissez le chemin qui vous convient et commencez à construire.</p>
 
   <!-- Chemin recommandé -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <div class="border-primary/20 rounded-xl border-4 bg-white p-6 sm:p-8 dark:bg-stone-900">
       <div class="mb-5 flex items-center gap-3">
         <span class="bg-primary text-primary-contrast flex h-10 w-10 items-center justify-center rounded-full">
@@ -54,10 +53,10 @@ Autres spécifications sur le projet que je veux construire :
         </Callout>
       </div>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Démarrer avec un agent IA -->
-  <Reveal delay={80} class="mb-14">
+  <div class="mb-14">
     <div class="border-secondary/30 bg-secondary-light/5 dark:border-secondary-light/40 dark:bg-secondary-dark/20 rounded-xl border p-6 sm:p-8">
       <div class="mb-5 flex items-center gap-3">
         <span class="bg-secondary text-secondary-contrast flex h-10 w-10 items-center justify-center rounded-full">
@@ -75,10 +74,10 @@ Autres spécifications sur le projet que je veux construire :
         </Callout>
       </div>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Alternative : forker, cloner ou télécharger -->
-  <Reveal delay={120} class="mb-14">
+  <div class="mb-14">
     <div class="rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
       <div class="mb-5 flex items-center gap-3">
         <span class="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200">
@@ -96,10 +95,10 @@ Autres spécifications sur le projet que je veux construire :
         </Callout>
       </div>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Étape suivante -->
-  <Reveal delay={160}>
+  <div>
     <div class="flex flex-col items-start gap-4 rounded-xl bg-stone-100 p-6 sm:flex-row sm:items-center sm:justify-between dark:bg-stone-800">
       <div>
         <h2 class="text-xl font-bold">Prêt à configurer ?</h2>
@@ -110,5 +109,5 @@ Autres spécifications sur le projet que je veux construire :
         <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
       </a>
     </div>
-  </Reveal>
+  </div>
 </Layout>

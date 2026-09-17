@@ -1,12 +1,10 @@
 ---
-import Reveal from "@components/reveal.astro";
 import "@styles/docs.css";
 
 /**
  * Step
  *
  * A single item in a vertical, numbered timeline. Meant to be used inside a `.docs-steps` wrapper (see `steps.astro`) which draws the connecting line.
- * Each step reveals itself on scroll for a lively, easy-to-scan configuration flow.
  */
 
 interface Props {
@@ -20,7 +18,7 @@ interface Props {
 const { number, title, class: className = "" } = Astro.props;
 ---
 
-<Reveal from="up" class:list={['docs-step relative pb-10 pl-14 last:pb-0', className]}>
+<div class:list={['docs-step relative pb-10 pl-14 last:pb-0', className]}>
   <span class="bg-primary text-primary-contrast ring-background dark:ring-background-dark absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-full font-bold shadow-md ring-4 select-none" aria-hidden="true">
     {number}
   </span>
@@ -28,4 +26,4 @@ const { number, title, class: className = "" } = Astro.props;
   <div class="docs-step-body text-stone-700 dark:text-stone-300">
     <slot />
   </div>
-</Reveal>
+</div>

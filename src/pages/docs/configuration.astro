@@ -4,7 +4,6 @@ import Headline from "@components/headline.astro";
 import { Icon } from "astro-icon/components";
 import { Code } from "astro-expressive-code/components";
 import Callout from "@components/docs/callout.astro";
-import Reveal from "@components/reveal.astro";
 import Steps from "@components/docs/steps.astro";
 import Step from "@components/docs/step.astro";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
@@ -21,14 +20,14 @@ const t = useTranslations(locale);
     Configuration happens on a few levels: the central <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/10">theme.config.ts</code>, the codebase itself, and a handful of build-time environment variables. Work through the steps below from top to bottom - each one builds on the previous.
   </p>
 
-  <Reveal class="mb-12">
+  <div class="mb-12">
     <Callout variant="warning" title="Astro is a frontend framework">
       <p>Everything here runs on the client (static output, with optional on-demand rendering). Never store secrets or backend logic in this project - sensitive work belongs in a real backend service.</p>
     </Callout>
-  </Reveal>
+  </div>
 
   <!-- Configuration levels overview -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <div class="grid gap-4 sm:grid-cols-3">
       <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
         <Icon name="heroicons:adjustments-horizontal" class="text-primary mb-3 h-7 w-7" aria-hidden="true" />
@@ -46,7 +45,7 @@ const t = useTranslations(locale);
         <p class="text-sm text-stone-600 dark:text-stone-300">A few build-time overrides like <code>SITE_OVERRIDE</code> and <code>ROBOTS</code>.</p>
       </div>
     </div>
-  </Reveal>
+  </div>
 
   <h2 class="mb-8 text-2xl font-bold">Step-by-step</h2>
 
@@ -155,7 +154,7 @@ const t = useTranslations(locale);
   </Steps>
 
   <!-- Env variables -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">Build-time environment variables</h2>
     <div class="overflow-hidden rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900">
       <dl class="m-0 divide-y divide-stone-200 dark:divide-stone-800">
@@ -177,10 +176,10 @@ const t = useTranslations(locale);
         </div>
       </dl>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Next step -->
-  <Reveal>
+  <div>
     <div class="flex flex-col items-start gap-4 rounded-xl bg-stone-100 p-6 sm:flex-row sm:items-center sm:justify-between dark:bg-stone-800">
       <div>
         <h2 class="text-xl font-bold">Site running? Time for content.</h2>
@@ -191,5 +190,5 @@ const t = useTranslations(locale);
         <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
       </a>
     </div>
-  </Reveal>
+  </div>
 </Layout>

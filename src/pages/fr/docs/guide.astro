@@ -3,7 +3,6 @@ import Layout from "@layouts/default.astro";
 import Headline from "@components/headline.astro";
 import { Code } from "astro-expressive-code/components";
 import Callout from "@components/docs/callout.astro";
-import Reveal from "@components/reveal.astro";
 import Topic from "@components/docs/topic.astro";
 import FieldList from "@components/docs/field-list.astro";
 import Field from "@components/docs/field.astro";
@@ -80,7 +79,7 @@ ${fence}`;
 
   <p class="mb-10 max-w-2xl text-lg text-stone-600 dark:text-stone-300">Votre site est configuré et prêt - place au travail quotidien. Dépliez n'importe quel thème ci-dessous pour voir comment le contenu circule dans Stardrive et quelles options débloquent les fonctionnalités les plus puissantes.</p>
 
-  <Reveal>
+  <div>
     <div class="flex flex-col gap-4">
       <!-- Blog -->
       <Topic icon="heroicons:newspaper" title="Rédiger des articles de blog" tagline="Des fichiers Markdown avec un frontmatter puissant">
@@ -245,5 +244,5 @@ ${fence}`;
         </Callout>
       </Topic>
     </div>
-  </Reveal>
+  </div>
 </Layout>

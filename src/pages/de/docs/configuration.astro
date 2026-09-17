@@ -4,7 +4,6 @@ import Headline from "@components/headline.astro";
 import { Icon } from "astro-icon/components";
 import { Code } from "astro-expressive-code/components";
 import Callout from "@components/docs/callout.astro";
-import Reveal from "@components/reveal.astro";
 import Steps from "@components/docs/steps.astro";
 import Step from "@components/docs/step.astro";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
@@ -20,14 +19,14 @@ const t = useTranslations(locale);
     Die Konfiguration findet auf mehreren Ebenen statt: der zentralen <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/10">theme.config.ts</code>, dem Code selbst und einigen Build-Umgebungsvariablen. Arbeite die Schritte von oben nach unten durch - jeder baut auf dem vorherigen auf.
   </p>
 
-  <Reveal class="mb-12">
+  <div class="mb-12">
     <Callout variant="warning" title="Astro ist ein Frontend-Framework">
       <p>Alles hier läuft auf dem Client (statische Ausgabe, optional mit On-Demand-Rendering). Speichere niemals Geheimnisse oder Backend-Logik in diesem Projekt - sensible Aufgaben gehören in einen echten Backend-Dienst.</p>
     </Callout>
-  </Reveal>
+  </div>
 
   <!-- Konfigurationsebenen -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <div class="grid gap-4 sm:grid-cols-3">
       <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
         <Icon name="heroicons:adjustments-horizontal" class="text-primary mb-3 h-7 w-7" aria-hidden="true" />
@@ -45,7 +44,7 @@ const t = useTranslations(locale);
         <p class="text-sm text-stone-600 dark:text-stone-300">Ein paar Build-Overrides wie <code>SITE_OVERRIDE</code> und <code>ROBOTS</code>.</p>
       </div>
     </div>
-  </Reveal>
+  </div>
 
   <h2 class="mb-8 text-2xl font-bold">Schritt für Schritt</h2>
 
@@ -155,7 +154,7 @@ const t = useTranslations(locale);
   </Steps>
 
   <!-- Umgebungsvariablen -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">Umgebungsvariablen zur Build-Zeit</h2>
     <div class="overflow-hidden rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900">
       <dl class="m-0 divide-y divide-stone-200 dark:divide-stone-800">
@@ -177,10 +176,10 @@ const t = useTranslations(locale);
         </div>
       </dl>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Nächster Schritt -->
-  <Reveal>
+  <div>
     <div class="flex flex-col items-start gap-4 rounded-xl bg-stone-100 p-6 sm:flex-row sm:items-center sm:justify-between dark:bg-stone-800">
       <div>
         <h2 class="text-xl font-bold">Website läuft? Zeit für Inhalte.</h2>
@@ -191,5 +190,5 @@ const t = useTranslations(locale);
         <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
       </a>
     </div>
-  </Reveal>
+  </div>
 </Layout>

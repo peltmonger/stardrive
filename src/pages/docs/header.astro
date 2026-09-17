@@ -4,7 +4,6 @@ import Headline from "@components/headline.astro";
 import { Icon } from "astro-icon/components";
 import { Code } from "astro-expressive-code/components";
 import Callout from "@components/docs/callout.astro";
-import Reveal from "@components/reveal.astro";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
 
@@ -58,7 +57,7 @@ ${fence}`;
   <p class="mb-10 max-w-2xl text-lg text-stone-600 dark:text-stone-300">The header is one of the most flexible parts of Stardrive. It can be a sticky bar, an overlay that morphs on scroll, a minimal close button, or disappear entirely. This guide walks through where each option is set and how the pieces fit together.</p>
 
   <!-- Flow -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">Where the header is configured</h2>
     <p class="mb-4 max-w-2xl text-stone-600 dark:text-stone-300">Header options flow through three layers, from the page down to the component that actually renders the bar:</p>
     <div class="grid gap-4 sm:grid-cols-3">
@@ -78,10 +77,10 @@ ${fence}`;
         <p class="text-sm text-stone-600 dark:text-stone-300">The component receives the final props and renders one of four variants based on the combination.</p>
       </div>
     </div>
-  </Reveal>
+  </div>
 
   <!-- Defaults -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">Two levels of defaults</h2>
     <p class="mb-4 max-w-2xl text-stone-600 dark:text-stone-300">
       There is no <code>header</code> key in <code>theme.config.ts</code>. Defaults are coded in two places - both are plain code, so you edit them directly.
@@ -111,10 +110,10 @@ ${fence}`;
     <Callout variant="tip" title="Change a default once, apply everywhere" class="mt-4">
       <p>Because the defaults live in code, a single edit in the Layout (for <code>github</code> / <code>ctaButton</code>) or the component (for the fallback variant) propagates to every page. You only need the per-page <code>header</code> prop when a route should behave differently.</p>
     </Callout>
-  </Reveal>
+  </div>
 
   <!-- Page-level override -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">Overriding on the page</h2>
     <p class="mb-4 max-w-2xl text-stone-600 dark:text-stone-300">
       Pass a <code>header</code> object to the Layout to override the defaults for a single page. Only the keys you set are applied - everything else falls back to the Layout and component defaults.
@@ -134,10 +133,10 @@ ${fence}`;
       <Code code={buttonExample} lang="astro" title="Back-button header" />
       <Code code={hiddenExample} lang="astro" title="No header" />
     </div>
-  </Reveal>
+  </div>
 
   <!-- Options table -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">All header options</h2>
     <p class="mb-4 max-w-2xl text-stone-600 dark:text-stone-300">
       These are the props accepted by the <code>header</code> object on the Layout. The Layout forwards the relevant subset to the Header component; a few additional props (<code>github</code>, <code>ctaButton</code>, <code>overlayTheme</code>) are only set at the Layout or component level.
@@ -205,10 +204,10 @@ ${fence}`;
         A few props are not exposed on the page-level <code>header</code> object because they are project-wide: <code>github</code> (the repo link), <code>ctaButton</code> (the right-hand CTA), and <code>overlayTheme</code> (force light/dark for overlay headers). Edit them directly in <code>./src/layouts/default.astro</code> or <code>./src/components/layout/header.astro</code>.
       </p>
     </Callout>
-  </Reveal>
+  </div>
 
   <!-- Combinations -->
-  <Reveal class="mb-14">
+  <div class="mb-14">
     <h2 class="mb-4 text-2xl font-bold">Common combinations</h2>
     <p class="mb-4 max-w-2xl text-stone-600 dark:text-stone-300">
       The variant is picked from the combination of <code>fixed</code>, <code>overlay</code>, and <code>closeIcon</code>. These three are mutually exclusive - set at most one.
@@ -266,10 +265,10 @@ ${fence}`;
     <Callout variant="warning" title="Mutually exclusive variants" class="mt-4">
       <p><code>fixed</code>, <code>overlay</code>, and <code>closeIcon</code> select different rendering branches in the component. Setting more than one produces undefined behaviour - the component checks <code>closeIcon</code> first, then <code>fixed</code>, then <code>overlay</code>, so only one ever applies. Pick the one that matches your intent.</p>
     </Callout>
-  </Reveal>
+  </div>
 
   <!-- Next step -->
-  <Reveal>
+  <div>
     <div class="flex flex-col items-start gap-4 rounded-xl bg-stone-100 p-6 sm:flex-row sm:items-center sm:justify-between dark:bg-stone-800">
       <div>
         <h2 class="text-xl font-bold">Ready for the everyday work?</h2>
@@ -280,5 +279,5 @@ ${fence}`;
         <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
       </a>
     </div>
-  </Reveal>
+  </div>
 </Layout>

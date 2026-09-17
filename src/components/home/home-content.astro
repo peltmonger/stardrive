@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import Reveal from "@components/reveal.astro";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 import { themeConfig } from "~/theme.config";
 import interstitialVideo from "@images/interstitial.mp4";
@@ -61,7 +60,7 @@ const featuresUrl = getLocaleUrl("features", locale);
   <div class="graph-paper-bg-outer">
     <div class="container mx-auto py-20">
       <section aria-labelledby="home-features-heading">
-        <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
+        <div class="mb-12 flex flex-col items-center gap-3 text-center">
           <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">
             {t('home-content.features-eyebrow')}
           </span>
@@ -71,12 +70,12 @@ const featuresUrl = getLocaleUrl("features", locale);
           <p class="max-w-2xl text-stone-600 dark:text-stone-300">
             {t('home-content.features-sub')}
           </p>
-        </Reveal>
+        </div>
 
         <ul class="m-0 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
           {
-            features.map((feature, i) => (
-              <Reveal as="li" delay={i * 70} from="up" class="m-0">
+            features.map((feature) => (
+              <li class="m-0">
                 <article class="feature-card group relative h-full overflow-hidden rounded-xl border border-stone-300 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:border-stone-700 dark:bg-stone-900">
                   <div class={`absolute inset-x-0 top-0 h-1 ${feature.accent === 'primary' ? 'bg-primary' : 'bg-secondary'}`} />
                   <span class={`mb-4 flex h-11 w-11 items-center justify-center rounded-lg ${feature.accent === 'primary' ? 'bg-primary-light/15 text-primary dark:bg-primary-darker dark:text-primary-light' : 'bg-secondary-light/15 text-secondary dark:bg-secondary-dark dark:text-white/60'}`}>
@@ -85,7 +84,7 @@ const featuresUrl = getLocaleUrl("features", locale);
                   <h3 class="mb-2 text-lg font-bold">{t(`home-content.${feature.slug}-title`)}</h3>
                   <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{t(`home-content.${feature.slug}-text`)}</p>
                 </article>
-              </Reveal>
+              </li>
             ))
           }
         </ul>
@@ -98,14 +97,14 @@ const featuresUrl = getLocaleUrl("features", locale);
     <div class="parallax-video__pin">
       <video class="parallax-video__media" data-parallax-video-el data-src={interstitialVideo} muted playsinline preload="none" aria-hidden="true"></video>
       <div class="parallax-video__overlay">
-        <Reveal class="flex flex-col items-center gap-3 px-6 text-center">
+        <div class="flex flex-col items-center gap-3 px-6 text-center">
           <span class="text-sm font-semibold tracking-[0.2em] text-white/80 uppercase">
             {t('home-content.parallax-eyebrow')}
           </span>
           <h2 class="text-3xl font-bold text-white drop-shadow-lg sm:text-4xl">
             {t('home-content.parallax-heading')}
           </h2>
-        </Reveal>
+        </div>
       </div>
     </div>
   </div>
@@ -113,7 +112,7 @@ const featuresUrl = getLocaleUrl("features", locale);
   <!-- ── Customer voices ── -->
   <div class="container mx-auto py-20">
     <section aria-labelledby="home-voices-heading">
-      <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
+      <div class="mb-12 flex flex-col items-center gap-3 text-center">
         <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">
           {t('home-content.voices-eyebrow')}
         </span>
@@ -123,12 +122,12 @@ const featuresUrl = getLocaleUrl("features", locale);
         <p class="max-w-2xl text-stone-600 dark:text-stone-300">
           {t('home-content.voices-sub')}
         </p>
-      </Reveal>
+      </div>
 
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {
-          voices.map((voice, i) => (
-            <Reveal delay={i * 70} from="up">
+          voices.map((voice) => (
+            <div>
               <figure class="voice-card flex h-full flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
                 <Icon name="heroicons:chat-bubble-left-right" class="h-6 w-6 text-stone-300 dark:text-stone-600" aria-hidden="true" />
                 <blockquote class="grow text-sm leading-relaxed text-stone-700 dark:text-stone-200">"{t(`home-content.${voice.slug}-quote`)}"</blockquote>
@@ -140,7 +139,7 @@ const featuresUrl = getLocaleUrl("features", locale);
                   </span>
                 </figcaption>
               </figure>
-            </Reveal>
+            </div>
           ))
         }
       </div>
@@ -151,7 +150,7 @@ const featuresUrl = getLocaleUrl("features", locale);
   <div class="graph-paper-bg-inner">
     <div class="container mx-auto py-20">
       <section aria-labelledby="home-usecases-heading">
-        <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
+        <div class="mb-12 flex flex-col items-center gap-3 text-center">
           <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">
             {t('home-content.usecases-eyebrow')}
           </span>
@@ -161,12 +160,12 @@ const featuresUrl = getLocaleUrl("features", locale);
           <p class="max-w-2xl text-stone-600 dark:text-stone-300">
             {t('home-content.usecases-sub')}
           </p>
-        </Reveal>
+        </div>
 
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {
-            useCases.map((uc, i) => (
-              <Reveal delay={i * 70} from={i % 2 === 0 ? 'left' : 'right'}>
+            useCases.map((uc) => (
+              <div>
                 <article class="usecase-card group hover:border-primary dark:hover:border-primary-light flex h-full items-start gap-5 rounded-xl border border-stone-300 bg-white p-6 transition-all hover:shadow-lg dark:border-stone-700 dark:bg-stone-900">
                   <span class="bg-primary-light/15 text-primary dark:bg-primary-darker dark:text-primary-light flex h-12 w-12 shrink-0 items-center justify-center rounded-lg">
                     <Icon name={uc.icon} class="h-6 w-6" aria-hidden="true" />
@@ -176,7 +175,7 @@ const featuresUrl = getLocaleUrl("features", locale);
                     <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{t(`home-content.${uc.slug}-text`)}</p>
                   </div>
                 </article>
-              </Reveal>
+              </div>
             ))
           }
         </div>
