@@ -16,7 +16,9 @@ const formAction = "#"; // Replace with your newsletter subscription endpoint
 <div class:list={['flex flex-col gap-2', inFooter ? 'mt-6 border-t border-white/10 pt-6 lg:items-end' : 'lg:items-start']}>
   {inFooter && <h3 class="text-text-dark p-0 text-center text-base font-bold">{t('labels.subscribe')}!</h3>}
   <form id="newsletter-form" class:list={['mx-auto flex max-w-96 lg:mx-0', inFooter ? 'gap-2' : 'gap-3']} action={formAction} method="POST" aria-label={t('labels.subscribe')} aria-describedby="newsletter-error" data-toolname="subscribeToNewsletter" data-tooldescription={t('labels.subscribe-tool')} data-toolautosubmit="">
-    <label for="email-address" class="sr-only">{t('labels.email')}</label>
+    <label for="email-address" class="sr-only">
+      {t('labels.email')}
+    </label>
     <input type="email" name="email-address" id="email-address" autocomplete="email" required aria-required="true" data-toolparamdescription={t('labels.subscribe-email-param')} class:list={['input-primary', inFooter ? 'input-primary-inFooter' : 'input-primary-inverse']} placeholder={t('labels.email')} />
     <button id="newsletter-submit" type="submit" aria-label={t('labels.subscribe')} class:list={['btn-primary', inFooter && 'btn-primary-inFooter']}>
       <Icon name="heroicons:check" id="icon-default" class:list={['mx-auto', inFooter ? 'h-4 w-4' : 'h-6 w-6']} aria-hidden="true" />
@@ -24,7 +26,9 @@ const formAction = "#"; // Replace with your newsletter subscription endpoint
       <Icon name="heroicons:face-frown" id="icon-error" class:list={['mx-auto hidden', inFooter ? 'h-4 w-4' : 'h-6 w-6']} aria-hidden="true" />
     </button>
   </form>
-  <div class="hidden text-xs font-semibold text-red-400 dark:text-red-700" id="newsletter-error" role="alert" aria-live="assertive">{t('labels.generic-error')}</div>
+  <div class="hidden text-xs font-semibold text-red-400 dark:text-red-700" id="newsletter-error" role="alert" aria-live="assertive">
+    {t('labels.generic-error')}
+  </div>
 </div>
 
 <script>

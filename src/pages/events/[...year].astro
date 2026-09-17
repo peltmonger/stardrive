@@ -101,63 +101,57 @@ const subscribeProkey = customSubscribeProkey ? customSubscribeProkey : themeCon
   <div class="xs:items-end xs:flex-row mb-10 flex w-full flex-col items-start justify-between gap-x-10">
     <Headline text={t('pages.events.title')} class="w-full grow" />
     <div class="xs:w-fit mb-5 flex w-full items-center justify-between gap-5">
-      {
-        selectYears.length > 1 ? (
-          <label class="flex items-center gap-2">
-            <span class="sr-only">{t('pages.events.select-year')}</span>
-            <select id="event-year-select" class="select-primary w-auto! max-w-none! min-w-0! py-1.5 text-xl font-bold sm:text-2xl">
-              {selectYears.map((y) => (
-                <option value={getLocaleUrl(y === currentYear ? 'events' : 'events/' + y, locale)} selected={y === year}>
-                  {y}
-                </option>
-              ))}
-            </select>
-          </label>
-        ) : (
-          <span class="p-2 text-2xl font-bold">{year}</span>
-        )
-      }
-      {
-        subscribeProkey && (
-          <button id="subscribe-to-calendar-button" data-key={subscribeProkey} class="btn-subtle group flex h-10 w-10 items-center justify-center rounded-full sm:h-12 sm:w-12">
-            <Icon name="heroicons:bell-alert" class="transform-all h-6 w-6 rotate-3 transition-transform duration-200 group-hover:rotate-20" />
-          </button>
-        )
-      }
+      {selectYears.length > 1 ? (
+        <label class="flex items-center gap-2">
+          <span class="sr-only">{t('pages.events.select-year')}</span>
+          <select id="event-year-select" class="select-primary w-auto! max-w-none! min-w-0! py-1.5 text-xl font-bold sm:text-2xl">
+            {selectYears.map((y) => (
+              <option value={getLocaleUrl(y === currentYear ? 'events' : 'events/' + y, locale)} selected={y === year}>
+                {y}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : (
+        <span class="p-2 text-2xl font-bold">{year}</span>
+      )}
+      {subscribeProkey && (
+        <button id="subscribe-to-calendar-button" data-key={subscribeProkey} class="btn-subtle group flex h-10 w-10 items-center justify-center rounded-full sm:h-12 sm:w-12">
+          <Icon name="heroicons:bell-alert" class="transform-all h-6 w-6 rotate-3 transition-transform duration-200 group-hover:rotate-20" />
+        </button>
+      )}
     </div>
   </div>
   {shownEvents.length > 0 ? <List entries={shownEvents} {locale} {year} /> : <div class="my-20 text-xl font-semibold italic">{t('labels.no-entries')}...</div>}
 
-  {
-    hasMultipleYears && (
-      <nav aria-label={t('labels.pagination')} class="mt-28 mb-3">
-        <ul class="mx-auto flex w-fit items-center justify-center drop-shadow select-none hover:drop-shadow-lg">
-          <li>
-            {prevYear !== null ? (
-              <a href={getLocaleUrl(prevYear === currentYear ? 'events' : 'events/' + prevYear, locale)} aria-label={t('labels.prev')} class="hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-s-lg border border-stone-400 bg-stone-200 px-6 md:px-3 dark:bg-stone-800">
-                <Icon name="heroicons:chevron-left" class="h-5 w-5" />
-              </a>
-            ) : (
-              <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-s-lg border border-r-0 border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
-                <Icon name="heroicons:chevron-left" class="h-5 w-5" />
-              </div>
-            )}
-          </li>
-          <li class="mt-0">
-            {nextYear !== null ? (
-              <a href={getLocaleUrl(nextYear === currentYear ? 'events' : 'events/' + nextYear, locale)} aria-label={t('labels.next')} class:list={[prevYear !== null && 'border-l-0', 'hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-e-lg border border-stone-400 bg-stone-200 px-6 md:px-3 dark:bg-stone-800']}>
-                <Icon name="heroicons:chevron-right" class="h-5 w-5" />
-              </a>
-            ) : (
-              <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-e-lg border border-l-0 border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
-                <Icon name="heroicons:chevron-right" class="h-5 w-5" />
-              </div>
-            )}
-          </li>
-        </ul>
-      </nav>
-    )
-  }
+  {hasMultipleYears && (
+    <nav aria-label={t('labels.pagination')} class="mt-28 mb-3">
+      <ul class="mx-auto flex w-fit items-center justify-center drop-shadow select-none hover:drop-shadow-lg">
+        <li>
+          {prevYear !== null ? (
+            <a href={getLocaleUrl(prevYear === currentYear ? 'events' : 'events/' + prevYear, locale)} aria-label={t('labels.prev')} class="hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-s-lg border border-stone-400 bg-stone-200 px-6 md:px-3 dark:bg-stone-800">
+              <Icon name="heroicons:chevron-left" class="h-5 w-5" />
+            </a>
+          ) : (
+            <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-s-lg border border-r-0 border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
+              <Icon name="heroicons:chevron-left" class="h-5 w-5" />
+            </div>
+          )}
+        </li>
+        <li class="mt-0">
+          {nextYear !== null ? (
+            <a href={getLocaleUrl(nextYear === currentYear ? 'events' : 'events/' + nextYear, locale)} aria-label={t('labels.next')} class:list={[prevYear !== null && 'border-l-0', 'hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-e-lg border border-stone-400 bg-stone-200 px-6 md:px-3 dark:bg-stone-800']}>
+              <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+            </a>
+          ) : (
+            <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-e-lg border border-l-0 border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
+              <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+            </div>
+          )}
+        </li>
+      </ul>
+    </nav>
+  )}
 </Layout>
 
 <script>

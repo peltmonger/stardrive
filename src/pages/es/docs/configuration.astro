@@ -41,7 +41,9 @@ const t = useTranslations(locale);
       <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
         <Icon name="heroicons:variable" class="text-primary mb-3 h-7 w-7" aria-hidden="true" />
         <h2 class="mb-1 text-lg font-bold">3. Variables de entorno</h2>
-        <p class="text-sm text-stone-600 dark:text-stone-300">Unos pocos overrides de build como <code>SITE_OVERRIDE</code> y <code>ROBOTS</code>.</p>
+        <p class="text-sm text-stone-600 dark:text-stone-300">
+          Unos pocos overrides de build como <code>SITE_OVERRIDE</code> y <code>ROBOTS</code>.
+        </p>
       </div>
     </div>
   </div>
@@ -51,26 +53,38 @@ const t = useTranslations(locale);
   <Steps class="mb-14">
     <Step number={1} title="Elimina lo que no necesitas">
       <p>
-        Si <strong>no</strong> usaste el comando <code>create stardrive</code>, elimina primero los archivos de demo y del repo. La <a href="https://github.com/peltmonger/stardrive/blob/main/.ai/TRIMMING_GUIDE.md" class="external-link" target="_blank" rel="noopener">guía de limpieza (trimming)</a> está escrita para agentes de IA, pero también sirve para hacerlo a mano.
+        Si <strong>no</strong> usaste el comando <code>create stardrive</code>, elimina primero los archivos de demo y del repo. La{' '}
+        <a href="https://github.com/peltmonger/stardrive/blob/main/.ai/TRIMMING_GUIDE.md" class="external-link" target="_blank" rel="noopener">
+          guía de limpieza (trimming)
+        </a>{' '}
+        está escrita para agentes de IA, pero también sirve para hacerlo a mano.
       </p>
     </Step>
 
     <Step number={2} title="Haz tuyo el proyecto">
       <p>Ajusta lo básico para reconocer el proyecto más tarde:</p>
       <ul>
-        <li>Actualiza el <code>package.json</code> para reflejar tu proyecto.</li>
-        <li>Pon al menos el título en el <code>README.md</code>.</li>
+        <li>
+          Actualiza el <code>package.json</code> para reflejar tu proyecto.
+        </li>
+        <li>
+          Pon al menos el título en el <code>README.md</code>.
+        </li>
       </ul>
     </Step>
 
     <Step number={3} title="Reemplaza favicons e imágenes sociales">
       <p>
-        Sustituye los archivos de icono en <code>./public/</code> (nos gusta <a href="https://realfavicongenerator.net/" class="external-link" target="_blank" rel="noopener">realfavicongenerator.net</a>). El manifiesto web se genera desde <code>theme.config.ts</code>, así que solo reemplazas imágenes. Reemplaza también los fallbacks sociales <code>og.png</code>, <code>x.png</code> y <code
-          >structured-preview.png</code
-        > en <code>./public/images/</code>.
+        Sustituye los archivos de icono en <code>./public/</code> (nos gusta{' '}
+        <a href="https://realfavicongenerator.net/" class="external-link" target="_blank" rel="noopener">
+          realfavicongenerator.net
+        </a>
+        ). El manifiesto web se genera desde <code>theme.config.ts</code>, así que solo reemplazas imágenes. Reemplaza también los fallbacks sociales <code>og.png</code>, <code>x.png</code> y <code>structured-preview.png</code> en <code>./public/images/</code>.
       </p>
       <Callout variant="note" title="Favicons claro y oscuro">
-        <p>Stardrive incluye iconos separados para claro/oscuro. Si no lo necesitas, elimina las variantes oscuras y ajusta <code>./src/components/head/base.astro</code>. Para el SVG, gestiona claro/oscuro directamente en el código del SVG.</p>
+        <p>
+          Stardrive incluye iconos separados para claro/oscuro. Si no lo necesitas, elimina las variantes oscuras y ajusta <code>./src/components/head/base.astro</code>. Para el SVG, gestiona claro/oscuro directamente en el código del SVG.
+        </p>
       </Callout>
     </Step>
 
@@ -78,11 +92,17 @@ const t = useTranslations(locale);
       <p>Es el corazón de la configuración. Todo está tipado, así que tu IDE muestra la documentación en línea. Sigue este orden:</p>
       <ul>
         <li>Define la información base (URL del sitio, color primario, …).</li>
-        <li>Decide tus idiomas, añade un archivo JSON por idioma en <code>./src/i18n/</code> y conecta el bloque <code>i18n</code>.</li>
-        <li>Elige tus <code>expressiveCodeThemes</code> - uno para modo claro y otro para modo oscuro.</li>
+        <li>
+          Decide tus idiomas, añade un archivo JSON por idioma en <code>./src/i18n/</code> y conecta el bloque <code>i18n</code>.
+        </li>
+        <li>
+          Elige tus <code>expressiveCodeThemes</code> - uno para modo claro y otro para modo oscuro.
+        </li>
         <li>Configura los valores por defecto del blog (y reemplaza la imagen de fallback si la usas).</li>
         <li>Activa o desactiva los espacios de promoción.</li>
-        <li>Define cómo se genera <code>llms.txt</code>.</li>
+        <li>
+          Define cómo se genera <code>llms.txt</code>.
+        </li>
       </ul>
     </Step>
 
@@ -99,11 +119,17 @@ const t = useTranslations(locale);
     </Step>
 
     <Step number={6} title="Añade tus estilos por capas">
-      <p>Amplía los archivos CSS en <code>./src/styles/</code> siguiendo la convención de capas:</p>
+      <p>
+        Amplía los archivos CSS en <code>./src/styles/</code> siguiendo la convención de capas:
+      </p>
       <ul>
         <li>Tailwind como base.</li>
-        <li><code>global.css</code> para reglas propias y estilos de fuente única de verdad (p. ej. botones).</li>
-        <li>Archivos CSS específicos de página (p. ej. <code>long-text-content.css</code>), importados por página.</li>
+        <li>
+          <code>global.css</code> para reglas propias y estilos de fuente única de verdad (p. ej. botones).
+        </li>
+        <li>
+          Archivos CSS específicos de página (p. ej. <code>long-text-content.css</code>), importados por página.
+        </li>
         <li>Lo muy personalizado queda limitado al alcance de la página o el componente.</li>
       </ul>
     </Step>
@@ -119,7 +145,9 @@ const t = useTranslations(locale);
         Da forma a tu estructura en <code>./src/pages/</code> (un archivo por ruta). Las páginas que solo difieren por cadenas traducidas van en <code>[lang]</code>; las páginas con textos largos o distintos tienen una subcarpeta de idioma explícita con contenido escrito directamente. Luego ajusta la navegación en <code>./src/components/layout/nav/</code> y los demás archivos de layout.
       </p>
       <Callout variant="tip" title="Traducciones de contenido">
-        <p>Mientras construyes el layout, mantén los archivos JSON de <code>./src/i18n/</code> sincronizados con tu proyecto.</p>
+        <p>
+          Mientras construyes el layout, mantén los archivos JSON de <code>./src/i18n/</code> sincronizados con tu proyecto.
+        </p>
       </Callout>
     </Step>
 
@@ -158,19 +186,29 @@ const t = useTranslations(locale);
     <div class="overflow-hidden rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900">
       <dl class="m-0 divide-y divide-stone-200 dark:divide-stone-800">
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">SITE_OVERRIDE</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">SITE_OVERRIDE</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Sobrescribe la URL global del sitio. Útil para entornos de desarrollo.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ROBOTS</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ROBOTS</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Sobrescribe la configuración de robots por defecto. Los ajustes a nivel de página siguen teniendo prioridad.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_API_KEY</code><br /><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_ZONE_ID</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_API_KEY</code>
+            <br />
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_ZONE_ID</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Necesarias para el script de purga de caché de Cloudflare.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ADD_TO_CALENDAR_PRO_API_KEY</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ADD_TO_CALENDAR_PRO_API_KEY</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Activa el adaptador preconfigurado para eventos inyectados dinámicamente.</dd>
         </div>
       </dl>

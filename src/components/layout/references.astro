@@ -24,29 +24,25 @@ const t = useTranslations(locale);
 ---
 
 <div class="pointer-events-none bg-stone-800 select-none">
-  {
-    slogan && !hideSloganMobile && (
-      <div class="mx-auto flex w-fit items-center gap-1 px-6 pt-8 pb-2 text-center md:hidden">
-        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
-        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
-        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
-        <span class="px-2 text-sm font-semibold text-balance text-white">{t('pages.home.references')}</span>
-        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
-        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
-        <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
-      </div>
-    )
-  }
+  {slogan && !hideSloganMobile && (
+    <div class="mx-auto flex w-fit items-center gap-1 px-6 pt-8 pb-2 text-center md:hidden">
+      <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+      <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+      <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+      <span class="px-2 text-sm font-semibold text-balance text-white">{t('pages.home.references')}</span>
+      <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+      <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+      <Icon name="heroicons:star-solid" class="h-5 w-5 shrink-0 text-amber-400" aria-hidden="true" />
+    </div>
+  )}
 
   <div class="relative flex h-8 w-full items-center justify-center overflow-hidden py-12">
-    {
-      slogan && (
-        <div class="hidden items-center gap-3 p-10 pr-5 text-left md:flex lg:pr-8">
-          <Icon name="heroicons:check-badge" class="h-10 w-10 shrink-0 text-green-400" aria-hidden="true" />
-          <span class="w-fit max-w-32 shrink text-xs font-semibold text-balance text-white lg:max-w-36 lg:text-sm">{t('pages.home.references')}</span>
-        </div>
-      )
-    }
+    {slogan && (
+      <div class="hidden items-center gap-3 p-10 pr-5 text-left md:flex lg:pr-8">
+        <Icon name="heroicons:check-badge" class="h-10 w-10 shrink-0 text-green-400" aria-hidden="true" />
+        <span class="w-fit max-w-32 shrink text-xs font-semibold text-balance text-white lg:max-w-36 lg:text-sm">{t('pages.home.references')}</span>
+      </div>
+    )}
     {slogan && <div class="z-20 hidden h-8 w-32 shrink-0 bg-linear-to-r from-stone-800 via-stone-800 via-20% to-transparent md:block" />}
     <div class:list={['make-marquee w-full overflow-hidden', slogan && 'z-10 md:-ml-30']} data-min-copies={minCopies}>
       <div class="flex items-center whitespace-nowrap">

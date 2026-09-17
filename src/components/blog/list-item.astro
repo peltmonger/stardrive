@@ -33,17 +33,15 @@ const imageFile = entry.data.image?.file ? entry.data.image.file : (!entry.data.
 <div>
   <a href={getLocaleUrl('blog/' + entry.id.split('/').slice(-1)[0], locale)} class:list={[baseCardClasses, !wide && 'sm:flex-col']}>
     <span class:list={['xs:w-36 relative flex h-auto w-28 shrink-0 overflow-clip rounded-l-lg border border-r-0', wide ? 'sm:w-56 md:max-h-60 md:w-80 lg:w-[400px]' : 'sm:h-40 sm:w-full sm:rounded-t-lg sm:rounded-bl-none sm:border-r sm:border-b-0', featured ? 'border-primary' : 'group-hover:border-primary border-stone-400 dark:border-stone-700']}>
-      {
-        imageFile ? (
-          <Image src={imageFile} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority />
-        ) : entry.data.image?.url ? (
-          <Image src={entry.data.image.url} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority inferSize />
-        ) : (
-          <span class:list={['absolute inset-0 flex items-center justify-center p-8', !wide && themeConfig.articles?.textOverImage && 'sm:hidden']}>
-            <Icon name="heroicons:document-text" class="h-12 w-12 opacity-70 lg:h-16 lg:w-16" />
-          </span>
-        )
-      }
+      {imageFile ? (
+        <Image src={imageFile} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority />
+      ) : entry.data.image?.url ? (
+        <Image src={entry.data.image.url} alt={entry.data.image?.alt ?? ''} class={baseImageClasses} transition:name={!noTransition ? 'image-' + entry.id : ''} draggable="false" priority inferSize />
+      ) : (
+        <span class:list={['absolute inset-0 flex items-center justify-center p-8', !wide && themeConfig.articles?.textOverImage && 'sm:hidden']}>
+          <Icon name="heroicons:document-text" class="h-12 w-12 opacity-70 lg:h-16 lg:w-16" />
+        </span>
+      )}
 
       <span
         class:list={[

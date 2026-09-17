@@ -12,13 +12,13 @@ interface Props {
 const { entries, locale, firstBig } = Astro.props as Props;
 ---
 
-{
-  firstBig && (
-    <>
-      <div class="mb-10 border-b-2 border-stone-300 pb-10 dark:border-stone-700">{entries.length > 0 && <ListItem entry={entries[0]} locale={locale} wide={true} />}</div>
-    </>
-  )
-}
+{firstBig && (
+  <>
+    <div class="mb-10 border-b-2 border-stone-300 pb-10 dark:border-stone-700">{entries.length > 0 && <ListItem entry={entries[0]} locale={locale} wide={true} />}</div>
+  </>
+)}
 <div class:list={['grid grid-cols-1 gap-4', themeConfig.articles?.gridView ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:gap-6 lg:gap-8']}>
-  {entries.slice(firstBig ? 1 : 0).map((entry) => <ListItem {entry} {locale} wide={!themeConfig.articles?.gridView} />)}
+  {entries.slice(firstBig ? 1 : 0).map((entry) => (
+    <ListItem {entry} {locale} wide={!themeConfig.articles?.gridView} />
+  ))}
 </div>

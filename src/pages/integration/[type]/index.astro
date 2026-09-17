@@ -36,8 +36,6 @@ const typeDescription = t(`pages.integration-${type}.description`);
     <div class="md:block md:max-w-[220px] lg:max-w-3xs">
       <IntegrationList {type} {locale} />
     </div>
-    <article class="min-w-0 md:grow">
-      {typeDescription && <p class="mb-6 ml-10 text-lg opacity-80 sm:ml-0">{typeDescription}</p>}
-    </article>
+    <article class="min-w-0 md:grow">{typeDescription && <p class="mb-6 ml-10 text-lg opacity-80 sm:ml-0">{typeDescription}</p>}</article>
   </div>
 </Layout>

@@ -30,29 +30,25 @@ const groupId = "codetabs-" + Math.random().toString(36).slice(2, 9);
 
 <div class:list={['docs-code-tabs rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900', className]} data-code-tabs>
   <div class="flex flex-wrap gap-1 border-b border-stone-200 p-2 dark:border-stone-800" role="tablist" aria-label={title}>
-    {
-      tabs.map((tab, i) => (
-        <button
-          type="button"
-          role="tab"
-          id={`${groupId}-tab-${i}`}
-          aria-controls={`${groupId}-panel-${i}`}
-          aria-selected={i === 0 ? 'true' : 'false'}
-          tabindex={i === 0 ? '0' : '-1'}
-          class="docs-code-tab ring-primary aria-selected:bg-primary aria-selected:text-primary-contrast dark:aria-selected:text-primary-contrast hover:text-primary dark:hover:text-primary-light cursor-pointer rounded px-3 py-1.5 text-sm font-semibold text-stone-600 no-underline ring-offset-white outline-0 transition-colors select-none focus-visible:ring-offset-2 dark:text-stone-300 dark:ring-offset-black"
-        >
-          {tab.label}
-        </button>
-      ))
-    }
+    {tabs.map((tab, i) => (
+      <button
+        type="button"
+        role="tab"
+        id={`${groupId}-tab-${i}`}
+        aria-controls={`${groupId}-panel-${i}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        tabindex={i === 0 ? '0' : '-1'}
+        class="docs-code-tab ring-primary aria-selected:bg-primary aria-selected:text-primary-contrast dark:aria-selected:text-primary-contrast hover:text-primary dark:hover:text-primary-light cursor-pointer rounded px-3 py-1.5 text-sm font-semibold text-stone-600 no-underline ring-offset-white outline-0 transition-colors select-none focus-visible:ring-offset-2 dark:text-stone-300 dark:ring-offset-black"
+      >
+        {tab.label}
+      </button>
+    ))}
   </div>
-  {
-    tabs.map((tab, i) => (
-      <div id={`${groupId}-panel-${i}`} role="tabpanel" aria-labelledby={`${groupId}-tab-${i}`} class="docs-code-panel p-2" hidden={i !== 0}>
-        <Code code={tab.code} lang={tab.lang ?? 'sh'} title={title} />
-      </div>
-    ))
-  }
+  {tabs.map((tab, i) => (
+    <div id={`${groupId}-panel-${i}`} role="tabpanel" aria-labelledby={`${groupId}-tab-${i}`} class="docs-code-panel p-2" hidden={i !== 0}>
+      <Code code={tab.code} lang={tab.lang ?? 'sh'} title={title} />
+    </div>
+  ))}
 </div>
 
 <style>

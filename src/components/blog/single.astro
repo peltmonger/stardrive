@@ -45,36 +45,30 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
 
   <div class="mt-3 flex w-full justify-start px-2 md:order-first md:mt-0 md:mb-3 md:justify-end">
     <div class="flex w-fit flex-wrap gap-5 rounded-lg text-xs text-stone-600 dark:text-stone-400">
-      {
-        authorName && (
-          <div class="flex items-center gap-1" aria-label={t('labels.author')}>
-            <Icon name="heroicons:user" class="h-3 w-3" />
-            {authorUrl ? (
-              <a href={authorUrl} target="_blank" rel="noopener noreferrer" class="font-normal text-inherit no-underline hover:underline">
-                {authorName}
-              </a>
-            ) : (
-              authorName
-            )}
-          </div>
-        )
-      }
-      {
-        formattedpublishDate && (
-          <div class="flex items-center gap-1" aria-label={t('labels.published')}>
-            <Icon name="heroicons:calendar-days" class="h-3 w-3" />
-            {formattedpublishDate && formattedUpdateDate ? formattedpublishDate : formattedpublishDateLong}
-          </div>
-        )
-      }
-      {
-        formattedUpdateDate && (
-          <div class="flex items-center gap-1" aria-label={t('labels.updated')}>
-            <Icon name="heroicons:pencil" class="h-3 w-3" />
-            {formattedUpdateDate}
-          </div>
-        )
-      }
+      {authorName && (
+        <div class="flex items-center gap-1" aria-label={t('labels.author')}>
+          <Icon name="heroicons:user" class="h-3 w-3" />
+          {authorUrl ? (
+            <a href={authorUrl} target="_blank" rel="noopener noreferrer" class="font-normal text-inherit no-underline hover:underline">
+              {authorName}
+            </a>
+          ) : (
+            authorName
+          )}
+        </div>
+      )}
+      {formattedpublishDate && (
+        <div class="flex items-center gap-1" aria-label={t('labels.published')}>
+          <Icon name="heroicons:calendar-days" class="h-3 w-3" />
+          {formattedpublishDate && formattedUpdateDate ? formattedpublishDate : formattedpublishDateLong}
+        </div>
+      )}
+      {formattedUpdateDate && (
+        <div class="flex items-center gap-1" aria-label={t('labels.updated')}>
+          <Icon name="heroicons:pencil" class="h-3 w-3" />
+          {formattedUpdateDate}
+        </div>
+      )}
       <div class="hidden items-center gap-1 sm:flex" aria-label={getReadingTime(entry.body) + ' ' + t('labels.min-read')}>
         <Icon name="heroicons:clock" class="h-3 w-3" />
         {getReadingTime(entry.body) + ' ' + t('labels.min-read')}
@@ -94,50 +88,42 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
       <CatTagList entries={entry.data.tags} {locale} type="tags" small={true} />
     </div>
   </div>
-  {
-    !hideToC && (
-      <side class="group/whole-toc text-text dark:text-text-dark sticky top-20 mt-14 mb-5 hidden h-fit w-fit max-w-56 grow rounded-lg border border-stone-400 text-left leading-7 lg:block dark:border-stone-700">
-        <TableOfContents headings={reducedHeadings} {locale} />
-      </side>
-    )
-  }
+  {!hideToC && (
+    <side class="group/whole-toc text-text dark:text-text-dark sticky top-20 mt-14 mb-5 hidden h-fit w-fit max-w-56 grow rounded-lg border border-stone-400 text-left leading-7 lg:block dark:border-stone-700">
+      <TableOfContents headings={reducedHeadings} {locale} />
+    </side>
+  )}
 </div>
 
-{
-  themeConfig.articles?.social.buttons && Object.keys(themeConfig.articles.social.buttons).length > 0 && (
-    <div class="mt-20 flex flex-wrap gap-x-8 gap-y-4">
-      <h2 class="text-2xl font-bold italic opacity-60 select-none sm:text-3xl">{t('labels.share-article')}:</h2>
-      <SocialShare url={articleUrl} title={entry.data.title} emailSubject={t('labels.share-email-subject')} {locale} />
-    </div>
-  )
-}
+{themeConfig.articles?.social.buttons && Object.keys(themeConfig.articles.social.buttons).length > 0 && (
+  <div class="mt-20 flex flex-wrap gap-x-8 gap-y-4">
+    <h2 class="text-2xl font-bold italic opacity-60 select-none sm:text-3xl">{t('labels.share-article')}:</h2>
+    <SocialShare url={articleUrl} title={entry.data.title} emailSubject={t('labels.share-email-subject')} {locale} />
+  </div>
+)}
 
-{
-  prev || next ? (
-    <div class="mt-20">
-      <h2 class="mb-5 text-2xl font-bold italic opacity-60 select-none sm:text-3xl">{t('labels.continue-reading')}:</h2>
-      <div class="grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
-        {prev && <ListItem entry={prev} {locale} noTransition={true} />}
-        {next && <ListItem entry={next} {locale} noTransition={true} />}
+{prev || next ? (
+  <div class="mt-20">
+    <h2 class="mb-5 text-2xl font-bold italic opacity-60 select-none sm:text-3xl">{t('labels.continue-reading')}:</h2>
+    <div class="grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
+      {prev && <ListItem entry={prev} {locale} noTransition={true} />}
+      {next && <ListItem entry={next} {locale} noTransition={true} />}
+    </div>
+  </div>
+) : null}
+
+{!hideToC && (
+  <div id="toc-overlay" class="text-text dark:text-text-dark top-0 left-0 z-50 hidden h-full w-full bg-linear-to-tr from-stone-200 to-stone-50 dark:from-stone-950 dark:to-stone-700">
+    <button id="close-toc" aria-label={t('labels.close-menu')} class="btn-subtle absolute top-5 right-5 rounded-full">
+      <Icon name="heroicons:x-mark" class="h-5 w-5 md:h-8 md:w-8" />
+    </button>
+    <div class="h-full w-full overflow-y-auto select-none">
+      <div class="container mx-auto flex min-h-full w-full max-w-sm flex-col items-start justify-center py-8 sm:items-center">
+        <TableOfContents headings={reducedHeadings} {locale} overlay={true} />
       </div>
     </div>
-  ) : null
-}
-
-{
-  !hideToC && (
-    <div id="toc-overlay" class="text-text dark:text-text-dark top-0 left-0 z-50 hidden h-full w-full bg-linear-to-tr from-stone-200 to-stone-50 dark:from-stone-950 dark:to-stone-700">
-      <button id="close-toc" aria-label={t('labels.close-menu')} class="btn-subtle absolute top-5 right-5 rounded-full">
-        <Icon name="heroicons:x-mark" class="h-5 w-5 md:h-8 md:w-8" />
-      </button>
-      <div class="h-full w-full overflow-y-auto select-none">
-        <div class="container mx-auto flex min-h-full w-full max-w-sm flex-col items-start justify-center py-8 sm:items-center">
-          <TableOfContents headings={reducedHeadings} {locale} overlay={true} />
-        </div>
-      </div>
-    </div>
-  )
-}
+  </div>
+)}
 
 <script>
   const getFocusable = () => {

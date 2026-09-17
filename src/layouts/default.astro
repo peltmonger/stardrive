@@ -100,22 +100,18 @@ const showTopBanner = (themeConfig.promotions?.topBanner && header?.showTopBanne
   <body>
     {showTopBanner ? <TopBanner {locale} /> : null}
     <div class="relative w-full">
-      {
-        header?.hidden !== true && (
-          <Header {locale} button={header?.button ?? undefined} github="https://github.com/peltmonger/stardrive" ctaButton={{ text: t('labels.signup'), href: getLocaleUrl('signup', locale) }} {isHome} fixed={header?.fixed} overlay={header?.overlay} overlayTheme="dark" scrollDownThreshold={header?.scrollDownThreshold} closeIcon={header?.closeIcon} hasTopBanner={showTopBanner} />
-        )
-      }
+      {header?.hidden !== true && (
+        <Header {locale} button={header?.button ?? undefined} github="https://github.com/peltmonger/stardrive" ctaButton={{ text: t('labels.signup'), href: getLocaleUrl('signup', locale) }} {isHome} fixed={header?.fixed} overlay={header?.overlay} overlayTheme="dark" scrollDownThreshold={header?.scrollDownThreshold} closeIcon={header?.closeIcon} hasTopBanner={showTopBanner} />
+      )}
       <main role="main" class="relative z-40">
         {isHome && <Hero {locale} />}
-        {
-          !noContainer ? (
-            <div class="container mx-auto pt-4 pb-10 md:pt-8 md:pb-14 lg:pb-16">
-              <slot />
-            </div>
-          ) : (
+        {!noContainer ? (
+          <div class="container mx-auto pt-4 pb-10 md:pt-8 md:pb-14 lg:pb-16">
             <slot />
-          )
-        }
+          </div>
+        ) : (
+          <slot />
+        )}
       </main>
       {(themeConfig.promotions?.footerBanner && showFooterBanner !== false) || showFooterBanner ? <FooterBanner {locale} /> : null}
       {themeConfig.promotions?.newsletterSignup === 'bottom' && <NewsletterSignup {locale} />}

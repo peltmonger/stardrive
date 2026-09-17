@@ -12,7 +12,7 @@ const { label } = Astro.props as Props;
   id="color-mode-switch"
   type="button"
   role="switch"
-  {...label && label !== '' ? { 'aria-label': label } : {}}
+  {...(label && label !== '' ? { 'aria-label': label } : {})}
   aria-checked="false"
   class="group hover:border-primary ring-primary relative inline-flex h-8 w-15 cursor-pointer items-center rounded-full border border-stone-100 bg-stone-200 p-0.5 shadow transition-colors hover:shadow-lg focus:outline-0 focus-visible:ring-2 dark:border-stone-600 dark:bg-stone-800"
 >

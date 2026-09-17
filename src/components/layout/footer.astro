@@ -28,7 +28,9 @@ const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmong
     <div class="flex w-full flex-col items-center gap-5 border-b border-white/10 pb-10 text-center md:max-w-[350px] md:items-start md:border-0 md:text-left">
       <div class="w-auto max-w-[200px]">
         <a href={getLocaleUrl('/', locale)} class="block w-full select-none">
-          <p class="sr-only hidden" id="siteNameLogo">{themeConfig.name}</p>
+          <p class="sr-only hidden" id="siteNameLogo">
+            {themeConfig.name}
+          </p>
           <Logo class="h-auto w-full drop-shadow" aria-labelledby="siteNameLogo" />
         </a>
       </div>
@@ -37,49 +39,41 @@ const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmong
         <div class="text-xs">{t('meta.sub-slogan')}</div>
       </div>
       <div class="flex items-center justify-center space-x-6 lg:justify-start lg:space-x-3">
-        {
-          githubUrl && (
-            <a class="btn-subtle rounded-full p-0.5" title="Work with us on GitHub" target="_blank" rel="noopener" href={githubUrl}>
-              <Icon name="fa7-brands:github" class="h-6 w-6" />
-            </a>
-          )
-        }
-        {
-          themeConfig.xHandle && (
-            <a class="btn-subtle rounded-full p-1" title="Follow us on X" target="_blank" rel="noopener" href={'https://x.com/' + themeConfig.xHandle}>
-              <Icon name="fa7-brands:x-twitter" class="h-5 w-5" />
-            </a>
-          )
-        }
-        {
-          linkedinUrl && (
-            <a class="btn-subtle rounded-full p-1" title="Follow us on LinkedIn" target="_blank" rel="noopener" href={linkedinUrl}>
-              <Icon name="fa7-brands:linkedin-in" class="h-5 w-5" />
-            </a>
-          )
-        }
+        {githubUrl && (
+          <a class="btn-subtle rounded-full p-0.5" title="Work with us on GitHub" target="_blank" rel="noopener" href={githubUrl}>
+            <Icon name="fa7-brands:github" class="h-6 w-6" />
+          </a>
+        )}
+        {themeConfig.xHandle && (
+          <a class="btn-subtle rounded-full p-1" title="Follow us on X" target="_blank" rel="noopener" href={'https://x.com/' + themeConfig.xHandle}>
+            <Icon name="fa7-brands:x-twitter" class="h-5 w-5" />
+          </a>
+        )}
+        {linkedinUrl && (
+          <a class="btn-subtle rounded-full p-1" title="Follow us on LinkedIn" target="_blank" rel="noopener" href={linkedinUrl}>
+            <Icon name="fa7-brands:linkedin-in" class="h-5 w-5" />
+          </a>
+        )}
       </div>
-      {
-        themeConfig.askAiTrigger && (
-          <div class="mt-14 md:mt-5">
-            <div class="text-text-dark mb-3 text-xs">{t('labels.ask-ai')}:</div>
-            <div class="flex items-center justify-center space-x-6 lg:justify-start lg:space-x-3">
-              <a class="btn-subtle rounded-full p-1.5" title="ChatGPT" target="_blank" rel="noopener" href={`https://chatgpt.com/?prompt=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
-                <Icon name="simple-icons:openai" class="h-5 w-5" />
-              </a>
-              <a class="btn-subtle rounded-full p-1.5" title="Claude" target="_blank" rel="noopener" href={`https://claude.ai/new?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
-                <Icon name="simple-icons:claude" class="h-5 w-5" />
-              </a>
-              <a class="btn-subtle rounded-full p-1.5" title="Perplexity" target="_blank" rel="noopener" href={`https://www.perplexity.ai/search?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
-                <Icon name="simple-icons:perplexity" class="h-5 w-5" />
-              </a>
-              <a class="btn-subtle rounded-full p-1.5" title="Grok" aria-label="Grok" target="_blank" rel="noopener" href={`https://grok.com/?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
-                <Icon name="thesvg:grok-xai" class="h-5 w-5" />
-              </a>
-            </div>
+      {themeConfig.askAiTrigger && (
+        <div class="mt-14 md:mt-5">
+          <div class="text-text-dark mb-3 text-xs">{t('labels.ask-ai')}:</div>
+          <div class="flex items-center justify-center space-x-6 lg:justify-start lg:space-x-3">
+            <a class="btn-subtle rounded-full p-1.5" title="ChatGPT" target="_blank" rel="noopener" href={`https://chatgpt.com/?prompt=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="simple-icons:openai" class="h-5 w-5" />
+            </a>
+            <a class="btn-subtle rounded-full p-1.5" title="Claude" target="_blank" rel="noopener" href={`https://claude.ai/new?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="simple-icons:claude" class="h-5 w-5" />
+            </a>
+            <a class="btn-subtle rounded-full p-1.5" title="Perplexity" target="_blank" rel="noopener" href={`https://www.perplexity.ai/search?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="simple-icons:perplexity" class="h-5 w-5" />
+            </a>
+            <a class="btn-subtle rounded-full p-1.5" title="Grok" aria-label="Grok" target="_blank" rel="noopener" href={`https://grok.com/?q=${encodeURIComponent(themeConfig.askAiTrigger + promptLocaleAdd)}`}>
+              <Icon name="thesvg:grok-xai" class="h-5 w-5" />
+            </a>
           </div>
-        )
-      }
+        </div>
+      )}
     </div>
     <div class="flex w-full flex-col md:w-fit">
       <FooterNav {locale} {isHome} />
@@ -88,15 +82,13 @@ const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmong
   </div>
   <div class="container mt-10 flex flex-col flex-wrap items-center justify-between gap-x-14 gap-y-6 border-t border-white/10 py-6 pt-7 sm:flex-row-reverse">
     <div class="flex items-center gap-6 lg:gap-4">
-      {
-        !isError ? (
-          <button id="open-language-menu" aria-label={t('i18n.select-language')} class="btn-subtle rounded-full p-1.5">
-            <Icon name="heroicons:language" class="h-4 w-4" />
-          </button>
-        ) : (
-          ''
-        )
-      }
+      {!isError ? (
+        <button id="open-language-menu" aria-label={t('i18n.select-language')} class="btn-subtle rounded-full p-1.5">
+          <Icon name="heroicons:language" class="h-4 w-4" />
+        </button>
+      ) : (
+        ''
+      )}
       {themeConfig.darkMode && <LightModeSwitch label={t('labels.change-light-mode')} />}
     </div>
     <LegalNav {locale} />

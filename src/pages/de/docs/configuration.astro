@@ -41,7 +41,9 @@ const t = useTranslations(locale);
       <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
         <Icon name="heroicons:variable" class="text-primary mb-3 h-7 w-7" aria-hidden="true" />
         <h2 class="mb-1 text-lg font-bold">3. Umgebungsvariablen</h2>
-        <p class="text-sm text-stone-600 dark:text-stone-300">Ein paar Build-Overrides wie <code>SITE_OVERRIDE</code> und <code>ROBOTS</code>.</p>
+        <p class="text-sm text-stone-600 dark:text-stone-300">
+          Ein paar Build-Overrides wie <code>SITE_OVERRIDE</code> und <code>ROBOTS</code>.
+        </p>
       </div>
     </div>
   </div>
@@ -51,26 +53,38 @@ const t = useTranslations(locale);
   <Steps class="mb-14">
     <Step number={1} title="Entferne, was du nicht brauchst">
       <p>
-        Wenn du <strong>nicht</strong> den <code>create stardrive</code>-Befehl verwendet hast, entferne zuerst die Demo- und Repo-Dateien. Der <a href="https://github.com/peltmonger/stardrive/blob/main/.ai/TRIMMING_GUIDE.md" class="external-link" target="_blank" rel="noopener">Trimming-Leitfaden</a> ist für KI-Agenten geschrieben, funktioniert aber auch manuell.
+        Wenn du <strong>nicht</strong> den <code>create stardrive</code>-Befehl verwendet hast, entferne zuerst die Demo- und Repo-Dateien. Der{' '}
+        <a href="https://github.com/peltmonger/stardrive/blob/main/.ai/TRIMMING_GUIDE.md" class="external-link" target="_blank" rel="noopener">
+          Trimming-Leitfaden
+        </a>{' '}
+        ist für KI-Agenten geschrieben, funktioniert aber auch manuell.
       </p>
     </Step>
 
     <Step number={2} title="Mach das Projekt zu deinem">
       <p>Passe die Grundlagen an, damit du das Projekt später wiedererkennst:</p>
       <ul>
-        <li>Aktualisiere die <code>package.json</code> passend zu deinem Projekt.</li>
-        <li>Setze zumindest die Überschrift in der <code>README.md</code>.</li>
+        <li>
+          Aktualisiere die <code>package.json</code> passend zu deinem Projekt.
+        </li>
+        <li>
+          Setze zumindest die Überschrift in der <code>README.md</code>.
+        </li>
       </ul>
     </Step>
 
     <Step number={3} title="Favicons & Social-Bilder ersetzen">
       <p>
-        Tausche die Icon-Dateien in <code>./public/</code> (wir empfehlen <a href="https://realfavicongenerator.net/" class="external-link" target="_blank" rel="noopener">realfavicongenerator.net</a>). Das Web-Manifest wird aus der <code>theme.config.ts</code> generiert, du ersetzt also nur Bilddateien. Ersetze außerdem die Social-Fallbacks <code>og.png</code>, <code>x.png</code> und <code
-          >structured-preview.png</code
-        > in <code>./public/images/</code>.
+        Tausche die Icon-Dateien in <code>./public/</code> (wir empfehlen{' '}
+        <a href="https://realfavicongenerator.net/" class="external-link" target="_blank" rel="noopener">
+          realfavicongenerator.net
+        </a>
+        ). Das Web-Manifest wird aus der <code>theme.config.ts</code> generiert, du ersetzt also nur Bilddateien. Ersetze außerdem die Social-Fallbacks <code>og.png</code>, <code>x.png</code> und <code>structured-preview.png</code> in <code>./public/images/</code>.
       </p>
       <Callout variant="note" title="Helle & dunkle Favicons">
-        <p>Stardrive liefert getrennte Icons für hell/dunkel. Falls du das nicht brauchst, entferne die dunklen Varianten und passe <code>./src/components/head/base.astro</code> an. Beim SVG handhabst du hell/dunkel direkt im SVG-Code.</p>
+        <p>
+          Stardrive liefert getrennte Icons für hell/dunkel. Falls du das nicht brauchst, entferne die dunklen Varianten und passe <code>./src/components/head/base.astro</code> an. Beim SVG handhabst du hell/dunkel direkt im SVG-Code.
+        </p>
       </Callout>
     </Step>
 
@@ -78,11 +92,17 @@ const t = useTranslations(locale);
       <p>Das ist das Herzstück der Einrichtung. Alles ist typisiert, deine IDE zeigt die Doku inline. Gehe in dieser Reihenfolge vor:</p>
       <ul>
         <li>Setze die Basisinfos (Site-URL, Primärfarbe, …).</li>
-        <li>Lege deine Sprachen fest, füge pro Sprache eine JSON-Datei in <code>./src/i18n/</code> hinzu und richte den <code>i18n</code>-Block ein.</li>
-        <li>Wähle deine <code>expressiveCodeThemes</code> - eines für den hellen, eines für den dunklen Modus.</li>
+        <li>
+          Lege deine Sprachen fest, füge pro Sprache eine JSON-Datei in <code>./src/i18n/</code> hinzu und richte den <code>i18n</code>-Block ein.
+        </li>
+        <li>
+          Wähle deine <code>expressiveCodeThemes</code> - eines für den hellen, eines für den dunklen Modus.
+        </li>
         <li>Konfiguriere die Blog-Standardwerte (und ersetze das Fallback-Bild, falls du es nutzt).</li>
         <li>Setze oder deaktiviere die Promo-Slots.</li>
-        <li>Definiere, wie die <code>llms.txt</code> generiert wird.</li>
+        <li>
+          Definiere, wie die <code>llms.txt</code> generiert wird.
+        </li>
       </ul>
     </Step>
 
@@ -99,11 +119,17 @@ const t = useTranslations(locale);
     </Step>
 
     <Step number={6} title="Deine Styles ergänzen">
-      <p>Erweitere die CSS-Dateien in <code>./src/styles/</code> gemäß der Layering-Konvention:</p>
+      <p>
+        Erweitere die CSS-Dateien in <code>./src/styles/</code> gemäß der Layering-Konvention:
+      </p>
       <ul>
         <li>Tailwind als Basis.</li>
-        <li><code>global.css</code> für eigene Regeln und Single-Source-of-Truth-Styles (z. B. Buttons).</li>
-        <li>Seitenspezifische CSS-Dateien (z. B. <code>long-text-content.css</code>), pro Seite importiert.</li>
+        <li>
+          <code>global.css</code> für eigene Regeln und Single-Source-of-Truth-Styles (z. B. Buttons).
+        </li>
+        <li>
+          Seitenspezifische CSS-Dateien (z. B. <code>long-text-content.css</code>), pro Seite importiert.
+        </li>
         <li>Sehr individuelle Styles bleiben auf die Seite oder Komponente beschränkt.</li>
       </ul>
     </Step>
@@ -120,7 +146,9 @@ const t = useTranslations(locale);
         <code>./src/components/layout/nav/</code> und die weiteren Layout-Dateien an.
       </p>
       <Callout variant="tip" title="Inhaltsübersetzungen">
-        <p>Halte die JSON-Dateien in <code>./src/i18n/</code> während des Layout-Baus mit deinem Projekt synchron.</p>
+        <p>
+          Halte die JSON-Dateien in <code>./src/i18n/</code> während des Layout-Baus mit deinem Projekt synchron.
+        </p>
       </Callout>
     </Step>
 
@@ -159,19 +187,29 @@ const t = useTranslations(locale);
     <div class="overflow-hidden rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900">
       <dl class="m-0 divide-y divide-stone-200 dark:divide-stone-800">
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">SITE_OVERRIDE</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">SITE_OVERRIDE</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Überschreibt die globale Site-URL. Praktisch für Dev-Umgebungen.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ROBOTS</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ROBOTS</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Überschreibt die Standard-Robots-Einstellung. Einstellungen auf Seitenebene haben weiterhin Vorrang.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_API_KEY</code><br /><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_ZONE_ID</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_API_KEY</code>
+            <br />
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_ZONE_ID</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Erforderlich für das Cloudflare-Cache-Purge-Skript.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ADD_TO_CALENDAR_PRO_API_KEY</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ADD_TO_CALENDAR_PRO_API_KEY</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Aktiviert den vorgefertigten Adapter für dynamisch eingespielte Events.</dd>
         </div>
       </dl>

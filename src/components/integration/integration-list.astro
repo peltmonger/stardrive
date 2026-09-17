@@ -32,36 +32,34 @@ const items = (await getCollection('integration_options', ({ id, data }) => {
   </div>
   <div class="grow overflow-y-auto">
     <ul class="integration-list m-0 flex list-none flex-col p-0">
-      {
-        items.map((item) => {
-          const slug = item.id.split('/')[1];
-          const isCurrent = slug === currentItem;
-          return (
-            <li class="integration-list-item m-0" data-service={item.data.service.toLowerCase()}>
-              <a
-                href={getLocaleUrl(`/integration/${item.data.type}/${slug}`, locale)}
-                aria-current={isCurrent ? 'page' : undefined}
-                aria-label={item.data.service}
-                class:list={[
-                  'integration-list-link text-text dark:text-text-dark hover:bg-primary-light hover:dark:bg-primary-darker hover:text-primary-light-contrast hover:dark:text-primary-dark-contrast focus:bg-primary-light focus:dark:bg-primary-darker focus:text-primary-light-contrast focus:dark:text-primary-dark-contrast flex items-center gap-3 border-l-2 border-transparent px-3 py-2 font-normal no-underline focus:outline-none',
-                  isCurrent && 'bg-primary-light dark:bg-primary-darker border-primary font-semibold',
-                ]}
-              >
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded bg-white p-1">
-                  {item.data.logo?.file ? (
-                    <Image src={item.data.logo.file} alt={item.data.logo.alt ?? ''} class="h-full w-full object-contain" draggable="false" priority />
-                  ) : item.data.logo?.url ? (
-                    <img src={item.data.logo.url} alt={item.data.logo.alt ?? ''} class="h-full w-full object-contain" draggable="false" />
-                  ) : (
-                    <Icon name="heroicons:puzzle-piece" class="h-5 w-5 text-stone-500 dark:text-stone-400" />
-                  )}
-                </span>
-                <span class="truncate">{item.data.service}</span>
-              </a>
-            </li>
-          );
-        })
-      }
+      {items.map((item) => {
+        const slug = item.id.split('/')[1];
+        const isCurrent = slug === currentItem;
+        return (
+          <li class="integration-list-item m-0" data-service={item.data.service.toLowerCase()}>
+            <a
+              href={getLocaleUrl(`/integration/${item.data.type}/${slug}`, locale)}
+              aria-current={isCurrent ? 'page' : undefined}
+              aria-label={item.data.service}
+              class:list={[
+                'integration-list-link text-text dark:text-text-dark hover:bg-primary-light hover:dark:bg-primary-darker hover:text-primary-light-contrast hover:dark:text-primary-dark-contrast focus:bg-primary-light focus:dark:bg-primary-darker focus:text-primary-light-contrast focus:dark:text-primary-dark-contrast flex items-center gap-3 border-l-2 border-transparent px-3 py-2 font-normal no-underline focus:outline-none',
+                isCurrent && 'bg-primary-light dark:bg-primary-darker border-primary font-semibold',
+              ]}
+            >
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded bg-white p-1">
+                {item.data.logo?.file ? (
+                  <Image src={item.data.logo.file} alt={item.data.logo.alt ?? ''} class="h-full w-full object-contain" draggable="false" priority />
+                ) : item.data.logo?.url ? (
+                  <img src={item.data.logo.url} alt={item.data.logo.alt ?? ''} class="h-full w-full object-contain" draggable="false" />
+                ) : (
+                  <Icon name="heroicons:puzzle-piece" class="h-5 w-5 text-stone-500 dark:text-stone-400" />
+                )}
+              </span>
+              <span class="truncate">{item.data.service}</span>
+            </a>
+          </li>
+        );
+      })}
     </ul>
     <p class="integration-list-no-results hidden p-4 text-center text-sm text-stone-500 dark:text-stone-400" role="status" aria-live="polite">
       {t('pages.integration.no-results')}

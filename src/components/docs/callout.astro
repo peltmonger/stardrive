@@ -53,6 +53,8 @@ const style = variants[variant];
   </span>
   <div class="min-w-0 grow text-sm leading-relaxed">
     {title && <p class="mb-1 font-semibold">{title}</p>}
-    <div class="docs-callout-body"><slot /></div>
+    <div class="docs-callout-body">
+      <slot />
+    </div>
   </div>
 </div>

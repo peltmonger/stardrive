@@ -18,7 +18,8 @@ const robots = Astro.props.robots || themeConfig.robots || "noindex, nofollow";
 const canonical = externalCanonical || getCleanLocaleUrl(Astro.url, locale);
 ---
 
-<!-- theme init: runs synchronously before first paint to prevent flash --><!-- prettier-ignore -->
+<!-- theme init: runs synchronously before first paint to prevent flash -->
+<!-- prettier-ignore -->
 <script is:inline set:html={THEME_INIT_SCRIPT}></script>
 <script>
   // Persist the current locale to localStorage on every page load to have it available at client side scripts

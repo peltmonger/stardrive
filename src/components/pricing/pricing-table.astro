@@ -192,134 +192,126 @@ const plans = cfg.plans.map((plan) => {
 <div class:list={['pt-root py-10', className]} data-period={initialPeriod} data-tax={initialTax ? 'incl' : 'excl'} data-default-period={initialPeriod} data-default-tax={initialTax ? 'incl' : 'excl'}>
   <!-- Controls -->
   <div class="mb-14 flex flex-col items-center gap-4">
-    {
-      cfg.periods.length > 1 && (
-        <div class="inline-flex flex-wrap justify-center gap-1 rounded-full border border-stone-300 bg-stone-100 p-1 dark:border-stone-700 dark:bg-stone-800" role="group" aria-label={t('pricing-content.billing-period')}>
-          {cfg.periods.map((period) => (
-            <button
-              type="button"
-              class="pt-period-btn focus-visible:ring-primary flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-stone-600 transition-colors select-none hover:text-stone-900 focus-visible:ring-2 focus-visible:outline-none dark:text-stone-300 dark:hover:text-white"
-              data-period={period}
-              aria-pressed={period === initialPeriod ? 'true' : 'false'}
-            >
-              {t(`pricing-content.${periodLabelKey[period] /* eslint-disable-line security/detect-object-injection -- period is a static union key */}`)}
-              {period === 'annually' && annualSavingsPercent > 0 && <span class="bg-secondary text-secondary-contrast rounded-full px-2 py-0.5 text-xs font-semibold">{t('pricing-content.save-up-to').replace('{percent}', String(annualSavingsPercent))}</span>}
-            </button>
-          ))}
-        </div>
-      )
-    }
+    {cfg.periods.length > 1 && (
+      <div class="inline-flex flex-wrap justify-center gap-1 rounded-full border border-stone-300 bg-stone-100 p-1 dark:border-stone-700 dark:bg-stone-800" role="group" aria-label={t('pricing-content.billing-period')}>
+        {cfg.periods.map((period) => (
+          <button
+            type="button"
+            class="pt-period-btn focus-visible:ring-primary flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-stone-600 transition-colors select-none hover:text-stone-900 focus-visible:ring-2 focus-visible:outline-none dark:text-stone-300 dark:hover:text-white"
+            data-period={period}
+            aria-pressed={period === initialPeriod ? 'true' : 'false'}
+          >
+            {t(`pricing-content.${periodLabelKey[period] /* eslint-disable-line security/detect-object-injection -- period is a static union key */}`)}
+            {period === 'annually' && annualSavingsPercent > 0 && <span class="bg-secondary text-secondary-contrast rounded-full px-2 py-0.5 text-xs font-semibold">{t('pricing-content.save-up-to').replace('{percent}', String(annualSavingsPercent))}</span>}
+          </button>
+        ))}
+      </div>
+    )}
 
-    {
-      tax.showToggle && (
-        <button type="button" class="pt-tax-toggle group inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-stone-600 select-none dark:text-stone-300" role="switch" aria-checked={initialTax ? 'true' : 'false'}>
-          <span class="pt-tax-track group-aria-checked:bg-primary relative h-6 w-11 shrink-0 rounded-full bg-stone-300 transition-colors dark:bg-stone-600" aria-hidden="true">
-            <span class="pt-tax-thumb absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform group-aria-checked:translate-x-5" />
-          </span>
-          <span>{t('pricing-content.show-with-tax')}</span>
-        </button>
-      )
-    }
+    {tax.showToggle && (
+      <button type="button" class="pt-tax-toggle group inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-stone-600 select-none dark:text-stone-300" role="switch" aria-checked={initialTax ? 'true' : 'false'}>
+        <span class="pt-tax-track group-aria-checked:bg-primary relative h-6 w-11 shrink-0 rounded-full bg-stone-300 transition-colors dark:bg-stone-600" aria-hidden="true">
+          <span class="pt-tax-thumb absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform group-aria-checked:translate-x-5" />
+        </span>
+        <span>{t('pricing-content.show-with-tax')}</span>
+      </button>
+    )}
   </div>
 
   <!-- Cards -->
   <div class:list={['grid grid-cols-1 gap-6', plans.length === 2 && 'sm:grid-cols-2', plans.length === 3 && 'sm:grid-cols-2 lg:grid-cols-3', plans.length >= 4 && 'sm:grid-cols-2 lg:grid-cols-4']}>
-    {
-      plans.map(({ plan, variantsByPeriod, unavailablePeriods, onlyAvailableNote, cta, priceMap }) => (
-        <div class:list={['pt-card relative flex flex-col rounded-xl border-2 bg-white transition-shadow dark:bg-stone-900', plan.highlighted ? 'border-primary dark:border-primary-light shadow-lg' : 'border-stone-200 hover:shadow-md dark:border-stone-700']} data-plan={plan.id} data-unavailable={unavailablePeriods.join(' ')}>
-          {plan.badgeKey && <span class="bg-primary text-primary-contrast absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap shadow select-none">{t(`pricing-content.${plan.badgeKey}`)}</span>}
+    {plans.map(({ plan, variantsByPeriod, unavailablePeriods, onlyAvailableNote, cta, priceMap }) => (
+      <div class:list={['pt-card relative flex flex-col rounded-xl border-2 bg-white transition-shadow dark:bg-stone-900', plan.highlighted ? 'border-primary dark:border-primary-light shadow-lg' : 'border-stone-200 hover:shadow-md dark:border-stone-700']} data-plan={plan.id} data-unavailable={unavailablePeriods.join(' ')}>
+        {plan.badgeKey && <span class="bg-primary text-primary-contrast absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap shadow select-none">{t(`pricing-content.${plan.badgeKey}`)}</span>}
 
-          <div class="flex flex-col gap-1 border-b border-stone-200 p-6 text-center dark:border-stone-800">
-            <h3 class="text-lg font-bold">{t(`pricing-content.${plan.nameKey}`)}</h3>
-            <p class="text-sm text-stone-600 dark:text-stone-300">{t(`pricing-content.${plan.taglineKey}`)}</p>
+        <div class="flex flex-col gap-1 border-b border-stone-200 p-6 text-center dark:border-stone-800">
+          <h3 class="text-lg font-bold">{t(`pricing-content.${plan.nameKey}`)}</h3>
+          <p class="text-sm text-stone-600 dark:text-stone-300">{t(`pricing-content.${plan.taglineKey}`)}</p>
 
-            {/* Price area. Two layers:
+          {/* Price area. Two layers:
                 - `.pt-static`: pre-rendered variants, one per period × tax. CSS
                   shows the active one, so the correct price is visible with no JS.
                 - `.pt-animated`: a single element the script fills and rolls with
                   slot-text on every change. Hidden until the script activates it. */}
-            <div class="pt-price-area mt-4 min-h-24">
-              <div class="pt-static">
-                {variantsByPeriod.map(({ variants }) =>
-                  variants.map((v) => (
-                    <div class="pt-price hidden" data-period={v.period} data-tax={v.withTax ? 'incl' : 'excl'}>
-                      {v.kind === 'amount' && v.parts && (
-                        <>
-                          <span class="flex items-end justify-center">
-                            {v.parts.position === 'before' && <span class="pr-1 pb-1 text-lg font-normal text-stone-400">{v.parts.symbol}</span>}
-                            <span class="text-4xl font-extrabold tracking-tight">{v.parts.whole}</span>
-                            {v.parts.decimals && <span class="pb-1 text-base font-semibold text-stone-500 dark:text-stone-400">.{v.parts.decimals}</span>}
-                            {v.parts.position === 'after' && <span class="pb-1 pl-1 text-lg font-normal text-stone-400">{v.parts.symbol}</span>}
-                          </span>
-                          <div class="mt-1 text-xs text-stone-500 dark:text-stone-400">
-                            <span>{v.note}</span>
-                            <span> · </span>
-                            <span>{v.withTax ? t('pricing-content.incl-tax') : t('pricing-content.excl-tax')}</span>
-                          </div>
-                        </>
-                      )}
-                      {v.kind === 'custom' && <span class="block pt-2 text-3xl font-extrabold tracking-tight">{t('pricing-content.price-custom')}</span>}
-                      {v.kind === 'unavailable' && <span class="block pt-4 text-sm font-semibold text-stone-400 italic dark:text-stone-500">{t('pricing-content.not-available')}</span>}
-                    </div>
-                  )),
-                )}
-              </div>
-
-              <div class="pt-animated hidden" data-prices={JSON.stringify(priceMap)}>
-                <span class="pt-anim-amount-row flex items-end justify-center">
-                  <span class="pt-anim-symbol-before pr-1 pb-1 text-lg font-normal text-stone-400" />
-                  <span class="pt-anim-amount text-4xl font-extrabold tracking-tight" />
-                  <span class="pt-anim-decimals pb-1 text-base font-semibold text-stone-500 dark:text-stone-400" />
-                  <span class="pt-anim-symbol-after pb-1 pl-1 text-lg font-normal text-stone-400" />
-                </span>
-                <span class="pt-anim-custom block pt-2 text-3xl font-extrabold tracking-tight" />
-                <span class="pt-anim-unavailable block pt-4 text-sm font-semibold text-stone-400 italic dark:text-stone-500" />
-                <div class="pt-anim-note mt-1 text-xs text-stone-500 dark:text-stone-400" />
-              </div>
+          <div class="pt-price-area mt-4 min-h-24">
+            <div class="pt-static">
+              {variantsByPeriod.map(({ variants }) =>
+                variants.map((v) => (
+                  <div class="pt-price hidden" data-period={v.period} data-tax={v.withTax ? 'incl' : 'excl'}>
+                    {v.kind === 'amount' && v.parts && (
+                      <>
+                        <span class="flex items-end justify-center">
+                          {v.parts.position === 'before' && <span class="pr-1 pb-1 text-lg font-normal text-stone-400">{v.parts.symbol}</span>}
+                          <span class="text-4xl font-extrabold tracking-tight">{v.parts.whole}</span>
+                          {v.parts.decimals && <span class="pb-1 text-base font-semibold text-stone-500 dark:text-stone-400">.{v.parts.decimals}</span>}
+                          {v.parts.position === 'after' && <span class="pb-1 pl-1 text-lg font-normal text-stone-400">{v.parts.symbol}</span>}
+                        </span>
+                        <div class="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                          <span>{v.note}</span>
+                          <span> · </span>
+                          <span>{v.withTax ? t('pricing-content.incl-tax') : t('pricing-content.excl-tax')}</span>
+                        </div>
+                      </>
+                    )}
+                    {v.kind === 'custom' && <span class="block pt-2 text-3xl font-extrabold tracking-tight">{t('pricing-content.price-custom')}</span>}
+                    {v.kind === 'unavailable' && <span class="block pt-4 text-sm font-semibold text-stone-400 italic dark:text-stone-500">{t('pricing-content.not-available')}</span>}
+                  </div>
+                )),
+              )}
             </div>
 
-            <div class="pt-cta mt-4">
-              <a
-                href={getLocaleUrl(cta.href, locale)}
-                data-umami-event="pricing-select"
-                data-umami-event-plan={plan.id}
-                class:list={[
-                  'focus-visible:ring-primary block w-full rounded-lg px-4 py-2.5 text-center font-semibold no-underline transition-colors select-none focus-visible:ring-2 focus-visible:outline-none',
-                  plan.highlighted ? 'bg-primary text-primary-contrast hover:bg-primary-light hover:text-primary-light-contrast' : 'hover:border-primary hover:bg-primary border border-stone-300 bg-stone-100 text-stone-900 hover:text-white dark:border-stone-600 dark:bg-stone-800 dark:text-white',
-                ]}
-              >
-                {t(`pricing-content.${cta.labelKey}`)}
-              </a>
+            <div class="pt-animated hidden" data-prices={JSON.stringify(priceMap)}>
+              <span class="pt-anim-amount-row flex items-end justify-center">
+                <span class="pt-anim-symbol-before pr-1 pb-1 text-lg font-normal text-stone-400" />
+                <span class="pt-anim-amount text-4xl font-extrabold tracking-tight" />
+                <span class="pt-anim-decimals pb-1 text-base font-semibold text-stone-500 dark:text-stone-400" />
+                <span class="pt-anim-symbol-after pb-1 pl-1 text-lg font-normal text-stone-400" />
+              </span>
+              <span class="pt-anim-custom block pt-2 text-3xl font-extrabold tracking-tight" />
+              <span class="pt-anim-unavailable block pt-4 text-sm font-semibold text-stone-400 italic dark:text-stone-500" />
+              <div class="pt-anim-note mt-1 text-xs text-stone-500 dark:text-stone-400" />
             </div>
-
-            {/* Note shown in place of the CTA when the plan is not offered for
-                the active billing period (e.g. "Only available for Annually"). */}
-            {onlyAvailableNote && <p class="pt-only-available mt-7 mb-3 hidden pt-0.5 text-center text-sm font-semibold text-stone-500 dark:text-stone-400">{onlyAvailableNote}</p>}
           </div>
 
-          <ul role="list" class="m-0 flex grow list-none flex-col gap-3 p-6 text-sm">
-            {cfg.features.map((feature) => {
-              const value = getFeatureValue(plan.features, feature.id);
-              const included = value !== false && value !== undefined;
-              return (
-                <li class="m-0 flex items-start gap-2">
-                  {included ? <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" /> : <Icon name="heroicons:x-mark" class="mt-0.5 h-5 w-5 shrink-0 text-stone-300 dark:text-stone-600" aria-hidden="true" />}
-                  <span class:list={[!included && 'text-stone-400 line-through dark:text-stone-600']}>
-                    {t(`pricing-content.${feature.labelKey}`)}
-                    {typeof value === 'string' && <span class="font-semibold text-stone-900 dark:text-white"> · {value}</span>}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+          <div class="pt-cta mt-4">
+            <a
+              href={getLocaleUrl(cta.href, locale)}
+              data-umami-event="pricing-select"
+              data-umami-event-plan={plan.id}
+              class:list={[
+                'focus-visible:ring-primary block w-full rounded-lg px-4 py-2.5 text-center font-semibold no-underline transition-colors select-none focus-visible:ring-2 focus-visible:outline-none',
+                plan.highlighted ? 'bg-primary text-primary-contrast hover:bg-primary-light hover:text-primary-light-contrast' : 'hover:border-primary hover:bg-primary border border-stone-300 bg-stone-100 text-stone-900 hover:text-white dark:border-stone-600 dark:bg-stone-800 dark:text-white',
+              ]}
+            >
+              {t(`pricing-content.${cta.labelKey}`)}
+            </a>
+          </div>
+
+          {/* Note shown in place of the CTA when the plan is not offered for
+                the active billing period (e.g. "Only available for Annually"). */}
+          {onlyAvailableNote && <p class="pt-only-available mt-7 mb-3 hidden pt-0.5 text-center text-sm font-semibold text-stone-500 dark:text-stone-400">{onlyAvailableNote}</p>}
         </div>
-      ))
-    }
+
+        <ul role="list" class="m-0 flex grow list-none flex-col gap-3 p-6 text-sm">
+          {cfg.features.map((feature) => {
+            const value = getFeatureValue(plan.features, feature.id);
+            const included = value !== false && value !== undefined;
+            return (
+              <li class="m-0 flex items-start gap-2">
+                {included ? <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" /> : <Icon name="heroicons:x-mark" class="mt-0.5 h-5 w-5 shrink-0 text-stone-300 dark:text-stone-600" aria-hidden="true" />}
+                <span class:list={[!included && 'text-stone-400 line-through dark:text-stone-600']}>
+                  {t(`pricing-content.${feature.labelKey}`)}
+                  {typeof value === 'string' && <span class="font-semibold text-stone-900 dark:text-white"> · {value}</span>}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
   </div>
 
-  <p class="mt-8 text-center text-xs text-stone-500 dark:text-stone-400">
-    {t('pricing-content.disclaimer')}
-  </p>
+  <p class="mt-8 text-center text-xs text-stone-500 dark:text-stone-400">{t('pricing-content.disclaimer')}</p>
 </div>
 
 <style>

@@ -96,9 +96,7 @@ const astroFeatures: Feature[] = [
         <h2 id="features-stardrive-heading" class="text-2xl font-bold">
           {t('features-content.stardrive-heading')}
         </h2>
-        <p class="max-w-2xl text-stone-600 dark:text-stone-300">
-          {t('features-content.stardrive-sub')}
-        </p>
+        <p class="max-w-2xl text-stone-600 dark:text-stone-300">{t('features-content.stardrive-sub')}</p>
       </div>
       <div class="-mt-14 hidden self-end sm:block md:self-start" aria-hidden="true">
         <Logo class="h-32 w-auto dark:hidden" />
@@ -107,35 +105,33 @@ const astroFeatures: Feature[] = [
     </div>
 
     <div class="flex flex-col gap-10">
-      {
-        stardriveGroups.map((group) => (
-          <div>
-            <h3 class="text-primary dark:text-primary-light mb-4 flex items-center gap-2 text-lg font-semibold tracking-wide">
-              <Icon name={group.icon} class="h-5 w-5 shrink-0" aria-hidden="true" />
-              {t(`features-content.${group.heading}`)}
-            </h3>
-            <ul class="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 lg:grid-cols-3">
-              {group.features.map((feature) => (
-                <li class="m-0">
-                  <details class="feature-card group hover:border-primary dark:hover:border-primary-light rounded-lg border border-stone-300 bg-white transition-shadow hover:shadow-md dark:border-stone-700 dark:bg-stone-900">
-                    <summary class="flex cursor-pointer list-none items-start gap-3 p-4 select-none">
-                      <span class="bg-primary-light/15 text-primary dark:bg-primary-darker dark:text-primary-light mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md">
-                        <Icon name={feature.icon} class="h-5 w-5" aria-hidden="true" />
-                      </span>
-                      <span class="flex min-h-22 min-w-0 grow flex-col">
-                        <span class="font-semibold">{t(`features-content.${feature.slug}-title`)}</span>
-                        <span class="text-sm text-stone-600 dark:text-stone-300">{t(`features-content.${feature.slug}-tagline`)}</span>
-                      </span>
-                      <Icon name="heroicons:chevron-down" class="mt-1 h-4 w-4 shrink-0 text-stone-400 transition-transform group-open:rotate-180" aria-hidden="true" />
-                    </summary>
-                    <p class="border-t border-stone-200 px-4 pt-3 pb-4 text-sm text-stone-600 dark:border-stone-800 dark:text-stone-300">{t(`features-content.${feature.slug}-detail`)}</p>
-                  </details>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
+      {stardriveGroups.map((group) => (
+        <div>
+          <h3 class="text-primary dark:text-primary-light mb-4 flex items-center gap-2 text-lg font-semibold tracking-wide">
+            <Icon name={group.icon} class="h-5 w-5 shrink-0" aria-hidden="true" />
+            {t(`features-content.${group.heading}`)}
+          </h3>
+          <ul class="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 lg:grid-cols-3">
+            {group.features.map((feature) => (
+              <li class="m-0">
+                <details class="feature-card group hover:border-primary dark:hover:border-primary-light rounded-lg border border-stone-300 bg-white transition-shadow hover:shadow-md dark:border-stone-700 dark:bg-stone-900">
+                  <summary class="flex cursor-pointer list-none items-start gap-3 p-4 select-none">
+                    <span class="bg-primary-light/15 text-primary dark:bg-primary-darker dark:text-primary-light mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md">
+                      <Icon name={feature.icon} class="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span class="flex min-h-22 min-w-0 grow flex-col">
+                      <span class="font-semibold">{t(`features-content.${feature.slug}-title`)}</span>
+                      <span class="text-sm text-stone-600 dark:text-stone-300">{t(`features-content.${feature.slug}-tagline`)}</span>
+                    </span>
+                    <Icon name="heroicons:chevron-down" class="mt-1 h-4 w-4 shrink-0 text-stone-400 transition-transform group-open:rotate-180" aria-hidden="true" />
+                  </summary>
+                  <p class="border-t border-stone-200 px-4 pt-3 pb-4 text-sm text-stone-600 dark:border-stone-800 dark:text-stone-300">{t(`features-content.${feature.slug}-detail`)}</p>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -146,9 +142,7 @@ const astroFeatures: Feature[] = [
         <h2 id="features-astro-heading" class="text-2xl font-bold">
           {t('features-content.astro-heading')}
         </h2>
-        <p class="max-w-2xl text-stone-600 dark:text-stone-300">
-          {t('features-content.astro-sub')}
-        </p>
+        <p class="max-w-2xl text-stone-600 dark:text-stone-300">{t('features-content.astro-sub')}</p>
       </div>
       <div class="-mt-14 hidden self-end sm:block md:self-start">
         <AstroLogo class="h-28 w-auto dark:hidden" />
@@ -157,25 +151,23 @@ const astroFeatures: Feature[] = [
     </div>
 
     <ul class="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        astroFeatures.map((feature) => (
-          <li class="m-0">
-            <details class="feature-card group hover:border-secondary dark:hover:border-secondary-light rounded-lg border border-stone-300 bg-white transition-shadow hover:shadow-md dark:border-stone-700 dark:bg-stone-900">
-              <summary class="flex cursor-pointer list-none items-start gap-3 p-4 select-none">
-                <span class="bg-secondary-light/15 text-secondary dark:bg-secondary-dark mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md dark:text-white/50">
-                  <Icon name={feature.icon} class="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span class="flex min-h-22 min-w-0 grow flex-col">
-                  <span class="font-semibold">{t(`features-content.${feature.slug}-title`)}</span>
-                  <span class="text-sm text-stone-600 dark:text-stone-300">{t(`features-content.${feature.slug}-tagline`)}</span>
-                </span>
-                <Icon name="heroicons:chevron-down" class="mt-1 h-4 w-4 shrink-0 text-stone-400 transition-transform group-open:rotate-180" aria-hidden="true" />
-              </summary>
-              <p class="border-t border-stone-200 px-4 pt-3 pb-4 text-sm text-stone-600 dark:border-stone-800 dark:text-stone-300">{t(`features-content.${feature.slug}-detail`)}</p>
-            </details>
-          </li>
-        ))
-      }
+      {astroFeatures.map((feature) => (
+        <li class="m-0">
+          <details class="feature-card group hover:border-secondary dark:hover:border-secondary-light rounded-lg border border-stone-300 bg-white transition-shadow hover:shadow-md dark:border-stone-700 dark:bg-stone-900">
+            <summary class="flex cursor-pointer list-none items-start gap-3 p-4 select-none">
+              <span class="bg-secondary-light/15 text-secondary dark:bg-secondary-dark mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-md dark:text-white/50">
+                <Icon name={feature.icon} class="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span class="flex min-h-22 min-w-0 grow flex-col">
+                <span class="font-semibold">{t(`features-content.${feature.slug}-title`)}</span>
+                <span class="text-sm text-stone-600 dark:text-stone-300">{t(`features-content.${feature.slug}-tagline`)}</span>
+              </span>
+              <Icon name="heroicons:chevron-down" class="mt-1 h-4 w-4 shrink-0 text-stone-400 transition-transform group-open:rotate-180" aria-hidden="true" />
+            </summary>
+            <p class="border-t border-stone-200 px-4 pt-3 pb-4 text-sm text-stone-600 dark:border-stone-800 dark:text-stone-300">{t(`features-content.${feature.slug}-detail`)}</p>
+          </details>
+        </li>
+      ))}
     </ul>
   </section>
 </div>

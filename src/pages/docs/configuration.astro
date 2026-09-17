@@ -42,7 +42,9 @@ const t = useTranslations(locale);
       <div class="rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
         <Icon name="heroicons:variable" class="text-primary mb-3 h-7 w-7" aria-hidden="true" />
         <h2 class="mb-1 text-lg font-bold">3. Env variables</h2>
-        <p class="text-sm text-stone-600 dark:text-stone-300">A few build-time overrides like <code>SITE_OVERRIDE</code> and <code>ROBOTS</code>.</p>
+        <p class="text-sm text-stone-600 dark:text-stone-300">
+          A few build-time overrides like <code>SITE_OVERRIDE</code> and <code>ROBOTS</code>.
+        </p>
       </div>
     </div>
   </div>
@@ -52,26 +54,38 @@ const t = useTranslations(locale);
   <Steps class="mb-14">
     <Step number={1} title="Trim what you do not need">
       <p>
-        If you did <strong>not</strong> use the <code>create stardrive</code> command, first remove the demo- and repo-only files. The <a href="https://github.com/peltmonger/stardrive/blob/main/.ai/TRIMMING_GUIDE.md" class="external-link" target="_blank" rel="noopener">Trimming Guide</a> is written for AI agents but works fine for manual cleanup too.
+        If you did <strong>not</strong> use the <code>create stardrive</code> command, first remove the demo- and repo-only files. The{' '}
+        <a href="https://github.com/peltmonger/stardrive/blob/main/.ai/TRIMMING_GUIDE.md" class="external-link" target="_blank" rel="noopener">
+          Trimming Guide
+        </a>{' '}
+        is written for AI agents but works fine for manual cleanup too.
       </p>
     </Step>
 
     <Step number={2} title="Make the project yours">
       <p>Adjust the basics so you recognise the project later:</p>
       <ul>
-        <li>Update <code>package.json</code> to reflect your project.</li>
-        <li>Set at least the headline in <code>README.md</code>.</li>
+        <li>
+          Update <code>package.json</code> to reflect your project.
+        </li>
+        <li>
+          Set at least the headline in <code>README.md</code>.
+        </li>
       </ul>
     </Step>
 
     <Step number={3} title="Replace favicons & social images">
       <p>
-        Swap the icon files in <code>./public/</code> (we like <a href="https://realfavicongenerator.net/" class="external-link" target="_blank" rel="noopener">realfavicongenerator.net</a>). The web manifest is generated from <code>theme.config.ts</code>, so you only replace image files. Also replace the social fallbacks <code>og.png</code>, <code>x.png</code> and <code
-          >structured-preview.png</code
-        > in <code>./public/images/</code>.
+        Swap the icon files in <code>./public/</code> (we like{' '}
+        <a href="https://realfavicongenerator.net/" class="external-link" target="_blank" rel="noopener">
+          realfavicongenerator.net
+        </a>
+        ). The web manifest is generated from <code>theme.config.ts</code>, so you only replace image files. Also replace the social fallbacks <code>og.png</code>, <code>x.png</code> and <code>structured-preview.png</code> in <code>./public/images/</code>.
       </p>
       <Callout variant="note" title="Light & dark favicons">
-        <p>Stardrive ships separate light/dark icons. If you do not need that, drop the dark variants and adjust <code>./src/components/head/base.astro</code>. For the SVG, handle light/dark directly inside the SVG code.</p>
+        <p>
+          Stardrive ships separate light/dark icons. If you do not need that, drop the dark variants and adjust <code>./src/components/head/base.astro</code>. For the SVG, handle light/dark directly inside the SVG code.
+        </p>
       </Callout>
     </Step>
 
@@ -79,11 +93,17 @@ const t = useTranslations(locale);
       <p>This is the heart of the setup. Everything is typed, so your IDE surfaces the docs inline. Work through it in this order:</p>
       <ul>
         <li>Set the base info (site URL, primary color, …).</li>
-        <li>Decide your languages, add a JSON file per language in <code>./src/i18n/</code>, and wire up the <code>i18n</code> block.</li>
-        <li>Pick your <code>expressiveCodeThemes</code> - one for light, one for dark mode.</li>
+        <li>
+          Decide your languages, add a JSON file per language in <code>./src/i18n/</code>, and wire up the <code>i18n</code> block.
+        </li>
+        <li>
+          Pick your <code>expressiveCodeThemes</code> - one for light, one for dark mode.
+        </li>
         <li>Configure blog article defaults (and replace the fallback image if you use it).</li>
         <li>Set or disable promotion slots.</li>
-        <li>Define how <code>llms.txt</code> is generated.</li>
+        <li>
+          Define how <code>llms.txt</code> is generated.
+        </li>
       </ul>
     </Step>
 
@@ -100,11 +120,17 @@ const t = useTranslations(locale);
     </Step>
 
     <Step number={6} title="Layer in your styles">
-      <p>Extend the CSS files in <code>./src/styles/</code> following the layering convention:</p>
+      <p>
+        Extend the CSS files in <code>./src/styles/</code> following the layering convention:
+      </p>
       <ul>
         <li>Tailwind as the base.</li>
-        <li><code>global.css</code> for custom rules and single-source-of-truth styles (e.g. buttons).</li>
-        <li>Page-specific CSS files (e.g. <code>long-text-content.css</code>) imported per page.</li>
+        <li>
+          <code>global.css</code> for custom rules and single-source-of-truth styles (e.g. buttons).
+        </li>
+        <li>
+          Page-specific CSS files (e.g. <code>long-text-content.css</code>) imported per page.
+        </li>
         <li>Very custom bits stay scoped in the page or component.</li>
       </ul>
     </Step>
@@ -120,7 +146,9 @@ const t = useTranslations(locale);
         Shape your structure under <code>./src/pages/</code> (one file per route). Pages that differ only by translated strings go into <code>[lang]</code>; pages with large or differing text get an explicit language subfolder with hard-coded content. Then adjust the navigation in <code>./src/components/layout/nav/</code> and the other layout files.
       </p>
       <Callout variant="tip" title="Content translations">
-        <p>While building the layout, keep the JSON files in <code>./src/i18n/</code> in sync with your project.</p>
+        <p>
+          While building the layout, keep the JSON files in <code>./src/i18n/</code> in sync with your project.
+        </p>
       </Callout>
     </Step>
 
@@ -159,19 +187,29 @@ const t = useTranslations(locale);
     <div class="overflow-hidden rounded-lg border border-stone-300 bg-white dark:border-stone-700 dark:bg-stone-900">
       <dl class="m-0 divide-y divide-stone-200 dark:divide-stone-800">
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">SITE_OVERRIDE</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">SITE_OVERRIDE</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Overrides the global site URL. Handy for dev environments.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ROBOTS</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ROBOTS</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Overrides the default robots setting. Page-level settings still win.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_API_KEY</code><br /><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_ZONE_ID</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_API_KEY</code>
+            <br />
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">CF_PURGE_ZONE_ID</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Required for the Cloudflare cache purge script.</dd>
         </div>
         <div class="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-4">
-          <dt><code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ADD_TO_CALENDAR_PRO_API_KEY</code></dt>
+          <dt>
+            <code class="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm font-semibold dark:bg-white/10">ADD_TO_CALENDAR_PRO_API_KEY</code>
+          </dt>
           <dd class="m-0 text-sm text-stone-700 dark:text-stone-300">Enables the pre-built adapter for dynamically infused events.</dd>
         </div>
       </dl>

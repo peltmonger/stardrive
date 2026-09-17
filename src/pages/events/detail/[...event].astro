@@ -47,13 +47,11 @@ const dateParts = formatRange(entry.data.startDate, entry.data.endDate, entry.da
 
 <Layout title={entry.data.title} description={entry.data.description} {locale} collection="events" contentId={entry.id} header={{ button: { text: t('labels.back-all-events'), href: backUrl } }} noTitleSlug>
   <div class="flex flex-col">
-    {
-      imageFile ? (
-        <Image src={imageFile} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority />
-      ) : entry.data.image?.url ? (
-        <Image src={entry.data.image.url} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority inferSize />
-      ) : null
-    }
+    {imageFile ? (
+      <Image src={imageFile} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority />
+    ) : entry.data.image?.url ? (
+      <Image src={entry.data.image.url} alt={entry.data.image?.alt ? entry.data.image?.alt : ''} id="title-image" transition:name={'image-' + entry.id} draggable="false" priority inferSize />
+    ) : null}
     <Headline text={entry.data.title} class="pb-10" />
     <div class="markdown-content relative flex w-full flex-col gap-10 border-stone-300 px-3 py-3 text-left leading-7 sm:rounded-lg sm:border sm:px-6 sm:py-5 md:flex-row md:px-8 md:py-7 lg:rounded-xl dark:border-stone-700">
       <div class="flex shrink-0 flex-col gap-8 border-b border-stone-300 pb-10 md:max-w-xs md:border-r md:border-b-0 md:pr-10 md:pb-0 dark:border-stone-700">
@@ -70,41 +68,34 @@ const dateParts = formatRange(entry.data.startDate, entry.data.endDate, entry.da
             <span class="inline-block">{dateParts[1] && dateParts[1]}</span>
             <br />
             <div class="text-xs opacity-70">
-              (
-              {entry.data.timeZone || 'GMT'}
+              ({entry.data.timeZone || 'GMT'}
               {entry.data.rrule && `, `}
-              {
-                entry.data.rrule && (
-                  <span title={`RRULE: ${entry.data.rrule}`} class="cursor-help">
-                    {t('pages.events.recurring')}
-                  </span>
-                )
-              }
+              {entry.data.rrule && (
+                <span title={`RRULE: ${entry.data.rrule}`} class="cursor-help">
+                  {t('pages.events.recurring')}
+                </span>
+              )}
               )
             </div>
           </div>
         </div>
-        {
-          entry.data.location && (
-            <div class="flex flex-col gap-1 font-semibold">
-              <div class="flex items-center gap-1 text-sm opacity-70">
-                <Icon name="heroicons:map-pin" class="h-4 w-4 shrink-0" />
-                {t('pages.events.where')}
-              </div>
-              <div class="pl-5 text-base">{entry.data.location}</div>
+        {entry.data.location && (
+          <div class="flex flex-col gap-1 font-semibold">
+            <div class="flex items-center gap-1 text-sm opacity-70">
+              <Icon name="heroicons:map-pin" class="h-4 w-4 shrink-0" />
+              {t('pages.events.where')}
             </div>
-          )
-        }
-        {
-          entry.data.organizer?.name && (
-            <div class="flex flex-col gap-1 font-semibold">
-              <div class="flex items-center gap-1 text-sm opacity-70">
-                <Icon name="heroicons:user-circle" class="h-4 w-4 shrink-0" />
-                {entry.data.organizer?.name}
-              </div>
+            <div class="pl-5 text-base">{entry.data.location}</div>
+          </div>
+        )}
+        {entry.data.organizer?.name && (
+          <div class="flex flex-col gap-1 font-semibold">
+            <div class="flex items-center gap-1 text-sm opacity-70">
+              <Icon name="heroicons:user-circle" class="h-4 w-4 shrink-0" />
+              {entry.data.organizer?.name}
             </div>
-          )
-        }
+          </div>
+        )}
         <div class="md:mt-8">
           <AddToCalendarButton
             name={entry.data.title}
@@ -123,43 +114,37 @@ const dateParts = formatRange(entry.data.startDate, entry.data.endDate, entry.da
           />
         </div>
       </div>
-      <div>
-        {Content ? <Content /> : <Fragment set:html={bodyHtml} />}
-      </div>
+      <div>{Content ? <Content /> : <Fragment set:html={bodyHtml} />}</div>
     </div>
   </div>
   <div class="mt-24">
-    <h2 class="mb-5 text-2xl font-bold italic opacity-60 select-none sm:text-3xl">
-      {t('pages.events.following-events')}
-    </h2>
+    <h2 class="mb-5 text-2xl font-bold italic opacity-60 select-none sm:text-3xl">{t('pages.events.following-events')}</h2>
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        (async () => {
-          const allEvents = (await getEvents(({ id, data }) => {
-            // only show events that are not drafts and mind locale; limited to 3
-            return !data.draft && id.startsWith(locale + '/');
-          })) as CollectionEntry<'events'>[];
-          const futureEvents = allEvents
-            .filter((e) => e.data.startDate > entry.data.startDate)
-            .sort((a, b) => a.data.startDate.getTime() - b.data.startDate.getTime())
-            .slice(0, 3);
-          return futureEvents.map((e) => (
-            <a href={getLocaleUrl('events/detail/' + e.id.split('/').slice(-1)[0], locale)} class="text-text dark:text-text-dark xs:rounded-l-xl hover:border-primary rounded-lg border border-transparent bg-white px-4 py-3 font-semibold no-underline drop-shadow hover:drop-shadow-xl sm:nth-[n+3]:hidden lg:nth-[n+3]:block dark:bg-stone-800">
-              <span>{e.data.title}</span>
-              <span class="mt-4 flex items-start gap-2 text-sm opacity-80">
-                <Icon name="heroicons:calendar-days" class="mt-px h-4 w-4 shrink-0" />
-                {formatRange(e.data.startDate, e.data.endDate, e.data.allDay, locale)}
+      {(async () => {
+        const allEvents = (await getEvents(({ id, data }) => {
+          // only show events that are not drafts and mind locale; limited to 3
+          return !data.draft && id.startsWith(locale + '/');
+        })) as CollectionEntry<'events'>[];
+        const futureEvents = allEvents
+          .filter((e) => e.data.startDate > entry.data.startDate)
+          .sort((a, b) => a.data.startDate.getTime() - b.data.startDate.getTime())
+          .slice(0, 3);
+        return futureEvents.map((e) => (
+          <a href={getLocaleUrl('events/detail/' + e.id.split('/').slice(-1)[0], locale)} class="text-text dark:text-text-dark xs:rounded-l-xl hover:border-primary rounded-lg border border-transparent bg-white px-4 py-3 font-semibold no-underline drop-shadow hover:drop-shadow-xl sm:nth-[n+3]:hidden lg:nth-[n+3]:block dark:bg-stone-800">
+            <span>{e.data.title}</span>
+            <span class="mt-4 flex items-start gap-2 text-sm opacity-80">
+              <Icon name="heroicons:calendar-days" class="mt-px h-4 w-4 shrink-0" />
+              {formatRange(e.data.startDate, e.data.endDate, e.data.allDay, locale)}
+            </span>
+            {e.data.location && (
+              <span class="mt-2 flex items-start gap-2 text-sm opacity-80">
+                <Icon name="heroicons:map-pin" class="mt-px h-4 w-4 shrink-0" />
+                {e.data.location}
               </span>
-              {e.data.location && (
-                <span class="mt-2 flex items-start gap-2 text-sm opacity-80">
-                  <Icon name="heroicons:map-pin" class="mt-px h-4 w-4 shrink-0" />
-                  {e.data.location}
-                </span>
-              )}
-            </a>
-          ));
-        })()
-      }
+            )}
+          </a>
+        ));
+      })()}
     </div>
   </div>
 </Layout>

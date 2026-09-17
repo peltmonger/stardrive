@@ -15,9 +15,7 @@ const { text, class: className = "", backgroundColor, backgroundColorDark } = As
 
 <div class:list={['relative mb-5', className]}>
   <div class="xs:left-[-20px] xs:max-w-[calc(100%+40px)] absolute top-0 left-[-15px] w-full max-w-[calc(100%+30px)] sm:left-[-30px] sm:max-w-[calc(100%+60px)] md:left-[-40px] md:max-w-[calc(100%+80px)]">
-    <div class="xs:pl-[10px] font-headline overflow-hidden pl-[7px] text-6xl font-bold text-clip whitespace-nowrap italic opacity-5 select-none sm:pl-[15px] sm:text-8xl md:pl-[20px]">
-      {text}
-    </div>
+    <div class="xs:pl-[10px] font-headline overflow-hidden pl-[7px] text-6xl font-bold text-clip whitespace-nowrap italic opacity-5 select-none sm:pl-[15px] sm:text-8xl md:pl-[20px]">{text}</div>
     <div class="fade-overlay absolute top-0 right-0 h-full w-32" style={`--fade-to: var(--color-${backgroundColor || 'background'}); --fade-to-dark: var(--color-${backgroundColorDark || 'background-dark'})`}></div>
   </div>
   <h1 class="flex items-center gap-1 pt-9 text-3xl font-bold italic opacity-60 select-none sm:gap-2 sm:pt-14 sm:text-5xl">

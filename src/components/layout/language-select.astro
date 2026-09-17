@@ -39,24 +39,22 @@ const languageUrls = await Promise.all(
     <div class="container mx-auto flex min-h-full w-full max-w-xs flex-col items-center justify-center py-8">
       <h3 class="xs:block decoration-secondary dark:decoration-secondary-light hidden w-fit text-2xl font-semibold whitespace-nowrap underline decoration-4 underline-offset-8">{t('i18n.select-language')}:</h3>
       <ul class="pt-6 text-left">
-        {
-          Object.entries(themeConfig.i18n.languages).map(([languageCode, label]) => (
-            <li class="m-0 border-stone-300 px-4 py-5 not-first:border-t dark:border-stone-700">
-              {!languageAvailability.get(languageCode) || languageCode === locale ? (
-                <>
-                  <span class="cursor-not-allowed p-2 text-xl italic opacity-85">{label}</span>
-                  <span class="text-xs italic opacity-50">{languageCode === locale ? t('i18n.current-language') : t('i18n.noi18n')}</span>
-                </>
-              ) : (
-                <>
-                  <a href={languageUrls.find((url) => url.code === languageCode)?.url} data-astro-reload class="p-2 text-xl no-underline">
-                    {label}
-                  </a>
-                </>
-              )}
-            </li>
-          ))
-        }
+        {Object.entries(themeConfig.i18n.languages).map(([languageCode, label]) => (
+          <li class="m-0 border-stone-300 px-4 py-5 not-first:border-t dark:border-stone-700">
+            {!languageAvailability.get(languageCode) || languageCode === locale ? (
+              <>
+                <span class="cursor-not-allowed p-2 text-xl italic opacity-85">{label}</span>
+                <span class="text-xs italic opacity-50">{languageCode === locale ? t('i18n.current-language') : t('i18n.noi18n')}</span>
+              </>
+            ) : (
+              <>
+                <a href={languageUrls.find((url) => url.code === languageCode)?.url} data-astro-reload class="p-2 text-xl no-underline">
+                  {label}
+                </a>
+              </>
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   </div>

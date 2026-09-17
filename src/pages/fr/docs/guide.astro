@@ -88,23 +88,57 @@ ${fence}`;
         </p>
 
         <FieldList class="my-4" title="Options du frontmatter">
-          <Field name="title" type="string" badge="obligatoire" badgeTone="neutral">Le titre de l'article.</Field>
-          <Field name="publishDate" type="date" badge="obligatoire" badgeTone="neutral">La date de publication, utilisée pour le tri et l'affichage.</Field>
-          <Field name="updateDate" type="date">Une date optionnelle de « dernière mise à jour ».</Field>
-          <Field name="excerpt" type="string">Un court teaser utilisé dans les listes et les aperçus.</Field>
-          <Field name="draft" type="boolean" badge="spécial">Garde l'article hors des builds de production pendant que vous travaillez dessus.</Field>
-          <Field name="featured" type="boolean" badge="spécial">Met l'article en avant partout où les articles à la une sont affichés.</Field>
-          <Field name="llmsTxt" type="boolean" badge="spécial">Inclut l'article dans le <code>llms.txt</code> généré (lorsque <code>addArticles</code> vaut <code>selected</code> dans la configuration du thème).</Field>
-          <Field name="externalCanonical" type="string" badge="SEO">Pointe l'URL canonique ailleurs - idéal pour le contenu republié.</Field>
-          <Field name="slug" type="string">Un slug personnalisé plus propre. Incluez le code de langue, p. ex. <code>fr/mon-article</code>.</Field>
-          <Field name="i18nSlug" type="object">Nécessaire uniquement quand le <strong>nom de fichier diffère selon la langue</strong>. Associez chaque langue à son slug, p. ex. <code>{`{ de: "de/mein-post", en: "en/my-post" }`}</code>.</Field>
-          <Field name="image.file" type="chemin" badgeTone="secondary" badge="locale">Une image principale locale, optimisée au build. Référencez-la via l'alias <code>@images/…</code>, p. ex. <code>@images/content/articles/webmcp.jpg</code> (recommandé).</Field>
-          <Field name="image.url" type="string" badgeTone="secondary" badge="externe">Une URL d'image principale externe comme alternative au fichier local.</Field>
-          <Field name="image.alt" type="string">Texte alternatif pour l'image principale.</Field>
-          <Field name="tags" type="string[]">Des tags pour le filtrage et le contenu associé.</Field>
-          <Field name="categories" type="string[]">Les catégories auxquelles l'article appartient.</Field>
-          <Field name="author" type="object">Auteur avec <code>name</code> et <code>url</code> optionnelle.</Field>
-          <Field name="tocDepth" type="number">Combien de niveaux de titres la table des matières inclut.</Field>
+          <Field name="title" type="string" badge="obligatoire" badgeTone="neutral">
+            Le titre de l'article.
+          </Field>
+          <Field name="publishDate" type="date" badge="obligatoire" badgeTone="neutral">
+            La date de publication, utilisée pour le tri et l'affichage.
+          </Field>
+          <Field name="updateDate" type="date">
+            Une date optionnelle de « dernière mise à jour ».
+          </Field>
+          <Field name="excerpt" type="string">
+            Un court teaser utilisé dans les listes et les aperçus.
+          </Field>
+          <Field name="draft" type="boolean" badge="spécial">
+            Garde l'article hors des builds de production pendant que vous travaillez dessus.
+          </Field>
+          <Field name="featured" type="boolean" badge="spécial">
+            Met l'article en avant partout où les articles à la une sont affichés.
+          </Field>
+          <Field name="llmsTxt" type="boolean" badge="spécial">
+            Inclut l'article dans le <code>llms.txt</code> généré (lorsque <code>addArticles</code> vaut <code>selected</code> dans la configuration du thème).
+          </Field>
+          <Field name="externalCanonical" type="string" badge="SEO">
+            Pointe l'URL canonique ailleurs - idéal pour le contenu republié.
+          </Field>
+          <Field name="slug" type="string">
+            Un slug personnalisé plus propre. Incluez le code de langue, p. ex. <code>fr/mon-article</code>.
+          </Field>
+          <Field name="i18nSlug" type="object">
+            Nécessaire uniquement quand le <strong>nom de fichier diffère selon la langue</strong>. Associez chaque langue à son slug, p. ex. <code>{`{ de: "de/mein-post", en: "en/my-post" }`}</code>.
+          </Field>
+          <Field name="image.file" type="chemin" badgeTone="secondary" badge="locale">
+            Une image principale locale, optimisée au build. Référencez-la via l'alias <code>@images/…</code>, p. ex. <code>@images/content/articles/webmcp.jpg</code> (recommandé).
+          </Field>
+          <Field name="image.url" type="string" badgeTone="secondary" badge="externe">
+            Une URL d'image principale externe comme alternative au fichier local.
+          </Field>
+          <Field name="image.alt" type="string">
+            Texte alternatif pour l'image principale.
+          </Field>
+          <Field name="tags" type="string[]">
+            Des tags pour le filtrage et le contenu associé.
+          </Field>
+          <Field name="categories" type="string[]">
+            Les catégories auxquelles l'article appartient.
+          </Field>
+          <Field name="author" type="object">
+            Auteur avec <code>name</code> et <code>url</code> optionnelle.
+          </Field>
+          <Field name="tocDepth" type="number">
+            Combien de niveaux de titres la table des matières inclut.
+          </Field>
         </FieldList>
 
         <Code code={blogFrontmatter} lang="md" title="src/content/articles/fr/webmcp-change-la-donne.md" />
@@ -113,14 +147,26 @@ ${fence}`;
           <p>Comme les articles ne sont que des fichiers, un autre système peut faire un commit de Markdown dans votre dépôt - chaque push déclenche un nouveau build.</p>
         </Callout>
         <Callout variant="note" title="Option CMS headless" class="mt-3">
-          <p>Vous <em>pouvez</em> récupérer les articles dynamiquement depuis un CMS headless comme <a href="https://directus.io/" class="external-link" target="_blank" rel="noopener">Directus</a> ou <a href="https://strapi.io/" class="external-link" target="_blank" rel="noopener">Strapi</a>, mais cela demande des ajustements plus importants de la couche de contenu.</p>
+          <p>
+            Vous <em>pouvez</em> récupérer les articles dynamiquement depuis un CMS headless comme{' '}
+            <a href="https://directus.io/" class="external-link" target="_blank" rel="noopener">
+              Directus
+            </a>{' '}
+            ou{' '}
+            <a href="https://strapi.io/" class="external-link" target="_blank" rel="noopener">
+              Strapi
+            </a>
+            , mais cela demande des ajustements plus importants de la couche de contenu.
+          </p>
         </Callout>
         <Callout variant="tip" title="Intégrer des vidéos YouTube" class="mt-3">
           <p>
-            Collez une URL YouTube sur sa propre ligne dans le corps Markdown et Stardrive la convertit en un intégration responsive respectueuse de la vie privée (sans cookies). Les liens <code>youtube.com/watch?v=…</code> et <code>youtu.be/…</code> sont pris en charge, et les paramètres optionnels <code>t</code>, <code>list</code> et <code>title</code> sont transmis. La langue du visiteur est automatiquement
-            utilisée pour la langue des sous-titres (<code>cc_lang_pref</code>).
+            Collez une URL YouTube sur sa propre ligne dans le corps Markdown et Stardrive la convertit en un intégration responsive respectueuse de la vie privée (sans cookies). Les liens <code>youtube.com/watch?v=…</code> et <code>youtu.be/…</code> sont pris en charge, et les paramètres optionnels <code>t</code>, <code>list</code> et <code>title</code> sont transmis. La langue du visiteur est
+            automatiquement utilisée pour la langue des sous-titres (<code>cc_lang_pref</code>).
           </p>
-          <p>Écrivez l'URL <strong>sans</strong> le préfixe <code>https://www</code> - une URL complète (p. ex. <code>https://www.youtube.com/watch?v=…</code>) est traitée comme un lien externe normal au lieu d'une intégration.</p>
+          <p>
+            Écrivez l'URL <strong>sans</strong> le préfixe <code>https://www</code> - une URL complète (p. ex. <code>https://www.youtube.com/watch?v=…</code>) est traitée comme un lien externe normal au lieu d'une intégration.
+          </p>
         </Callout>
       </Topic>
 
@@ -131,12 +177,24 @@ ${fence}`;
         </p>
 
         <FieldList class="my-4" title="Options du frontmatter">
-          <Field name="question" type="string" badge="obligatoire" badgeTone="neutral">Le texte de la question affiché dans l'accordéon.</Field>
-          <Field name="category" type="string">Regroupe l'entrée pour pouvoir la filtrer sur la page FAQ.</Field>
-          <Field name="publishDate" type="date">Une date de publication optionnelle.</Field>
-          <Field name="updateDate" type="date">Une date optionnelle de « dernière mise à jour ».</Field>
-          <Field name="draft" type="boolean" badge="spécial">Masque l'entrée dans les builds de production.</Field>
-          <Field name="llmsTxt" type="boolean" badge="spécial">Inclut l'entrée dans le <code>llms.txt</code> généré.</Field>
+          <Field name="question" type="string" badge="obligatoire" badgeTone="neutral">
+            Le texte de la question affiché dans l'accordéon.
+          </Field>
+          <Field name="category" type="string">
+            Regroupe l'entrée pour pouvoir la filtrer sur la page FAQ.
+          </Field>
+          <Field name="publishDate" type="date">
+            Une date de publication optionnelle.
+          </Field>
+          <Field name="updateDate" type="date">
+            Une date optionnelle de « dernière mise à jour ».
+          </Field>
+          <Field name="draft" type="boolean" badge="spécial">
+            Masque l'entrée dans les builds de production.
+          </Field>
+          <Field name="llmsTxt" type="boolean" badge="spécial">
+            Inclut l'entrée dans le <code>llms.txt</code> généré.
+          </Field>
         </FieldList>
 
         <Code code={faqFrontmatter} lang="md" title="src/content/faq-answers/fr/self-hosting.md" />
@@ -154,19 +212,45 @@ ${fence}`;
         </p>
 
         <FieldList class="my-4" title="Options du frontmatter">
-          <Field name="type" type="string" badge="obligatoire" badgeTone="neutral">La catégorie à laquelle le service appartient - aussi utilisée pour le routage, p. ex. <code>native</code>, <code>zapier</code>, <code>make</code>.</Field>
-          <Field name="service" type="string" badge="obligatoire" badgeTone="neutral">Le nom du service, p. ex. <code>Google Sheets</code>.</Field>
-          <Field name="title" type="string" badge="obligatoire" badgeTone="neutral">Le titre de l'intégration.</Field>
-          <Field name="description" type="string">Une brève description de l'intégration.</Field>
-          <Field name="url" type="string">Lien vers les détails ou la page de configuration de l'intégration.</Field>
-          <Field name="publishDate" type="date">Une date de publication optionnelle.</Field>
-          <Field name="updateDate" type="date">Une date optionnelle de « dernière mise à jour ».</Field>
-          <Field name="draft" type="boolean" badge="spécial">Masque l'entrée dans les builds de production.</Field>
-          <Field name="slug" type="string">Un slug personnalisé plus propre. Incluez le code de langue, p. ex. <code>fr/google-sheets</code>.</Field>
-          <Field name="i18nSlug" type="object">Nécessaire uniquement quand le <strong>nom de fichier diffère selon la langue</strong>, p. ex. <code>{`{ de: "de/…", en: "en/…" }`}</code>.</Field>
-          <Field name="logo.file" type="chemin">Le logo du service via l'alias <code>@images/…</code> (utilisez un SVG comme fichier compatible avec les composants).</Field>
-          <Field name="logo.url" type="string">Une URL de logo externe comme alternative au fichier local.</Field>
-          <Field name="logo.alt" type="string">Texte alternatif pour le logo.</Field>
+          <Field name="type" type="string" badge="obligatoire" badgeTone="neutral">
+            La catégorie à laquelle le service appartient - aussi utilisée pour le routage, p. ex. <code>native</code>, <code>zapier</code>, <code>make</code>.
+          </Field>
+          <Field name="service" type="string" badge="obligatoire" badgeTone="neutral">
+            Le nom du service, p. ex. <code>Google Sheets</code>.
+          </Field>
+          <Field name="title" type="string" badge="obligatoire" badgeTone="neutral">
+            Le titre de l'intégration.
+          </Field>
+          <Field name="description" type="string">
+            Une brève description de l'intégration.
+          </Field>
+          <Field name="url" type="string">
+            Lien vers les détails ou la page de configuration de l'intégration.
+          </Field>
+          <Field name="publishDate" type="date">
+            Une date de publication optionnelle.
+          </Field>
+          <Field name="updateDate" type="date">
+            Une date optionnelle de « dernière mise à jour ».
+          </Field>
+          <Field name="draft" type="boolean" badge="spécial">
+            Masque l'entrée dans les builds de production.
+          </Field>
+          <Field name="slug" type="string">
+            Un slug personnalisé plus propre. Incluez le code de langue, p. ex. <code>fr/google-sheets</code>.
+          </Field>
+          <Field name="i18nSlug" type="object">
+            Nécessaire uniquement quand le <strong>nom de fichier diffère selon la langue</strong>, p. ex. <code>{`{ de: "de/…", en: "en/…" }`}</code>.
+          </Field>
+          <Field name="logo.file" type="chemin">
+            Le logo du service via l'alias <code>@images/…</code> (utilisez un SVG comme fichier compatible avec les composants).
+          </Field>
+          <Field name="logo.url" type="string">
+            Une URL de logo externe comme alternative au fichier local.
+          </Field>
+          <Field name="logo.alt" type="string">
+            Texte alternatif pour le logo.
+          </Field>
         </FieldList>
 
         <Code code={integrationFrontmatter} lang="md" title="src/content/integration-options/fr/google-sheets.md" />
@@ -200,7 +284,15 @@ ${fence}`;
         </div>
         <Callout variant="recommend" title="Récupérer les tarifs dynamiquement">
           <p>
-            Nous recommandons de récupérer ces données depuis un backend qui dialogue avec un fournisseur comme <a href="https://stripe.com/" class="external-link" target="_blank" rel="noopener">Stripe</a> ou <a href="https://www.paddle.com/" class="external-link" target="_blank" rel="noopener">Paddle</a>. Ainsi, les taxes peuvent être affichées dynamiquement selon la localisation du visiteur.
+            Nous recommandons de récupérer ces données depuis un backend qui dialogue avec un fournisseur comme{' '}
+            <a href="https://stripe.com/" class="external-link" target="_blank" rel="noopener">
+              Stripe
+            </a>{' '}
+            ou{' '}
+            <a href="https://www.paddle.com/" class="external-link" target="_blank" rel="noopener">
+              Paddle
+            </a>
+            . Ainsi, les taxes peuvent être affichées dynamiquement selon la localisation du visiteur.
           </p>
         </Callout>
       </Topic>
@@ -212,32 +304,73 @@ ${fence}`;
         </p>
 
         <FieldList class="my-4" title="Options du frontmatter">
-          <Field name="title" type="string" badge="obligatoire" badgeTone="neutral">Le titre de l'événement.</Field>
-          <Field name="publishDate" type="date" badge="obligatoire" badgeTone="neutral">La date de publication, utilisée pour le tri et l'affichage.</Field>
-          <Field name="startDate" type="date" badge="obligatoire" badgeTone="neutral">Quand l'événement commence.</Field>
-          <Field name="endDate" type="date" badge="obligatoire" badgeTone="neutral">Quand l'événement se termine.</Field>
-          <Field name="updateDate" type="date">Une date optionnelle de « dernière mise à jour ».</Field>
-          <Field name="description" type="string">Brève description pour l'événement partageable (utilisez le corps Markdown pour plus de détail).</Field>
-          <Field name="allDay" type="boolean">Marque l'événement comme durant toute la journée.</Field>
-          <Field name="timeZone" type="string">Un fuseau horaire IANA valide, p. ex. <code>Europe/Paris</code>.</Field>
-          <Field name="location" type="string">Où l'événement a lieu.</Field>
-          <Field name="organizer" type="object">Organisateur avec <code>name</code> et <code>email</code>.</Field>
-          <Field name="rrule" type="string">Une règle de récurrence, p. ex. <code>FREQ=WEEKLY;BYDAY=MO,WE,FR</code>.</Field>
-          <Field name="icsFile" type="string">Pointez vers un fichier <code>.ics</code> statique au lieu d'en générer un dynamiquement.</Field>
-          <Field name="slug" type="string">Un slug personnalisé plus propre. Incluez le code de langue, p. ex. <code>fr/mon-evenement</code>.</Field>
-          <Field name="i18nSlug" type="object">Nécessaire uniquement quand le <strong>nom de fichier diffère selon la langue</strong>, p. ex. <code>{`{ de: "de/…", en: "en/…" }`}</code>.</Field>
-          <Field name="draft" type="boolean" badge="spécial">Garde l'événement hors des builds de production pendant que vous travaillez dessus.</Field>
-          <Field name="llmsTxt" type="boolean" badge="spécial">Inclut l'événement dans le <code>llms.txt</code> généré.</Field>
-          <Field name="image.file" type="chemin" badgeTone="secondary" badge="locale">Une image locale, optimisée au build, via l'alias <code>@images/…</code>.</Field>
-          <Field name="image.url" type="string" badgeTone="secondary" badge="externe">Une URL d'image externe comme alternative au fichier local.</Field>
-          <Field name="image.alt" type="string">Texte alternatif pour l'image.</Field>
+          <Field name="title" type="string" badge="obligatoire" badgeTone="neutral">
+            Le titre de l'événement.
+          </Field>
+          <Field name="publishDate" type="date" badge="obligatoire" badgeTone="neutral">
+            La date de publication, utilisée pour le tri et l'affichage.
+          </Field>
+          <Field name="startDate" type="date" badge="obligatoire" badgeTone="neutral">
+            Quand l'événement commence.
+          </Field>
+          <Field name="endDate" type="date" badge="obligatoire" badgeTone="neutral">
+            Quand l'événement se termine.
+          </Field>
+          <Field name="updateDate" type="date">
+            Une date optionnelle de « dernière mise à jour ».
+          </Field>
+          <Field name="description" type="string">
+            Brève description pour l'événement partageable (utilisez le corps Markdown pour plus de détail).
+          </Field>
+          <Field name="allDay" type="boolean">
+            Marque l'événement comme durant toute la journée.
+          </Field>
+          <Field name="timeZone" type="string">
+            Un fuseau horaire IANA valide, p. ex. <code>Europe/Paris</code>.
+          </Field>
+          <Field name="location" type="string">
+            Où l'événement a lieu.
+          </Field>
+          <Field name="organizer" type="object">
+            Organisateur avec <code>name</code> et <code>email</code>.
+          </Field>
+          <Field name="rrule" type="string">
+            Une règle de récurrence, p. ex. <code>FREQ=WEEKLY;BYDAY=MO,WE,FR</code>.
+          </Field>
+          <Field name="icsFile" type="string">
+            Pointez vers un fichier <code>.ics</code> statique au lieu d'en générer un dynamiquement.
+          </Field>
+          <Field name="slug" type="string">
+            Un slug personnalisé plus propre. Incluez le code de langue, p. ex. <code>fr/mon-evenement</code>.
+          </Field>
+          <Field name="i18nSlug" type="object">
+            Nécessaire uniquement quand le <strong>nom de fichier diffère selon la langue</strong>, p. ex. <code>{`{ de: "de/…", en: "en/…" }`}</code>.
+          </Field>
+          <Field name="draft" type="boolean" badge="spécial">
+            Garde l'événement hors des builds de production pendant que vous travaillez dessus.
+          </Field>
+          <Field name="llmsTxt" type="boolean" badge="spécial">
+            Inclut l'événement dans le <code>llms.txt</code> généré.
+          </Field>
+          <Field name="image.file" type="chemin" badgeTone="secondary" badge="locale">
+            Une image locale, optimisée au build, via l'alias <code>@images/…</code>.
+          </Field>
+          <Field name="image.url" type="string" badgeTone="secondary" badge="externe">
+            Une URL d'image externe comme alternative au fichier local.
+          </Field>
+          <Field name="image.alt" type="string">
+            Texte alternatif pour l'image.
+          </Field>
         </FieldList>
 
         <Code code={eventFrontmatter} lang="md" title="src/content/events/fr/ai-webinar.md" />
 
         <Callout variant="recommend" title="Reflétez depuis Add to Calendar PRO" class="mt-4">
           <p>
-            Alternativement, connectez <a href="https://add-to-calendar-pro.com/" class="external-link" target="_blank" rel="noopener">Add to Calendar PRO</a>
+            Alternativement, connectez{' '}
+            <a href="https://add-to-calendar-pro.com/" class="external-link" target="_blank" rel="noopener">
+              Add to Calendar PRO
+            </a>
             avec un filtre sur un groupe d'événements précis. Les événements sont alors reflétés dynamiquement dans la page - l'équipe marketing peut effectuer des changements dans l'application web <strong>sans aucun redéploiement</strong>.
           </p>
           <p>Parfait pour les webinaires, les événements d'entreprise et les calendriers de relations investisseurs.</p>

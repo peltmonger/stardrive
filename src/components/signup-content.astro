@@ -29,19 +29,17 @@ const options = [
   <p class="mb-10 text-lg text-stone-600 dark:text-stone-300">{t('pages.signup.intro')}</p>
 
   <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-3">
-    {
-      options.map((option) => (
-        <li class="m-0">
-          <div class="flex h-full flex-col gap-3 rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
-            <span class="bg-primary/15 text-primary dark:bg-primary-darker dark:text-primary-light flex h-11 w-11 items-center justify-center rounded-lg">
-              <Icon name={option.icon} class="h-6 w-6" aria-hidden="true" />
-            </span>
-            <h2 class="text-lg font-bold">{t(option.title)}</h2>
-            <p class="text-sm text-stone-600 dark:text-stone-300">{t(option.text)}</p>
-          </div>
-        </li>
-      ))
-    }
+    {options.map((option) => (
+      <li class="m-0">
+        <div class="flex h-full flex-col gap-3 rounded-lg border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+          <span class="bg-primary/15 text-primary dark:bg-primary-darker dark:text-primary-light flex h-11 w-11 items-center justify-center rounded-lg">
+            <Icon name={option.icon} class="h-6 w-6" aria-hidden="true" />
+          </span>
+          <h2 class="text-lg font-bold">{t(option.title)}</h2>
+          <p class="text-sm text-stone-600 dark:text-stone-300">{t(option.text)}</p>
+        </div>
+      </li>
+    ))}
   </ul>
 
   <div class="mt-10 flex items-start gap-3 rounded-lg border border-amber-400/50 bg-amber-100/60 p-4 dark:border-amber-500/40 dark:bg-amber-950/40" role="note">

@@ -139,8 +139,7 @@ const payload = hasAnyTool ? { blog, faq, labels } : null;
 
 <div data-has-tools={`${hasAnyTool}`} class="hidden"></div>
 
-<script type="application/json" id="webmcp-data" is:inline set:html={toSafeJsonScript(payload)} />
-
+<script type="application/json" id="webmcp-data" is:inline set:html={toSafeJsonScript(payload)}></script>
 <script>
   interface TaggedItem {
     id: string;

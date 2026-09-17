@@ -23,7 +23,8 @@ const t = useTranslations(locale);
       <div class="flex flex-col gap-3">
         <h3 class="text-lg font-semibold">{t('pages.contact.docs-heading')}</h3>
         <p>
-          {t('pages.contact.docs-text')}<br />
+          {t('pages.contact.docs-text')}
+          <br />
           <a href={getLocaleUrl('docs', locale)} class="flex items-center gap-1 self-start hover:gap-2">
             <span>{t('pages.contact.docs-cta')}</span>
             <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
@@ -37,9 +38,12 @@ const t = useTranslations(locale);
       <div class="flex flex-col gap-1 text-stone-600 dark:text-stone-300">
         <h3 class="text-lg font-semibold">{t('pages.contact.address-heading')}</h3>
         <address class="pt-1 text-sm not-italic">
-          <strong>ACME Inc.</strong><br />
-          Beta-Str. 10a<br />
-          85774 Unterf&ouml;hring<br />
+          <strong>ACME Inc.</strong>
+          <br />
+          Beta-Str. 10a
+          <br />
+          85774 Unterf&ouml;hring
+          <br />
           Germany
         </address>
         <ContactMap {locale} />

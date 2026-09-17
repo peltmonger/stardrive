@@ -44,50 +44,44 @@ const paginationItems = generatePaginationItems(page);
 <nav aria-label={t('labels.pagination')} class={classOverride}>
   <ul class="mx-auto flex w-fit items-center justify-center drop-shadow select-none hover:drop-shadow-lg">
     <li>
-      {
-        page.url.prev ? (
-          <a href={page.url.prev} aria-label={t('labels.prev')} class="hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-s-lg border border-stone-400 bg-stone-200 px-6 hover:z-20 md:px-3 dark:bg-stone-800">
-            <Icon name="heroicons:chevron-left" class="h-5 w-5" />
-          </a>
-        ) : (
-          <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-s-lg border border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
-            <Icon name="heroicons:chevron-left" class="h-5 w-5" />
-          </div>
-        )
-      }
+      {page.url.prev ? (
+        <a href={page.url.prev} aria-label={t('labels.prev')} class="hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-s-lg border border-stone-400 bg-stone-200 px-6 hover:z-20 md:px-3 dark:bg-stone-800">
+          <Icon name="heroicons:chevron-left" class="h-5 w-5" />
+        </a>
+      ) : (
+        <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-s-lg border border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
+          <Icon name="heroicons:chevron-left" class="h-5 w-5" />
+        </div>
+      )}
     </li>
-    {
-      paginationItems.map(async (pageNum, index, array) => (
-        <>
-          <li class="mt-0 ml-[-2px] hidden md:block">
-            <a
-              href={pageNum === 1 ? getLocaleUrl('/' + baseUrl, locale) : getLocaleUrl(`/${baseUrl}/${pageNum}`, locale)}
-              aria-label={t('labels.page')}
-              class:list={[pageNum === page.currentPage ? 'border-primary text-primary z-20' : 'hover:border-primary border-stone-400', 'hover:text-primary-contrast hover:bg-primary relative flex h-10 w-fit items-center justify-center border bg-stone-200 px-4 font-semibold no-underline hover:z-20 dark:bg-stone-800']}
-            >
-              {pageNum}
-            </a>
-          </li>
-          {array[index + 1] && array[index + 1] - pageNum > 1 && (
-            <li class="mt-0 ml-[-2px] hidden md:block">
-              <span class="relative flex h-10 w-fit items-center justify-center border border-stone-400 bg-stone-200 px-4 dark:bg-stone-800">...</span>
-            </li>
-          )}
-        </>
-      ))
-    }
-    <li class="mt-0 ml-[-2px]">
-      {
-        page.url.next ? (
-          <a href={page.url.next} aria-label={t('labels.next')} class="hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-e-lg border border-stone-400 bg-stone-200 px-6 hover:z-20 md:px-3 dark:bg-stone-800">
-            <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+    {paginationItems.map(async (pageNum, index, array) => (
+      <>
+        <li class="mt-0 ml-[-2px] hidden md:block">
+          <a
+            href={pageNum === 1 ? getLocaleUrl('/' + baseUrl, locale) : getLocaleUrl(`/${baseUrl}/${pageNum}`, locale)}
+            aria-label={t('labels.page')}
+            class:list={[pageNum === page.currentPage ? 'border-primary text-primary z-20' : 'hover:border-primary border-stone-400', 'hover:text-primary-contrast hover:bg-primary relative flex h-10 w-fit items-center justify-center border bg-stone-200 px-4 font-semibold no-underline hover:z-20 dark:bg-stone-800']}
+          >
+            {pageNum}
           </a>
-        ) : (
-          <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-e-lg border border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
-            <Icon name="heroicons:chevron-right" class="h-5 w-5" />
-          </div>
-        )
-      }
+        </li>
+        {array[index + 1] && array[index + 1] - pageNum > 1 && (
+          <li class="mt-0 ml-[-2px] hidden md:block">
+            <span class="relative flex h-10 w-fit items-center justify-center border border-stone-400 bg-stone-200 px-4 dark:bg-stone-800">...</span>
+          </li>
+        )}
+      </>
+    ))}
+    <li class="mt-0 ml-[-2px]">
+      {page.url.next ? (
+        <a href={page.url.next} aria-label={t('labels.next')} class="hover:text-primary-contrast hover:border-primary hover:bg-primary relative flex h-10 w-fit items-center justify-center rounded-e-lg border border-stone-400 bg-stone-200 px-6 hover:z-20 md:px-3 dark:bg-stone-800">
+          <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+        </a>
+      ) : (
+        <div class="flex h-10 w-fit cursor-not-allowed items-center justify-center rounded-e-lg border border-stone-400 bg-stone-200 px-3 opacity-30 dark:bg-stone-800">
+          <Icon name="heroicons:chevron-right" class="h-5 w-5" />
+        </div>
+      )}
     </li>
   </ul>
 </nav>

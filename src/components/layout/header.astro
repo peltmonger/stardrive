@@ -45,37 +45,31 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
 
 {/* Close Icon: Always leads back to the home page */}
 
-{
-  isClose && (
-    <a href={getLocaleUrl('/', locale)} id="header-close" aria-label={t('labels.back')} class:list={['btn-subtle right-5 z-50 rounded-full', fixed ? 'absolute' : 'fixed', !fixed && hasTopBanner ? 'top-5 sm:top-14' : 'top-5']} data-top-banner-offset={hasTopBanner && !fixed ? 36 : undefined} data-top-banner-base={hasTopBanner && !fixed ? 20 : undefined}>
-      <Icon name="heroicons:x-mark" class="h-5 w-5 md:h-8 md:w-8" />
-    </a>
-  )
-}
+{isClose && (
+  <a href={getLocaleUrl('/', locale)} id="header-close" aria-label={t('labels.back')} class:list={['btn-subtle right-5 z-50 rounded-full', fixed ? 'absolute' : 'fixed', !fixed && hasTopBanner ? 'top-5 sm:top-14' : 'top-5']} data-top-banner-offset={hasTopBanner && !fixed ? 36 : undefined} data-top-banner-base={hasTopBanner && !fixed ? 20 : undefined}>
+    <Icon name="heroicons:x-mark" class="h-5 w-5 md:h-8 md:w-8" />
+  </a>
+)}
 
 {/* Fixed banner: full-width bar at the very top, not moving */}
 
-{
-  isFixedBanner && (
-    <header id="header" role="banner" class="text-text dark:text-text-dark relative z-50 w-full bg-white shadow dark:bg-stone-900">
-      <HeaderContent {locale} {button} shrink={false} {isHome} {ctaButton} {github} />
-    </header>
-  )
-}
+{isFixedBanner && (
+  <header id="header" role="banner" class="text-text dark:text-text-dark relative z-50 w-full bg-white shadow dark:bg-stone-900">
+    <HeaderContent {locale} {button} shrink={false} {isHome} {ctaButton} {github} />
+  </header>
+)}
 
 {/* CSS-fixed header: stays at top while scrolling */}
 {/* Placeholder preserves layout space */}
 
-{
-  isCssFixed && (
-    <>
-      <div id="header-placeholder" class="bg-background dark:bg-background-dark h-20" />
-      <header id="header" role="banner" class:list={['header-base-style fixed left-0 z-50', hasTopBanner ? 'top-0 sm:top-9' : 'top-0']} data-top-banner-offset={hasTopBanner ? 36 : undefined}>
-        <HeaderContent {locale} {button} {isHome} {ctaButton} {github} />
-      </header>
-    </>
-  )
-}
+{isCssFixed && (
+  <>
+    <div id="header-placeholder" class="bg-background dark:bg-background-dark h-20" />
+    <header id="header" role="banner" class:list={['header-base-style fixed left-0 z-50', hasTopBanner ? 'top-0 sm:top-9' : 'top-0']} data-top-banner-offset={hasTopBanner ? 36 : undefined}>
+      <HeaderContent {locale} {button} {isHome} {ctaButton} {github} />
+    </header>
+  </>
+)}
 
 <script>
   // Hide the CSS-fixed header once the footer covers more than 30% of the viewport.
@@ -191,13 +185,11 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
 {/* Overlay + !fixed: single header starts as overlay (absolute), */}
 {/* then transitions to a fixed scroll header when threshold is crossed */}
 
-{
-  isOverlayScroll && (
-    <header id="header" role="banner" class:list={['absolute top-0 left-0 z-50 w-full', !overlayTheme ? 'text-text dark:text-text-dark' : overlayTheme === 'light' ? 'text-text' : 'text-text-dark']} data-overlay-scroll data-overlay-theme={overlayTheme} data-scroll-threshold={scrollDownThreshold}>
-      <HeaderContent {locale} {button} {isHome} {ctaButton} {github} />
-    </header>
-  )
-}
+{isOverlayScroll && (
+  <header id="header" role="banner" class:list={['absolute top-0 left-0 z-50 w-full', !overlayTheme ? 'text-text dark:text-text-dark' : overlayTheme === 'light' ? 'text-text' : 'text-text-dark']} data-overlay-scroll data-overlay-theme={overlayTheme} data-scroll-threshold={scrollDownThreshold}>
+    <HeaderContent {locale} {button} {isHome} {ctaButton} {github} />
+  </header>
+)}
 
 <script>
   let _scrollHandler: (() => void) | null = null;

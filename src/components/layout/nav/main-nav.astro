@@ -31,39 +31,37 @@ const navLinks: NavItem[] = [
 
 <!-- Desktop nav -->
 <nav role="navigation" aria-label="Main" class="hidden items-center gap-6 text-sm lg:flex">
-  {
-    navLinks.map((item, i) =>
-      item.isParent ? (
-        <div class="relative" data-dropdown>
-          <button class="hover:text-primary focus-visible:text-primary outline-primary flex cursor-pointer items-center gap-1 rounded-lg font-semibold outline-offset-8 focus-visible:outline-2" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-dropdown-${i}`} tabindex={tabIndex} data-dropdown-trigger>
-            {item.label}
-            <Icon name="heroicons:chevron-down" class="h-4 w-4 transition-transform duration-200" />
-          </button>
-
-          <div id={`nav-dropdown-${i}`} role="menu" aria-label={`${item.label} submenu`} hidden class="absolute top-full left-1/2 z-50 mt-4 flex origin-top -translate-x-1/2 scale-75 overflow-hidden rounded-lg border border-stone-200 bg-white opacity-0 shadow-lg transition duration-150 ease-out motion-reduce:transition-none dark:border-stone-700 dark:bg-stone-800" data-dropdown-panel>
-            <ul role="none" class="min-w-72 p-3 text-left">
-              {item.children.map((child) => (
-                <li role="none" class="mx-0 my-1">
-                  <a href={child.href} role="menuitem" tabindex="-1" class="text-text dark:text-text-dark hover:text-primary dark:hover:text-primary-light flex gap-3 rounded px-4 py-3 whitespace-nowrap no-underline hover:bg-stone-100 dark:hover:bg-stone-700">
-                    {child.icon && <Icon name={child.icon} class="h-6 w-6 shrink-0" />}
-                    <span class="flex flex-col">
-                      <span class="text-base">{child.label}</span>
-                      {child.subline && <span class="whitespace-break-spaces text-stone-500 dark:text-stone-400">{child.subline}</span>}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {themeConfig.promotions?.navAd && <NavAd {locale} />}
-          </div>
-        </div>
-      ) : (
-        <a href={item.href} class="hover:text-primary no-underline" tabindex={tabIndex}>
+  {navLinks.map((item, i) =>
+    item.isParent ? (
+      <div class="relative" data-dropdown>
+        <button class="hover:text-primary focus-visible:text-primary outline-primary flex cursor-pointer items-center gap-1 rounded-lg font-semibold outline-offset-8 focus-visible:outline-2" aria-haspopup="true" aria-expanded="false" aria-controls={`nav-dropdown-${i}`} tabindex={tabIndex} data-dropdown-trigger>
           {item.label}
-        </a>
-      ),
-    )
-  }
+          <Icon name="heroicons:chevron-down" class="h-4 w-4 transition-transform duration-200" />
+        </button>
+
+        <div id={`nav-dropdown-${i}`} role="menu" aria-label={`${item.label} submenu`} hidden class="absolute top-full left-1/2 z-50 mt-4 flex origin-top -translate-x-1/2 scale-75 overflow-hidden rounded-lg border border-stone-200 bg-white opacity-0 shadow-lg transition duration-150 ease-out motion-reduce:transition-none dark:border-stone-700 dark:bg-stone-800" data-dropdown-panel>
+          <ul role="none" class="min-w-72 p-3 text-left">
+            {item.children.map((child) => (
+              <li role="none" class="mx-0 my-1">
+                <a href={child.href} role="menuitem" tabindex="-1" class="text-text dark:text-text-dark hover:text-primary dark:hover:text-primary-light flex gap-3 rounded px-4 py-3 whitespace-nowrap no-underline hover:bg-stone-100 dark:hover:bg-stone-700">
+                  {child.icon && <Icon name={child.icon} class="h-6 w-6 shrink-0" />}
+                  <span class="flex flex-col">
+                    <span class="text-base">{child.label}</span>
+                    {child.subline && <span class="whitespace-break-spaces text-stone-500 dark:text-stone-400">{child.subline}</span>}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          {themeConfig.promotions?.navAd && <NavAd {locale} />}
+        </div>
+      </div>
+    ) : (
+      <a href={item.href} class="hover:text-primary no-underline" tabindex={tabIndex}>
+        {item.label}
+      </a>
+    ),
+  )}
 </nav>
 
 <!-- Mobile trigger -->
@@ -79,30 +77,28 @@ const navLinks: NavItem[] = [
   <div class="h-full w-full overflow-y-auto">
     <div class="container mx-auto flex min-h-full w-full max-w-xs flex-col items-center justify-center py-8">
       <ul class="text-text dark:text-text-dark text-left text-2xl font-semibold">
-        {
-          navLinks.map((item) =>
-            item.isParent ? (
-              <Fragment>
-                <li class="m-0 border-stone-300 p-4 not-first:border-t dark:border-stone-700">
-                  <span class="font-semibold opacity-50">{item.label}</span>
-                </li>
-                {item.children.map((child) => (
-                  <li class="m-0 ml-7 border-t border-stone-300 p-3 dark:border-stone-700">
-                    <a href={child.href} class="text-xl no-underline">
-                      {child.label}
-                    </a>
-                  </li>
-                ))}
-              </Fragment>
-            ) : (
+        {navLinks.map((item) =>
+          item.isParent ? (
+            <Fragment>
               <li class="m-0 border-stone-300 p-4 not-first:border-t dark:border-stone-700">
-                <a href={item.href} class="no-underline">
-                  {item.label}
-                </a>
+                <span class="font-semibold opacity-50">{item.label}</span>
               </li>
-            ),
-          )
-        }
+              {item.children.map((child) => (
+                <li class="m-0 ml-7 border-t border-stone-300 p-3 dark:border-stone-700">
+                  <a href={child.href} class="text-xl no-underline">
+                    {child.label}
+                  </a>
+                </li>
+              ))}
+            </Fragment>
+          ) : (
+            <li class="m-0 border-stone-300 p-4 not-first:border-t dark:border-stone-700">
+              <a href={item.href} class="no-underline">
+                {item.label}
+              </a>
+            </li>
+          ),
+        )}
       </ul>
     </div>
   </div>

@@ -33,4 +33,6 @@ i18nUrls.push({
 });
 ---
 
-{i18nUrls.map((item) => <link rel="alternate" href={item.url} hreflang={item.lang} />)}
+{i18nUrls.map((item) => (
+  <link rel="alternate" href={item.url} hreflang={item.lang} />
+))}

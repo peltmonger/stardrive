@@ -15,28 +15,26 @@ const t = useTranslations(locale);
 ---
 
 <div class:list={[small ? 'gap-2' : 'gap-4', 'flex flex-wrap justify-center sm:justify-start']}>
-  {
-    entries && entries.length > 0 ? (
-      entries.map(async (entry) => (
-        <div>
-          <a href={getLocaleUrl(`blog/${type}/${entry?.toLowerCase().replace(/\s/g, '-')}`, locale)} class="group block no-underline hover:drop-shadow-lg">
-            <span
-              class:list={[
-                type === 'tags' ? 'rounded-full' : 'rounded-lg',
-                'ring-primary dark:text-text-dark text-text group-hover:text-primary-contrast group-hover:from-primary-light group-hover:to-primary flex items-center border border-stone-300 bg-linear-to-tr from-stone-300/50 to-stone-200 ring-offset-white outline-0 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 dark:border-stone-600 dark:from-stone-800 dark:to-stone-700 dark:ring-offset-black',
-              ]}
-            >
-              {type === 'categories' && <span class="group-hover:bg-secondary block h-auto w-3 self-stretch rounded-l-lg" style={'background-color: ' + stringToColor(entry)} />}
-              <span class:list={[small && type === 'tags' ? 'pl-4' : small && type === 'categories' && 'pl-3', small ? 'gap-2 py-1.5 pr-2' : 'gap-2 py-3 pr-4 pl-6 sm:gap-4 sm:pl-8', 'flex items-center']}>
-                <span class:list={[small && 'text-xs', 'font-semibold']}>{t(type + '-t.' + entry)}</span>
-                <Icon name="heroicons:arrow-right" class:list={[small ? 'h-3 group-hover:w-3' : 'h-5 group-hover:w-5', 'w-0 transition-all']} />
-              </span>
+  {entries && entries.length > 0 ? (
+    entries.map(async (entry) => (
+      <div>
+        <a href={getLocaleUrl(`blog/${type}/${entry?.toLowerCase().replace(/\s/g, '-')}`, locale)} class="group block no-underline hover:drop-shadow-lg">
+          <span
+            class:list={[
+              type === 'tags' ? 'rounded-full' : 'rounded-lg',
+              'ring-primary dark:text-text-dark text-text group-hover:text-primary-contrast group-hover:from-primary-light group-hover:to-primary flex items-center border border-stone-300 bg-linear-to-tr from-stone-300/50 to-stone-200 ring-offset-white outline-0 group-focus-visible:ring-2 group-focus-visible:ring-offset-2 dark:border-stone-600 dark:from-stone-800 dark:to-stone-700 dark:ring-offset-black',
+            ]}
+          >
+            {type === 'categories' && <span class="group-hover:bg-secondary block h-auto w-3 self-stretch rounded-l-lg" style={'background-color: ' + stringToColor(entry)} />}
+            <span class:list={[small && type === 'tags' ? 'pl-4' : small && type === 'categories' && 'pl-3', small ? 'gap-2 py-1.5 pr-2' : 'gap-2 py-3 pr-4 pl-6 sm:gap-4 sm:pl-8', 'flex items-center']}>
+              <span class:list={[small && 'text-xs', 'font-semibold']}>{t(type + '-t.' + entry)}</span>
+              <Icon name="heroicons:arrow-right" class:list={[small ? 'h-3 group-hover:w-3' : 'h-5 group-hover:w-5', 'w-0 transition-all']} />
             </span>
-          </a>
-        </div>
-      ))
-    ) : (
-      <div class="my-10 text-xl font-semibold italic">{t('labels.no-entries')}...</div>
-    )
-  }
+          </span>
+        </a>
+      </div>
+    ))
+  ) : (
+    <div class="my-10 text-xl font-semibold italic">{t('labels.no-entries')}...</div>
+  )}
 </div>

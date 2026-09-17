@@ -32,21 +32,19 @@ for (const entry of entries) {
   <Headline text={t('pages.integration.title')} class="pb-10" />
   <p class="mb-10 max-w-2xl text-lg text-stone-600 dark:text-stone-300">{t('pages.integration.intro')}</p>
   <div class="my-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-    {
-      types.map((type) => (
-        <a href={getLocaleUrl(`/integration/${type}/${firstItemByType.get(type)}`, locale)} class="group flex h-full rounded-lg no-underline drop-shadow hover:drop-shadow-xl">
-          <span class="text-text dark:text-text-dark from-primary-light to-primary-light/30 dark:from-primary-darker dark:to-primary-darker/50 hover:border-primary flex h-auto w-full grow flex-col justify-between rounded-lg border border-stone-400 bg-white px-5 py-4 text-sm font-normal no-underline hover:bg-linear-to-tr dark:border-stone-700 dark:bg-stone-900">
-            <span class="block">
-              <span class="xs:text-lg mb-4 block font-semibold text-balance">{t(`pages.integration-${type}.title`)}</span>
-              {t(`pages.integration-${type}.description`)}
-            </span>
-            <span class="dark:group-hover:text-primary-dark-contrast group-hover:text-primary-light-contrast mt-6 flex w-full justify-between pt-3 pr-1 group-hover:pr-0">
-              <span class="font-semibold">{t('labels.learn-more')}</span>
-              <Icon name="heroicons:arrow-right" class="h-5 w-5" />
-            </span>
+    {types.map((type) => (
+      <a href={getLocaleUrl(`/integration/${type}/${firstItemByType.get(type)}`, locale)} class="group flex h-full rounded-lg no-underline drop-shadow hover:drop-shadow-xl">
+        <span class="text-text dark:text-text-dark from-primary-light to-primary-light/30 dark:from-primary-darker dark:to-primary-darker/50 hover:border-primary flex h-auto w-full grow flex-col justify-between rounded-lg border border-stone-400 bg-white px-5 py-4 text-sm font-normal no-underline hover:bg-linear-to-tr dark:border-stone-700 dark:bg-stone-900">
+          <span class="block">
+            <span class="xs:text-lg mb-4 block font-semibold text-balance">{t(`pages.integration-${type}.title`)}</span>
+            {t(`pages.integration-${type}.description`)}
           </span>
-        </a>
-      ))
-    }
+          <span class="dark:group-hover:text-primary-dark-contrast group-hover:text-primary-light-contrast mt-6 flex w-full justify-between pt-3 pr-1 group-hover:pr-0">
+            <span class="font-semibold">{t('labels.learn-more')}</span>
+            <Icon name="heroicons:arrow-right" class="h-5 w-5" />
+          </span>
+        </span>
+      </a>
+    ))}
   </div>
 </Layout>
