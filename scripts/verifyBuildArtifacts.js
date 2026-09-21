@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const clientDir = resolve('dist/client');
@@ -12,6 +12,11 @@ assert.match(llms, /^## Pages$/m, 'llms.txt must contain a pages section');
 const sitemap = readArtifact('sitemap-index.xml');
 assert.match(sitemap, /<sitemapindex\b/, 'sitemap-index.xml must contain a sitemap index');
 assert.match(sitemap, /<loc>https?:\/\//, 'sitemap-index.xml must contain at least one URL');
+
+const generatedSitemaps = readdirSync(clientDir).filter((path) => /^sitemap-\d+\.xml$/.test(path));
+for (const path of generatedSitemaps) {
+  assert.doesNotMatch(readArtifact(path), /<loc>[^<]*\/404(?:_dynamic)?<\/loc>/, `${path} must not expose 404 routes`);
+}
 
 const robots = readArtifact('robots.txt');
 assert.match(robots, /^User-agent: \*$/m, 'robots.txt must define a crawler policy');

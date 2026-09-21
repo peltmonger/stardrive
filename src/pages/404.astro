@@ -1,20 +1,9 @@
 ---
-import Layout from "@layouts/default.astro";
-import Headline from "@components/headline.astro";
-import { useTranslations } from "@utils/i18n";
+import NotFound from '@components/error/not-found.astro';
 import { themeConfig } from '~/theme.config';
 
 const defaultLocale = themeConfig.i18n.defaultLocale;
-// parse locale from path (if there is a 2-letter language code in the path, e.g. /de/xyz, then use that as the locale, otherwise use the default locale)
-const url = new URL(Astro.request.url);
-const pathParts = url.pathname.split('/').filter(Boolean);
-const localeFromPath = pathParts.length > 0 && themeConfig.i18n.locales.includes(pathParts[0]) ? pathParts[0] : null;
-const locale = Astro.props.locale || localeFromPath || defaultLocale;
-const t = useTranslations(locale);
+const localized404Paths = Object.fromEntries(themeConfig.i18n.locales.filter((locale) => locale !== defaultLocale).map((locale) => [locale, `/${locale}/404`]));
 ---
 
-<Layout title={t('pages.404.title')} isError {locale} header={{ closeIcon: true, showTopBanner: false }} showFooterBanner={false}>
-  <Headline text={t('pages.404.title')} class="mt-20" />
-
-  <div class="container mb-20 min-h-48 pt-8 font-semibold whitespace-pre-wrap">{t('pages.404.message')}</div>
-</Layout>
+<NotFound locale={defaultLocale} {localized404Paths} />

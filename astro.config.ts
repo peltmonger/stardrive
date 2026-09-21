@@ -19,6 +19,8 @@ export const sitemap_i18n = {
   locales: themeConfig.i18n.locales.reduce((acc, lang) => ({ ...acc, [lang]: lang }), {}),
 };
 
+const sitemapExcludedPaths = new Set(['/404', '/404_dynamic', ...themeConfig.i18n.locales.map((locale) => `/${locale}/404`)]);
+
 // Shared SVGO config used by the experimental svgOptimizer, astro-icon, and astro-compress.
 const svgoConfig: Config = {
   multipass: true,
@@ -156,6 +158,7 @@ export default defineConfig({
     sitemap({
       xslURL: '/sitemap.xsl',
       i18n: sitemap_i18n,
+      filter: (page) => !sitemapExcludedPaths.has(new URL(page).pathname),
       customPages: getOnDemandSitemapPages(),
       customSitemaps: themeConfig.events?.dynamicEvents?.pullFromAddToCalendarPro ? [themeConfig.site.replace(/\/+$/, '') + '/dynamic-events-sitemap.xml'] : [],
     }),
