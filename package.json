@@ -1,7 +1,7 @@
 {
   "name": "stardrive",
-  "version": "1.5.14",
-  "stardriveVersion": "1.5.14",
+  "version": "1.5.15",
+  "stardriveVersion": "1.5.15",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
@@ -61,6 +61,7 @@
   },
   "homepage": "https://astro-stardrive.com/",
   "dependencies": {
+    "@astrojs/cloudflare": "^14.3.3",
     "@astrojs/cloudflare": "^14.3.3",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
