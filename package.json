@@ -62,7 +62,6 @@
   "homepage": "https://astro-stardrive.com/",
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
-    "@astrojs/cloudflare": "^14.3.3",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/geist": "^5.3.0",
