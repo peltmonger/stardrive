@@ -57,9 +57,18 @@ Quick reference:
 
 Validate whether you are connected to the Astro Docs MCP server (https://mcp.docs.astro.build/mcp).
 If not, connect to it, or ask the user to add the config, if you are not allowed to do it directly.
-See https://docs.astro.build/de/guides/build-with-ai/#installation for guidance.
 
 This project is either the Astro Stardrive boilerplate or based on it. If you are in "project" mode, you can find up-to-date information about the foundational boilerplate at its [official repo](https://github.com/peltmonger/stardrive).
+
+For Astro specific docs, find the full documentation at https://docs.astro.build
+
+Consult these guides before working on related tasks:
+
+- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
+- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
+- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
+- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
+- [Adding styles or using Tailwind (Tailwind is preferred)](https://docs.astro.build/en/guides/styling/)
 
 ## Further tech stack
 
