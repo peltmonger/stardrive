@@ -1,11 +1,11 @@
 {
   "name": "stardrive",
-  "version": "1.7.0",
-  "stardriveVersion": "1.7.0",
+  "version": "1.7.1",
+  "stardriveVersion": "1.7.1",
   "private": true,
   "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
   "engines": {
-    "node": ">=22.22.3"
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
   },
   "scripts": {
     "dev": "astro dev",
@@ -67,7 +67,7 @@
     "@fontsource/geist": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "add-to-calendar-button": "^3.4.1",
-    "astro": "^7.4.0",
+    "astro": "^7.4.2",
     "astro-expressive-code": "^0.44.2",
     "astro-icon": "^1.2.0",
     "leaflet": "^1.9.4",
