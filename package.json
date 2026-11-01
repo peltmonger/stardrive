@@ -86,7 +86,7 @@
     "@expressive-code/plugin-line-numbers": "^0.44.2",
     "@iconify-json/fa7-brands": "^1.2.4",
     "@iconify-json/heroicons": "^1.2.3",
-    "@iconify-json/simple-icons": "^1.2.100",
+    "@iconify-json/simple-icons": "^1.2.101",
     "@iconify-json/thesvg": "^1.2.10",
     "@types/leaflet": "^1.9.22",
     "@types/sanitize-html": "^2.16.2",
