@@ -107,8 +107,9 @@ export default defineConfig({
         name: 'neutralize-create-require-for-workerd',
         enforce: 'post',
         apply: 'build',
-        renderChunk(code) {
-          if (!code.includes('createRequire(import.meta.url)')) return null;
+        transform(code, id) {
+          const moduleId = id.split('?', 1)[0]?.replaceAll('\\', '/');
+          if (!moduleId?.endsWith('/fdir/dist/index.mjs') || !code.includes('createRequire(import.meta.url)')) return null;
           return {
             code: code.replaceAll('createRequire(import.meta.url)', '() => ({ resolve: () => { throw new Error("no require"); }, })'),
             map: null,
