@@ -7,12 +7,10 @@ const httpUrl = z.url().refine((value) => ['http:', 'https:'].includes(new URL(v
   message: 'Must be an http or https URL',
 });
 
-// Collections marked as on-demand in `themeConfig.onDemandRenderedCollections` are
-// assumed to be large — that is the only reason to opt out of prerendering. For
-// those, we also enable `deferRender` so the glob loader skips
-// eager rendering during sync and renders entries on demand instead. This
-// trades cached render output for lower memory usage during sync, which is the
-// right trade for large collections. See https://astro.build/blog/astro-710/
+// Most collections rendered on demand also defer content rendering during sync.
+// Individual loaders can override that when compiling content and rendering
+// complete pages have different requirements. See https://astro.build/blog/astro-710/
+// In our example, we override for integration_options
 const onDemandCollections = new Set<string>(themeConfig.onDemandRenderedCollections ?? []);
 
 const articles = defineCollection({
@@ -99,7 +97,7 @@ const faq_answers = defineCollection({
 });
 
 const integration_options = defineCollection({
-  loader: glob({ pattern: ['**/[^_]**.md'], base: './src/content/integration-options', deferRender: onDemandCollections.has('integration_options') }),
+  loader: glob({ pattern: ['**/[^_]**.md'], base: './src/content/integration-options', deferRender: false }),
   schema: ({ image }) =>
     z.object({
       publishDate: z.date().optional(),
