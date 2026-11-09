@@ -95,6 +95,8 @@ Everything you need to launch a fast, modern, AI-ready website - batteries inclu
 
 ### Creation
 
+Use a patched Node.js runtime: 22.23.4 or newer on Node 22, 24.22.1 or newer on Node 24, or 26.12.1 or newer. Odd-numbered Node 23 and 25 are not supported. The `.nvmrc` pins Node 26.12.1; CI also checks the Node 22 and 24 floors. Updating dependencies does not upgrade your local or deployment runtime.
+
 It is highly recommended to create a new project via:
 
 ```sh
