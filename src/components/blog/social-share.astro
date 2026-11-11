@@ -24,7 +24,7 @@ const activeButtonsSmallScreen = buttonsSmallScreen || themeConfig.articles?.soc
 ---
 
 {activeButtons && Object.keys(activeButtons).length > 0 && activeButtonsSmallScreen && (
-  <div class="social-share-buttons text-text dark:text-text-dark flex flex-wrap gap-3">
+  <div class="sd-article-action-controls text-text dark:text-text-dark flex flex-wrap gap-3">
     <a href={`mailto:?subject=${emailSubject}&body=${encoded_url}`} target="_blank" aria-label={t('labels.share-article') + ': ' + t('labels.email')} rel="noreferrer noopener" class:list={[activeButtonsSmallScreen.email ? 'flex' : 'hidden', activeButtons.email ? 'md:flex' : 'md:hidden']}>
       <Icon name="heroicons:envelope" class="h-5 w-5" />
     </a>
@@ -66,7 +66,7 @@ const activeButtonsSmallScreen = buttonsSmallScreen || themeConfig.articles?.soc
 <style>
   @reference "../../styles/tailwind.config.css";
 
-  .social-share-buttons a {
+  .sd-article-action-controls a {
     @apply hover:border-primary hover:bg-primary ring-primary flex cursor-pointer items-center gap-2 rounded-full border border-stone-300 bg-stone-200 fill-current p-1.5 font-semibold whitespace-nowrap text-stone-950 no-underline select-none visited:text-start hover:text-white hover:shadow focus:outline-0 focus-visible:ring-2 dark:border-stone-100 dark:bg-stone-300;
   }
 </style>
