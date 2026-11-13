@@ -2,6 +2,63 @@
   "_comment": "Websites built with Astro Stardrive. Add yours via a pull request: append an object with 'title', 'description' and 'url'. Language must be English. Add translations for German, Spanish, and French (aka the demo languages) optionally. Entries are sorted alphabetically by title automatically, so order here does not matter. Requirement: your site must still expose the <meta name=\"generator\" content=\"Astro Stardrive\" /> tag (present by default) so it can be verified. No links to content unsuitable for children (e.g. gambling, sexual/pornographic, or alcohol-related).",
   "sites": [
     {
+      "title": "Add to Calendar Button",
+      "description": "A free, framework-agnostic Web Component that lets visitors save events to their preferred calendar.",
+      "url": "https://add-to-calendar-button.com/",
+      "i18n": {
+        "de": {
+          "description": "Ein kostenloser, frameworkunabhängiger Web Component, mit dem Besucher Events in ihrem Kalender speichern können.",
+          "url": "https://add-to-calendar-button.com/de"
+        },
+        "es": {
+          "description": "Un componente web gratuito e independiente del framework que permite a los visitantes guardar eventos en su calendario preferido.",
+          "url": "https://add-to-calendar-button.com/es"
+        },
+        "fr": {
+          "description": "Un composant Web gratuit et indépendant de tout framework qui permet aux visiteurs d'enregistrer des événements dans leur calendrier préféré.",
+          "url": "https://add-to-calendar-button.com/fr"
+        }
+      }
+    },
+    {
+      "title": "Add to Calendar Links",
+      "description": "A free generator for shareable event links that adapt to each recipient's calendar setup.",
+      "url": "https://add-to-calendar-links.com/",
+      "i18n": {
+        "de": {
+          "description": "Ein kostenloser Generator für teilbare Event-Links, die sich an die Kalenderumgebung der jeweiligen Empfänger anpassen.",
+          "url": "https://add-to-calendar-links.com/de"
+        },
+        "es": {
+          "description": "Un generador gratuito de enlaces de eventos compartibles que se adaptan a la configuración de calendario de cada destinatario.",
+          "url": "https://add-to-calendar-links.com/es"
+        },
+        "fr": {
+          "description": "Un générateur gratuit de liens d'événements partageables qui s'adaptent à la configuration de calendrier de chaque destinataire.",
+          "url": "https://add-to-calendar-links.com/fr"
+        }
+      }
+    },
+    {
+      "title": "Add to Calendar PRO",
+      "description": "An event marketing suite for Add to Calendar Buttons, landing pages, RSVP management, and hosted shared calendars.",
+      "url": "https://add-to-calendar-pro.com/",
+      "i18n": {
+        "de": {
+          "description": "Eine Event-Marketing-Suite für Add-to-Calendar-Buttons, Landingpages, RSVP-Management und gehostete, gemeinsam genutzte Kalender.",
+          "url": "https://add-to-calendar-pro.com/de"
+        },
+        "es": {
+          "description": "Una suite de marketing de eventos para botones de añadir al calendario, páginas de destino, gestión de confirmaciones y calendarios compartidos alojados.",
+          "url": "https://add-to-calendar-pro.com/es"
+        },
+        "fr": {
+          "description": "Une suite de marketing événementiel pour les boutons d'ajout au calendrier, les pages de destination, la gestion des RSVP et les calendriers partagés hébergés.",
+          "url": "https://add-to-calendar-pro.com/fr"
+        }
+      }
+    },
+    {
       "title": "Astro Stardrive",
       "description": "The official demo and home of the boilerplate itself - batteries included.",
       "url": "https://astro-stardrive.com",
@@ -17,6 +74,44 @@
         "fr": {
           "description": "La démo officielle et le foyer du boilerplate lui-même - tout compris.",
           "url": "https://astro-stardrive.com/fr"
+        }
+      }
+    },
+    {
+      "title": "Better ics",
+      "description": "ICS generation and management infrastructure for reliable, high-volume event workflows.",
+      "url": "https://better-ics.com/",
+      "i18n": {
+        "de": {
+          "description": "Infrastruktur zur Erstellung und Verwaltung von ICS-Dateien für zuverlässige Event-Workflows mit hohem Volumen.",
+          "url": "https://better-ics.com/de"
+        },
+        "es": {
+          "description": "Infraestructura para generar y gestionar archivos ICS en flujos de trabajo de eventos fiables y de gran volumen.",
+          "url": "https://better-ics.com/es"
+        },
+        "fr": {
+          "description": "Une infrastructure de génération et de gestion de fichiers ICS pour des flux de travail événementiels fiables et à grande échelle.",
+          "url": "https://better-ics.com/fr"
+        }
+      }
+    },
+    {
+      "title": "Calendarverse",
+      "description": "A product finder and comparison guide for choosing the right calendar tool for any event workflow.",
+      "url": "https://calendarverse.org/",
+      "i18n": {
+        "de": {
+          "description": "Ein Produktfinder und Vergleichsratgeber zur Auswahl des richtigen Kalender-Tools für jeden Event-Workflow.",
+          "url": "https://calendarverse.org/de"
+        },
+        "es": {
+          "description": "Un buscador de productos y una guía comparativa para elegir la herramienta de calendario adecuada para cualquier flujo de trabajo de eventos.",
+          "url": "https://calendarverse.org/es"
+        },
+        "fr": {
+          "description": "Un outil de recherche de produits et un guide comparatif pour choisir l'outil de calendrier adapté à chaque flux de travail événementiel.",
+          "url": "https://calendarverse.org/fr"
         }
       }
     },
