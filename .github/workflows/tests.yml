@@ -27,6 +27,53 @@ jobs:
       - name: Verify generated artifacts
         run: npm run check:artifacts
 
+  generated-projects:
+    name: Generated projects - ${{ matrix.template }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - template: candidate
+            ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          - template: released-1.7.5
+            ref: 70916e6e67308c76dc12d04eddb763d09228e62b
+    steps:
+      - name: Checkout template
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.ref }}
+          path: template
+          persist-credentials: false
+      - name: Checkout pinned starter
+        uses: actions/checkout@v7
+        with:
+          repository: peltmonger/create-stardrive
+          ref: 9efa2320b1667459ccf656d5b0111562e4413da5
+          path: starter
+          persist-credentials: false
+      - name: Verify source identities
+        env:
+          TEMPLATE_SHA: ${{ matrix.ref }}
+        run: |
+          test "$(git -C template rev-parse HEAD)" = "$TEMPLATE_SHA"
+          test "$(git -C starter rev-parse HEAD)" = "9efa2320b1667459ccf656d5b0111562e4413da5"
+          git -C template log -1 --format='%H %s'
+          git -C starter log -1 --format='%H %s'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24.22.3'
+      - name: Install starter dependencies
+        working-directory: starter
+        run: npm ci
+      - name: Validate default and trimmed generated projects
+        working-directory: starter
+        env:
+          STARDRIVE_TEMPLATE_DIR: ${{ github.workspace }}/template
+        run: node scripts/smoke-generated-project.mjs
+
   pnpm-build:
     name: Build with pnpm
     runs-on: ubuntu-latest
